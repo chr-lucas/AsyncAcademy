@@ -25,6 +25,7 @@ public class User
     public required string LastName { get; set; }
 
     [Required]
+    [DataType(DataType.EmailAddress)]
     [Display(Name = "E-Mail")]
     public required string Mail { get; set; }
     
