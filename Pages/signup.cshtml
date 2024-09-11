@@ -1,0 +1,59 @@
+﻿@page
+@model signupModel
+
+@{
+    ViewData["Title"] = "Create Your User";
+}
+
+<h1>Let's Get Started</h1>
+
+<h4>Enter Your Details Below</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Account.Username" class="control-label"></label>
+                <input asp-for="Account.Username" class="form-control" />
+                <span asp-validation-for="Account.Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.FirstName" class="control-label"></label>
+                <input asp-for="Account.FirstName" class="form-control" />
+                <span asp-validation-for="Account.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.LastName" class="control-label"></label>
+                <input asp-for="Account.LastName" class="form-control" />
+                <span asp-validation-for="Account.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Mail" class="control-label"></label>
+                <input asp-for="Account.Mail" class="form-control" />
+                <span asp-validation-for="Account.Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Pass" class="control-label"></label>
+                <input asp-for="Account.Pass" class="form-control" />
+                <span asp-validation-for="Account.Pass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Birthday" class="control-label"></label>
+                <input asp-for="Account.Birthday" class="form-control" />
+                <span asp-validation-for="Account.Birthday" class="text-danger"></span>
+            </div>
+
+            <!--Create account button saves to DB and logs user in-->
+            <!--Turn into a button? Trigger two actions?-->
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
