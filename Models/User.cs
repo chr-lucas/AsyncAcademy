@@ -25,9 +25,9 @@ public class User
     [Display(Name = "Last Name")]
     public required string LastName { get; set; }
 
-    [Required(ErrorMessage = "E-Mail address is required.")]
+    [Required(ErrorMessage = "Email address is required.")]
     [DataType(DataType.EmailAddress)]
-    [Display(Name = "E-Mail")]
+    [Display(Name = "Email")]
     public required string Mail { get; set; }
     
     [StringLength(60, MinimumLength = 8)]
