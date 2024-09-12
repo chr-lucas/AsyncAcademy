@@ -7,17 +7,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using FirstLastApp.Data;
 using FirstLastApp.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace FirstLastApp.Pages
 {
-    public class signupModel : PageModel
+    public class SignupModel(FirstLastAppContext context) : PageModel
     {
-        private readonly FirstLastAppContext _context;
-
-        public signupModel(FirstLastAppContext context)
-        {
-            _context = context;
-        }
+        private readonly FirstLastAppContext _context = context;
 
         public IActionResult OnGet()
         {
