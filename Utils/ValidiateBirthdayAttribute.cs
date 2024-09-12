@@ -21,7 +21,6 @@ namespace AsyncAcademy.Utils
             }
             DateTime dob = (DateTime)value;
             DateTime today = DateTime.Today.Date;
-            Console.WriteLine(today >= dob.AddYears(16));
 
             if (today >= dob.AddYears(16))
             {

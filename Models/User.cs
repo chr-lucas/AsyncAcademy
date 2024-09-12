@@ -12,30 +12,37 @@ public class User
     public int Id { get; set; }
 
     [StringLength(60, MinimumLength = 3)]
-    [Required]
+    [Required(ErrorMessage = "Username is required.")]
     public required string Username { get; set; }
 
     [StringLength(60, MinimumLength = 1)]
-    [Required]
+    [Required(ErrorMessage = "First Name is required.")]
     [Display(Name = "First Name")]
     public required string FirstName { get; set; }
 
     [StringLength(60, MinimumLength = 1)]
-    [Required]
+    [Required(ErrorMessage = "Last Name is required.")]
     [Display(Name = "Last Name")]
     public required string LastName { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "E-Mail address is required.")]
     [DataType(DataType.EmailAddress)]
     [Display(Name = "E-Mail")]
     public required string Mail { get; set; }
     
     [StringLength(60, MinimumLength = 8)]
-    [Required]
+    [Required(ErrorMessage = "Password is required.")]
+    [DataType(DataType.Password)]
     [Display(Name = "Password")]
     public required string Pass { get; set; }
 
-    [Required]
+    [Compare(nameof(Pass), ErrorMessage = "Passwords do not match.")]
+    [DataType(DataType.Password)]
+    [Display(Name = "Confirm Password")]
+    [NotMapped]
+    public required string ConfirmPass { get; set; }
+
+    [Required(ErrorMessage = "Birthday is required.")]
     [ValidiateBirthday]
     [DataType(DataType.Date)]
     public DateTime Birthday { get; set; }
