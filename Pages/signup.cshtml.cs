@@ -10,14 +10,9 @@ using FirstLastApp.Models;
 
 namespace FirstLastApp.Pages
 {
-    public class signupModel : PageModel
+    public class SignupModel(FirstLastAppContext context) : PageModel
     {
-        private readonly FirstLastAppContext _context;
-
-        public signupModel(FirstLastAppContext context)
-        {
-            _context = context;
-        }
+        private readonly FirstLastAppContext _context = context;
 
         public IActionResult OnGet()
         {

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using AsyncAcademy.Utils;
 
 namespace FirstLastApp.Models;
 
@@ -33,7 +34,9 @@ public class User
     [Required]
     [Display(Name = "Password")]
     public required string Pass { get; set; }
-    
+
+    [Required]
+    [ValidiateBirthday]
     [DataType(DataType.Date)]
     public DateTime Birthday { get; set; }
 }
