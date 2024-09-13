@@ -28,7 +28,7 @@ public class User
     [Display(Name = "E-Mail")]
     public required string Mail { get; set; }
     
-    [StringLength(60, MinimumLength = 8)]
+    [StringLength(255, MinimumLength = 8)]
     [Required]
     [Display(Name = "Password")]
     public required string Pass { get; set; }
