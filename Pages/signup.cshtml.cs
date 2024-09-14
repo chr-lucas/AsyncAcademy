@@ -7,18 +7,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using FirstLastApp.Data;
 using FirstLastApp.Models;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace FirstLastApp.Pages
 {
-    public class signupModel : PageModel
+    public class SignupModel(FirstLastAppContext context) : PageModel
     {
-        private readonly FirstLastAppContext _context;
-
-        public signupModel(FirstLastAppContext context)
-        {
-            _context = context;
-        }
+        private readonly FirstLastAppContext _context = context;
 
         public IActionResult OnGet()
         {
@@ -31,13 +26,6 @@ namespace FirstLastApp.Pages
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-
-            //Create passwordHasher variable that will take data type "User"
-            var passwordHasher = new PasswordHasher<User>();
-
-            //Hash the actual password (salt already added on the hasher):
-            Account.Pass = passwordHasher.HashPassword(Account, Account.Pass);
-
             if (!ModelState.IsValid)
             {
                 return Page();

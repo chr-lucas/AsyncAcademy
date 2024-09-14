@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using FirstLastApp.Data;
 using FirstLastApp.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace FirstLastApp.Pages.Accounts
 {
@@ -29,50 +28,22 @@ namespace FirstLastApp.Pages.Accounts
 
         public RedirectToPageResult OnPost()
         {
-            string enteredUsername = Account.Username;
-            string enteredPassword = Account.Pass;
+            string user = Account.Username;
+            string pass = Account.Pass;
             var existingUsers = _context.Account.ToList();
+            foreach (User a in existingUsers)
+            {
+                if (!(a.Username == user)) { continue; }
+                else
+                {
+                    if (a.Pass == pass)
+                    {
+                        return RedirectToPage("./welcome", new { id = a.Id });
+                    }
+                }
+            }
 
-            //searches for a specific user through firstOrDefault() based on the entered username. Returns null if no matches from query:
-            var user = (from row in _context.Account where row.Username == enteredUsername select row).FirstOrDefault();
-
-            //takes the specific user, that user's passd from db, and compares to entered pass:
-            var passwordHasher = new PasswordHasher<User>();
-            var passwordVerification = passwordHasher.VerifyHashedPassword(user, user.Pass, enteredPassword);
-
-            //If verification fails, reload page:
-            if (passwordVerification == PasswordVerificationResult.Failed)
-                return RedirectToPage();
-
-            //If verification succeeds, redirect to Welcome page:
-            else
-                return RedirectToPage("./welcome", new { id = user.Id });
-
-
-
-
-            //For-each approach: 
-
-            //foreach (User a in existingUsers)
-            //{
-            //    if (a.Username != enteredUsername)
-            //    {
-            //        continue; 
-            //    }
-
-            //    // Check if the provided password matches the hashed password
-            //    var passwordHasher = new PasswordHasher<User>();
-            //    var passwordVerification = passwordHasher.VerifyHashedPassword(a, a.Pass, enteredPassword);
-
-            //    if (passwordVerification == PasswordVerificationResult.Success)
-            //    {
-
-            //        return RedirectToPage("./welcome", new { id = a.Id });
-            //    }
-            //}
-
-            //// If no match, then reload page:
-            //return RedirectToPage();
+            return RedirectToPage();
         }
     }
 }

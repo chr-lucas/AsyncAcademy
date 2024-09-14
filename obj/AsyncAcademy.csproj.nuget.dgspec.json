@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexm\\Source\\Repos\\AsyncAcademy\\AsyncAcademy.csproj": {}
+    "C:\\Users\\Chance\\Documents\\GitHub\\AsyncAcademy\\AsyncAcademy.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexm\\Source\\Repos\\AsyncAcademy\\AsyncAcademy.csproj": {
+    "C:\\Users\\Chance\\Documents\\GitHub\\AsyncAcademy\\AsyncAcademy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexm\\Source\\Repos\\AsyncAcademy\\AsyncAcademy.csproj",
+        "projectUniqueName": "C:\\Users\\Chance\\Documents\\GitHub\\AsyncAcademy\\AsyncAcademy.csproj",
         "projectName": "AsyncAcademy",
-        "projectPath": "C:\\Users\\alexm\\Source\\Repos\\AsyncAcademy\\AsyncAcademy.csproj",
-        "packagesPath": "C:\\Users\\alexm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexm\\Source\\Repos\\AsyncAcademy\\obj\\",
+        "projectPath": "C:\\Users\\Chance\\Documents\\GitHub\\AsyncAcademy\\AsyncAcademy.csproj",
+        "packagesPath": "C:\\Users\\Chance\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Chance\\Documents\\GitHub\\AsyncAcademy\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\alexm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Chance\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,10 +46,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[8.0.8, )"
-            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.8, )"
@@ -57,10 +53,6 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
-              "target": "Package",
-              "version": "[8.0.8, )"
-            },
-            "Microsoft.Extensions.Identity.Stores": {
               "target": "Package",
               "version": "[8.0.8, )"
             },
