@@ -1,5 +1,5 @@
 ﻿@page
-@model signupModel
+@model SignupModel
 
 @{
     ViewData["Title"] = "Create Your User";
@@ -34,18 +34,20 @@
                 <span asp-validation-for="Account.Mail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Account.Pass" class="control-label"></label>
-                <input asp-for="Account.Pass" class="form-control" type="password"/>
-                <span asp-validation-for="Account.Pass" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Account.Birthday" class="control-label"></label>
                 <input asp-for="Account.Birthday" class="form-control" />
                 <span asp-validation-for="Account.Birthday" class="text-danger"></span>
             </div>
-
-            <!--Create account button saves to DB and logs user in-->
-            <!--Turn into a button? Trigger two actions?-->
+            <div class="form-group">
+                <label asp-for="Account.Pass" class="control-label"></label>
+                <input asp-for="Account.Pass" class="form-control" />
+                <span asp-validation-for="Account.Pass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.ConfirmPass" class="control-label"></label>
+                <input asp-for="Account.ConfirmPass" class="form-control" />
+                <span asp-validation-for="Account.ConfirmPass" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using FirstLastApp.Data;
 using FirstLastApp.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace FirstLastApp.Pages.Accounts
 {
@@ -29,8 +28,8 @@ namespace FirstLastApp.Pages.Accounts
 
         public RedirectToPageResult OnPost()
         {
-            string enteredUsername = Account.Username;
-            string enteredPassword = Account.Pass;
+            string user = Account.Username;
+            string pass = Account.Pass;
             var existingUsers = _context.Account.ToList();
 
             //searches for a specific user through firstOrDefault() based on the entered username. Returns null if no matches from query:
@@ -74,8 +73,19 @@ namespace FirstLastApp.Pages.Accounts
             //// If no match, then reload page:
             //return RedirectToPage();
 
+            //foreach (User a in existingUsers)
+            //{
+            //    if (!(a.Username == user)) { continue; }
+            //    else
+            //    {
+            //        if (a.Pass == pass)
+            //        {
+            //            return RedirectToPage("./welcome", new { id = a.Id });
+            //        }
+            //    }
+            //}
 
-            //TEST COMMENT
+            //return RedirectToPage();
         }
     }
 }

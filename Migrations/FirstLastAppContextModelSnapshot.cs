@@ -49,8 +49,8 @@ namespace AsyncAcademy.Migrations
 
                     b.Property<string>("Pass")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Username")
                         .IsRequired()
