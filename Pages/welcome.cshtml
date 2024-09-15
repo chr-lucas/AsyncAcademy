@@ -7,3 +7,10 @@
 <div class="text-center">
     <h1 class="display-4">@ViewData["WelcomeText"]</h1>
 </div>
+
+@foreach (string e in Model.EnrolledClassNames)
+{
+    <div class="class-cards">
+        <h1>@e</h1>
+    </div>
+}

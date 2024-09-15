@@ -28,9 +28,14 @@ namespace AsyncAcademy.Pages
         [BindProperty]
         public User Account { get; set; } = default!;
 
+        [BindProperty]
+        public string accountType { get; set; }
+
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            Account.IsProfessor = (accountType == "professor"); // Part of stopgap solution for implementing different user groups
+            System.Diagnostics.Debug.WriteLine("Account type string is " + accountType);
 
             //Create passwordHasher variable that will take data type "User"
             var passwordHasher = new PasswordHasher<User>();

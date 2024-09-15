@@ -22,6 +22,8 @@ namespace AsyncAcademy.Pages//.Accounts
         [ViewData]
         public string WelcomeText { get; set; }
 
+        public List<String> EnrolledClassNames = new List<String>();
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -38,7 +40,29 @@ namespace AsyncAcademy.Pages//.Accounts
 
             var firstname = Account.FirstName;
             var lastname = Account.LastName;
-            WelcomeText = $"Welcome, {firstname} {lastname}";
+            if (Account.IsProfessor) 
+            {
+                WelcomeText = $"Welcome, Professor {firstname} {lastname}";
+            }
+            else
+            {
+                WelcomeText = $"Welcome, {firstname} {lastname}";
+            }
+
+            // Get all corresponding classes
+            var Enrollments = _context.Enrollments.ToList();
+            foreach (Enrollment e in Enrollments) 
+            {
+                if (e.UserId == id) 
+                {
+                    Section? correspondingSection = await _context.Sections.FirstOrDefaultAsync(a => a.Id == e.SectionId);
+                    if (correspondingSection == null)
+                    {
+                        return BadRequest();
+                    }
+                    EnrolledClassNames.Add(correspondingSection.CourseName);
+                }
+            }
 
             return Page();
         }

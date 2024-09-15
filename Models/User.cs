@@ -5,7 +5,6 @@ namespace AsyncAcademy.Models;
 
 public class User
 {
-
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
@@ -35,5 +34,10 @@ public class User
     
     [DataType(DataType.Date)]
     public DateTime Birthday { get; set; }
+
+    // This is only a stopgap solution until a proper Professor model is implemented
+    [Required]
+    [Display(Name = "IsProfessor")]
+    public required bool IsProfessor { get; set; }
 
 }
