@@ -16,5 +16,10 @@ namespace AsyncAcademy.Models
         // This needs to be an FK
         [Required(ErrorMessage = "Instructor ID is required")]
         public required int InstructorId;
+
+        public static implicit operator string?(Section? v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
