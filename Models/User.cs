@@ -35,4 +35,5 @@ public class User
     
     [DataType(DataType.Date)]
     public DateTime Birthday { get; set; }
+
 }
