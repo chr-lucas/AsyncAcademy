@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using FirstLastApp.Data;
-using FirstLastApp.Models;
+using AsyncAcademy.Data;
+using AsyncAcademy.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace FirstLastApp.Pages
+namespace AsyncAcademy.Pages
 {
-    public class signupModel : PageModel
+    public class SignupModel : PageModel
     {
-        private readonly FirstLastAppContext _context;
+        private readonly AsyncAcademyContext _context;
 
-        public signupModel(FirstLastAppContext context)
+        public SignupModel(AsyncAcademyContext context)
         {
             _context = context;
         }
@@ -43,7 +43,7 @@ namespace FirstLastApp.Pages
                 return Page();
             }
 
-            _context.Account.Add(Account);
+            _context.Users.Add(Account);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./welcome", new { id = Account.Id });
