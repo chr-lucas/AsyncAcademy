@@ -1,0 +1,36 @@
+﻿@page
+@model FirstLastApp.Pages.Accounts.LoginModel
+@{
+}
+
+<div class="container border" style="padding:20px">
+    <form method="post">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Account.Username"></label>
+            </div>
+            <div class="col-5">
+                <input type="text" asp-for="Account.Username" class="form-control" />
+            </div>
+            <span class="text-danger" asp-validation-for="Account.Username"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Account.Pass"></label>
+            </div>
+            <div class="col-5">
+                <input type="password" asp-for="Account.Pass" class="form-control" />
+            </div>
+            <span class="text-danger" asp-validation-for="Account.Pass"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <input type="submit" class="btn btn-primary" value="Login" />
+                <a href="./signup">
+                    <button type="button" class="btn btn-primary">Sign Up</button>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
