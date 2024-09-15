@@ -46,4 +46,5 @@ public class User
     [ValidiateBirthday]
     [DataType(DataType.Date)]
     public DateTime Birthday { get; set; }
+
 }
