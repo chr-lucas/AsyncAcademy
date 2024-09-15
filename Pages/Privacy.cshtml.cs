@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FirstLastApp.Pages
+namespace AsyncAcademy.Pages
 {
     public class PrivacyModel : PageModel
     {

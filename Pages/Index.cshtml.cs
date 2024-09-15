@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using FirstLastApp.Data;
-using FirstLastApp.Models;
+using AsyncAcademy.Data;
+using AsyncAcademy.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
-namespace FirstLastApp.Pages.Accounts
+namespace AsyncAcademy.Pages//.Accounts
 {
     public class LoginModel : PageModel
     {
-        private readonly FirstLastApp.Data.FirstLastAppContext _context;
+        private readonly AsyncAcademy.Data.AsyncAcademyContext _context;
 
-        public LoginModel(FirstLastApp.Data.FirstLastAppContext context)
+        public LoginModel(AsyncAcademy.Data.AsyncAcademyContext context)
         {
             _context = context;
         }
@@ -31,10 +31,10 @@ namespace FirstLastApp.Pages.Accounts
         {
             string enteredUsername = Account.Username;
             string enteredPassword = Account.Pass;
-            var existingUsers = _context.Account.ToList();
+            var existingUsers = _context.Users.ToList();
 
             //searches for a specific user through firstOrDefault() based on the entered username. Returns null if no matches from query:
-            var user = (from row in _context.Account where row.Username == enteredUsername select row).FirstOrDefault();
+            var user = (from row in _context.Users where row.Username == enteredUsername select row).FirstOrDefault();
 
             //takes the specific user, that user's passd from db, and compares to entered pass:
             var passwordHasher = new PasswordHasher<User>();

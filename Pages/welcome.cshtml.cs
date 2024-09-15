@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using FirstLastApp.Data;
-using FirstLastApp.Models;
+using AsyncAcademy.Data;
+using AsyncAcademy.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FirstLastApp.Pages.Accounts
+namespace AsyncAcademy.Pages//.Accounts
 {
-    public class WelcomeModel(FirstLastApp.Data.FirstLastAppContext context) : PageModel
+    public class WelcomeModel(AsyncAcademy.Data.AsyncAcademyContext context) : PageModel
     {
-        private FirstLastApp.Data.FirstLastAppContext _context = context;
+        private AsyncAcademy.Data.AsyncAcademyContext _context = context;
         private int _id;
 
         [BindProperty]
@@ -29,7 +29,7 @@ namespace FirstLastApp.Pages.Accounts
                 return NotFound();
             }
 
-            Account = await _context.Account.FirstOrDefaultAsync(a => a.Id == id);
+            Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == id);
 
             if (Account == null)
             {

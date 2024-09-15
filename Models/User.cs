@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FirstLastApp.Models;
+namespace AsyncAcademy.Models;
 
 public class User
 {
