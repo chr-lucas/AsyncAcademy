@@ -7892,24 +7892,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fusul\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\sebas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\School\\24_Fall\\SoftwareEng\\AsyncAcademy\\AsyncAcademy.csproj",
+      "projectUniqueName": "C:\\Users\\sebas\\Source\\Repos\\AsyncAcademy\\AsyncAcademy.csproj",
       "projectName": "AsyncAcademy",
-      "projectPath": "D:\\School\\24_Fall\\SoftwareEng\\AsyncAcademy\\AsyncAcademy.csproj",
-      "packagesPath": "C:\\Users\\fusul\\.nuget\\packages\\",
-      "outputPath": "D:\\School\\24_Fall\\SoftwareEng\\AsyncAcademy\\obj\\",
+      "projectPath": "C:\\Users\\sebas\\Source\\Repos\\AsyncAcademy\\AsyncAcademy.csproj",
+      "packagesPath": "C:\\Users\\sebas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sebas\\Source\\Repos\\AsyncAcademy\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\fusul\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\sebas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
