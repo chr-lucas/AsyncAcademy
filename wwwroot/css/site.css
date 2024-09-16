@@ -20,8 +20,3 @@ html {
 body {
   margin-bottom: 60px;
 }
-
-div.class-cards {
-    border: 5px solid black;
-    border-radius: 20px;
-}
