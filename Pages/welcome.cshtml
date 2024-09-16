@@ -1,16 +1,74 @@
-﻿@page "{id:int}"
+@page "{id:int}"
 @model AsyncAcademy.Pages.WelcomeModel
 @{
     ViewData["Title"] = "Welcome";
 }
 
-<div class="text-center">
-    <h1 class="display-4">@ViewData["WelcomeText"]</h1>
+<div class="row">
+    <div class="col-md-8">
+        <div class="text-center">
+            <h1 class="display-4">@ViewData["WelcomeText"]</h1>
+        </div>
+
+        @foreach (string e in Model.EnrolledClassNames)
+        {
+            <div class="class-cards">
+                <h1>@e</h1>
+            </div>
+        }
+    </div>
+
+    <div class="col-md-4">
+        <div class="todo-list">
+            <h2>To-Do List</h2>
+            <div class="card todo-card">
+                <div class="card-body">
+                    <p>CS 3750</p>
+                    <p>Assignment 1</p>
+                    <p>September 16, 2024 11:59 p.m.</p>
+                </div>
+            </div>
+            <div class="card todo-card">
+                <div class="card-body">
+                    <p>CS 1030</p>
+                    <p>Assignment 2</p>
+                    <p>September 17, 2024 11:59 p.m.</p>
+                </div>
+            </div>
+            <div class="card todo-card">
+                <div class="card-body">
+                    <p>CS 3500</p>
+                    <p>Assignment 3</p>
+                    <p>September 18, 2024 11:59 p.m.</p>
+                </div>
+            </div>
+            <div class="card todo-card">
+                <div class="card-body">
+                    <p>CS 2350</p>
+                    <p>Assignment 4</p>
+                    <p>September 19, 2024 11:59 p.m.</p>
+                </div>
+            </div>
+            <div class="card todo-card">
+                <div class="card-body">
+                    <p>CS 3750</p>
+                    <p>Assignment 5</p>
+                    <p>September 20, 2024 11:59 p.m.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-@foreach (string e in Model.EnrolledClassNames)
-{
-    <div class="class-cards">
-        <h1>@e</h1>
-    </div>
-}
+<style>
+    .todo-list {
+        margin-top: 20px;
+    }
+
+    .todo-card {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: solid 1px #ddd;
+        border-radius: 5px;
+    }
+</style>
