@@ -17,47 +17,55 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AsyncAcademy
 build_property.RootNamespace = AsyncAcademy
-build_property.ProjectDir = C:\Users\sebas\source\repos\AsyncAcademy\
+build_property.ProjectDir = D:\School\24_Fall\SoftwareEng\AsyncAcademy\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\sebas\source\repos\AsyncAcademy
+build_property.MSBuildProjectDirectory = D:\School\24_Fall\SoftwareEng\AsyncAcademy
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/sebas/source/repos/AsyncAcademy/Pages/Error.cshtml]
+[D:/School/24_Fall/SoftwareEng/AsyncAcademy/Pages/Calendar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FsZW5kYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/School/24_Fall/SoftwareEng/AsyncAcademy/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/sebas/source/repos/AsyncAcademy/Pages/Index.cshtml]
+[D:/School/24_Fall/SoftwareEng/AsyncAcademy/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/sebas/source/repos/AsyncAcademy/Pages/Privacy.cshtml]
+[D:/School/24_Fall/SoftwareEng/AsyncAcademy/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/sebas/source/repos/AsyncAcademy/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[D:/School/24_Fall/SoftwareEng/AsyncAcademy/Pages/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/School/24_Fall/SoftwareEng/AsyncAcademy/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/sebas/source/repos/AsyncAcademy/Pages/signup.cshtml]
+[D:/School/24_Fall/SoftwareEng/AsyncAcademy/Pages/signup.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcc2lnbnVwLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/sebas/source/repos/AsyncAcademy/Pages/welcome.cshtml]
+[D:/School/24_Fall/SoftwareEng/AsyncAcademy/Pages/welcome.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcd2VsY29tZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/sebas/source/repos/AsyncAcademy/Pages/_ViewImports.cshtml]
+[D:/School/24_Fall/SoftwareEng/AsyncAcademy/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/sebas/source/repos/AsyncAcademy/Pages/_ViewStart.cshtml]
+[D:/School/24_Fall/SoftwareEng/AsyncAcademy/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/sebas/source/repos/AsyncAcademy/Pages/Shared/_Layout.cshtml]
+[D:/School/24_Fall/SoftwareEng/AsyncAcademy/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ra7tn5ddw8
