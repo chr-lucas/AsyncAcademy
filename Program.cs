@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using FirstLastApp.Data;
+using AsyncAcademy.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<FirstLastAppContext>(options =>
+builder.Services.AddDbContext<AsyncAcademyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FirstLastAppContext") ?? throw new InvalidOperationException("Connection string 'FirstLastAppContext' not found.")));
 
 var app = builder.Build();

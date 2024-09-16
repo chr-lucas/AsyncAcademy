@@ -1,4 +1,4 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
@@ -16,6 +16,15 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.nav-item {
+  margin-right: 15px; /* Adjust the spacing as needed */
+}
+
+.notification-icon {
+  /* margin-left: 50px; */
+}
+
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;

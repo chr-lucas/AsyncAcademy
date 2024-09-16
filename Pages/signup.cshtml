@@ -1,5 +1,5 @@
 ﻿@page
-@model signupModel
+@model SignupModel
 
 @{
     ViewData["Title"] = "Create Your User";
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Account.Pass" class="control-label"></label>
-                <input asp-for="Account.Pass" class="form-control" />
+                <input asp-for="Account.Pass" class="form-control" type="password"/>
                 <span asp-validation-for="Account.Pass" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -43,9 +43,13 @@
                 <input asp-for="Account.Birthday" class="form-control" />
                 <span asp-validation-for="Account.Birthday" class="text-danger"></span>
             </div>
-
-            <!--Create account button saves to DB and logs user in-->
-            <!--Turn into a button? Trigger two actions?-->
+            <div class="form-group">
+                <label>Are you a student or a professor?</label>
+                <select asp-for="accountType">
+                    <option value="student" selected>Student</option>
+                    <option value="professor">Professor</option>
+                </select>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -57,3 +61,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

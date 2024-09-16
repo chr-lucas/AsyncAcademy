@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using FirstLastApp.Data;
-using FirstLastApp.Models;
+using AsyncAcademy.Data;
+using AsyncAcademy.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FirstLastApp.Pages.Accounts
+namespace AsyncAcademy.Pages//.Accounts
 {
-    public class WelcomeModel(FirstLastApp.Data.FirstLastAppContext context) : PageModel
+    public class WelcomeModel(AsyncAcademy.Data.AsyncAcademyContext context) : PageModel
     {
-        private FirstLastApp.Data.FirstLastAppContext _context = context;
+        private AsyncAcademy.Data.AsyncAcademyContext _context = context;
         private int _id;
 
         [BindProperty]
@@ -22,6 +22,8 @@ namespace FirstLastApp.Pages.Accounts
         [ViewData]
         public string WelcomeText { get; set; }
 
+        public List<String> EnrolledClassNames = new List<String>();
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -29,7 +31,7 @@ namespace FirstLastApp.Pages.Accounts
                 return NotFound();
             }
 
-            Account = await _context.Account.FirstOrDefaultAsync(a => a.Id == id);
+            Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == id);
 
             if (Account == null)
             {
@@ -38,7 +40,29 @@ namespace FirstLastApp.Pages.Accounts
 
             var firstname = Account.FirstName;
             var lastname = Account.LastName;
-            WelcomeText = $"Welcome, {firstname} {lastname}";
+            if (Account.IsProfessor) 
+            {
+                WelcomeText = $"Welcome, Professor {firstname} {lastname}";
+            }
+            else
+            {
+                WelcomeText = $"Welcome, {firstname} {lastname}";
+            }
+
+            // Get all corresponding classes
+            var Enrollments = _context.Enrollments.ToList();
+            foreach (Enrollment e in Enrollments) 
+            {
+                if (e.UserId == id) 
+                {
+                    Section? correspondingSection = await _context.Sections.FirstOrDefaultAsync(a => a.Id == e.SectionId);
+                    if (correspondingSection == null)
+                    {
+                        return BadRequest();
+                    }
+                    EnrolledClassNames.Add(correspondingSection.CourseName);
+                }
+            }
 
             return Page();
         }

@@ -1,0 +1,13 @@
+@page
+@model AsyncAcademy.Pages.ProfileModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="profile-container">
+    <h3>@Model.UserName's Profile</h3>
+    <p>Email: @Model.Email</p>
+    <p>Joined: @Model.JoinDate.ToString("MMMM dd, yyyy")</p>
+</div>
