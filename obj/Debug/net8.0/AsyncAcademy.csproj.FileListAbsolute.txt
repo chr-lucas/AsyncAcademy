@@ -769,3 +769,9 @@ C:\Users\sebas\source\repos\AsyncAcademy\obj\Debug\net8.0\refint\AsyncAcademy.dl
 C:\Users\sebas\source\repos\AsyncAcademy\obj\Debug\net8.0\AsyncAcademy.pdb
 C:\Users\sebas\source\repos\AsyncAcademy\obj\Debug\net8.0\AsyncAcademy.genruntimeconfig.cache
 C:\Users\sebas\source\repos\AsyncAcademy\obj\Debug\net8.0\ref\AsyncAcademy.dll
+D:\School\24_Fall\SoftwareEng\AsyncAcademy\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\School\24_Fall\SoftwareEng\AsyncAcademy\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\School\24_Fall\SoftwareEng\AsyncAcademy\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\School\24_Fall\SoftwareEng\AsyncAcademy\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\School\24_Fall\SoftwareEng\AsyncAcademy\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+D:\School\24_Fall\SoftwareEng\AsyncAcademy\bin\Debug\net8.0\Microsoft.Extensions.Options.dll

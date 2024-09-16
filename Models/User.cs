@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AsyncAcademy.Utils;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AsyncAcademy.Models;
@@ -31,7 +32,6 @@ public class User
     [Required]
     [Display(Name = "Password")]
     public required string Pass { get; set; }
-
     // Hashing the Pass field doesn't occur until post, so this comparison.
     [Compare(nameof(Pass), ErrorMessage = "Passwords do not match.")] 
     [Required]
@@ -41,6 +41,7 @@ public class User
     public required string ConfirmPass { get; set; }
 
     [Required]
+    [ValidiateBirthday] // custom validation
     [DataType(DataType.Date)]
     public DateTime Birthday { get; set; }
 
