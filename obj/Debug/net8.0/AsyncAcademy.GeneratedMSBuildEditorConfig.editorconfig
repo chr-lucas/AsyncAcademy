@@ -26,10 +26,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\alexm\Source\Repos\AsyncAcademy
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Calendar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FsZW5kYXIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -40,10 +36,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Profile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Shared/_ValidationScriptsPartial.cshtml]
