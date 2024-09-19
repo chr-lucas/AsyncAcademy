@@ -22,44 +22,6 @@ namespace AsyncAcademy.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AsyncAcademy.Models.Course", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"));
-
-                    b.Property<int>("CourseNumber")
-                        .HasMaxLength(60)
-                        .HasColumnType("int");
-
-                    b.Property<string>("CourseTitle")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<string>("DepartmentId")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.HasKey("CourseId");
-
-                    b.ToTable("Course");
-                });
-
-            modelBuilder.Entity("AsyncAcademy.Models.Department", b =>
-                {
-                    b.Property<string>("DepartmentId")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.HasKey("DepartmentId");
-
-                    b.ToTable("Department");
-                });
-
             modelBuilder.Entity("AsyncAcademy.Models.Enrollment", b =>
                 {
                     b.Property<int>("Id")
@@ -87,31 +49,10 @@ namespace AsyncAcademy.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CourseID")
+                    b.Property<string>("CourseName")
+                        .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<string>("MeetingTimeInfo")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("StudentCapacity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentsEnrolled")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
