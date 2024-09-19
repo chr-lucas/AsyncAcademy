@@ -1,36 +1,29 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Identity;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace AsyncAcademy.Pages
 {
     public class SectionSignupModel : PageModel
     {
         private readonly AsyncAcademyContext _context;
-        private readonly UserManager<User> _userManager; // Inject UserManager to fetch user data
-        private readonly SignInManager<User> _signInManager; // Optional: Check if user is signed in
 
-        public SectionSignupModel(AsyncAcademyContext context, UserManager<User> userManager, SignInManager<User> signInManager)
+        public SectionSignupModel(AsyncAcademyContext context)
         {
             _context = context;
-            _userManager = userManager;
-            _signInManager = signInManager;
         }
 
-        // Bind the Section model to the form data
         [BindProperty]
-        public Section NewSection { get; set; }
+        public Section NewSection { get; set; } = default!;
 
         public IActionResult OnGet()
         {
             return Page();
         }
 
-        // To protect from overposting attacks
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -38,31 +31,24 @@ namespace AsyncAcademy.Pages
                 return Page();
             }
 
-            // Fetch the currently logged-in user
-            var user = await _userManager.GetUserAsync(User);
+            // Assuming you can get the user ID from the session or other mechanism
+            // Here is a placeholder example:
+            int userId = 1; // Replace with actual logic to get the current user's ID
 
-            if (user == null)
-            {
-                // If no user is logged in, redirect to login page
-                return RedirectToPage("/Account/Login");
-            }
+            NewSection.InstructorId = userId; // Set the instructor ID to the current user's ID
 
-            // Set the InstructorId to the logged-in user's Id
-            NewSection.InstructorId = user.Id;
-
-            // Add the new section to the database
             _context.Sections.Add(NewSection);
             await _context.SaveChangesAsync();
 
-            // Check if the user is already logged in
-            if (!_signInManager.IsSignedIn(User))
+            // Fill in placeholder class cards
+            for (int i = 1; i <= 4; i++) 
             {
-                // If the user is not logged in, log them in
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                _context.Enrollments.Add(new Enrollment { SectionId = NewSection.Id, UserId = userId });
             }
 
-            // Redirect to the welcome page, keeping the user logged in
-            return RedirectToPage("./Welcome", new { id = user.Id });
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Welcome", new { id = userId }); // Redirect to the welcome page
         }
     }
 }
