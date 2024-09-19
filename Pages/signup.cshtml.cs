@@ -33,7 +33,7 @@ namespace AsyncAcademy.Pages
 
         private Enrollment generatePlaceholderCardEnrollment(int sectionId, int userId)
         {
-            Enrollment newEnrollment = new Enrollment();
+            Enrollment newEnrollment = default!;
             newEnrollment.SectionId = sectionId;
             newEnrollment.UserId = userId;
             return newEnrollment;
