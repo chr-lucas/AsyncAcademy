@@ -9,10 +9,6 @@ namespace AsyncAcademy.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [StringLength(50)]
-        [Required(ErrorMessage = "Course ID is required.")]
-        public required int CourseID { get; set; }
-
         // This needs to be an FK
         [Required(ErrorMessage = "Instructor ID is required")]
         public required int InstructorId;

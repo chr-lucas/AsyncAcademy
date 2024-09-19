@@ -61,8 +61,9 @@ namespace AsyncAcademy.Pages//.Accounts
                     {
                         return BadRequest();
                     }
-                    Course correspondingCourse = await _context.Course.FirstOrDefaultAsync(a => a.CourseId == correspondingSection.CourseID);
-                    EnrolledCourses.Add(correspondingCourse);
+
+                    //Course correspondingCourse = await _context.Course.FirstOrDefaultAsync(a => a.CourseId == correspondingSection.CourseID);
+                    //EnrolledCourses.Add(correspondingCourse);
                     EnrolledSections.Add(correspondingSection);
                 }
             }

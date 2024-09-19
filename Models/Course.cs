@@ -24,5 +24,7 @@ public class Course
     [Required]
     [Display(Name = "Class Title")]
     public required string CourseTitle { get; set; }
+
+    
 }
 
