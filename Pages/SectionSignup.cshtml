@@ -5,6 +5,12 @@
 
 <form method="post">
     <div class="form-group">
+        <label asp-for="NewSection.InstructorId"></label>
+        <input asp-for="NewSection.InstructorId" class="form-control" />
+        <span asp-validation-for="NewSection.InstructorId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
         <label asp-for="NewSection.StartTime"></label>
         <input asp-for="NewSection.StartTime" type="time" class="form-control" />
         <span asp-validation-for="NewSection.StartTime" class="text-danger"></span>

@@ -11,14 +11,26 @@ namespace AsyncAcademy.Pages
     public class SectionSignupModel : PageModel
     {
         private readonly AsyncAcademyContext _context;
-        private readonly UserManager<User> _userManager; // Inject UserManager to fetch user data
-        private readonly SignInManager<User> _signInManager; // Optional: Check if user is signed in
+        private readonly SignInManager<User> _signInManager; // Inject SignInManager
+        private readonly UserManager<User> _userManager; // Inject UserManager
 
-        public SectionSignupModel(AsyncAcademyContext context, UserManager<User> userManager, SignInManager<User> signInManager)
+        public SectionSignupModel(AsyncAcademyContext context, SignInManager<User> signInManager, UserManager<User> userManager)
         {
             _context = context;
-            _userManager = userManager;
             _signInManager = signInManager;
+            _userManager = userManager;
+
+            // Initialize NewSection with default values for required fields, if necessary
+            NewSection = new Section
+            {
+                StartTime = DateTime.Now, // Example default value
+                EndTime = DateTime.Now.AddHours(1), // Example default value
+                InstructorId = 1, // Replace this with a valid InstructorId
+                Location = "Default Location",
+                StudentCapacity = 30,
+                StudentsEnrolled = 0,
+                MeetingTimeInfo = "Weekly on Monday"
+            };
         }
 
         // Bind the Section model to the form data
@@ -38,30 +50,31 @@ namespace AsyncAcademy.Pages
                 return Page();
             }
 
-            // Fetch the currently logged-in user
-            var user = await _userManager.GetUserAsync(User);
-
-            if (user == null)
-            {
-                // If no user is logged in, redirect to login page
-                return RedirectToPage("/Account/Login");
-            }
-
-            // Set the InstructorId to the logged-in user's Id
-            NewSection.InstructorId = user.Id;
-
-            // Add the new section to the database
+            // Add the new section to the database context
             _context.Sections.Add(NewSection);
             await _context.SaveChangesAsync();
 
-            // Check if the user is already logged in
-            if (!_signInManager.IsSignedIn(User))
+            // Ensure the user is logged in
+            var user = await _userManager.GetUserAsync(User); // Get the currently logged-in user
+
+            if (user != null)
             {
-                // If the user is not logged in, log them in
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                // Check if the user is already logged in
+                var isSignedIn = _signInManager.IsSignedIn(User);
+
+                if (!isSignedIn)
+                {
+                    // If the user is not logged in, log them in
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                }
+            }
+            else
+            {
+                // If no user is found, redirect to login page
+                return RedirectToPage("/Account/Login");
             }
 
-            // Redirect to the welcome page, keeping the user logged in
+            // Redirect to the welcome page, while keeping the user logged in
             return RedirectToPage("./Welcome", new { id = user.Id });
         }
     }
