@@ -68,7 +68,7 @@ namespace AsyncAcademy.Pages
                 _context.Enrollments.Add(generatePlaceholderCardEnrollment(i, accountId));
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return RedirectToPage("./welcome", new { id = Account.Id });
         }

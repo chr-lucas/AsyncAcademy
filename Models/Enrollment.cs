@@ -10,8 +10,10 @@ namespace AsyncAcademy.Models
         public int Id { get; set; }
 
         // will need to figure out how to make these FKs
+        [Required]
         public int UserId { get; set; }
 
+        [Required]
         public int SectionId {  get; set; }
     }
 }
