@@ -34,7 +34,11 @@
         <span asp-validation-for="NewSection.StudentsEnrolled" class="text-danger"></span>
     </div>
 
- 
+    <div class="form-group">
+        <label asp-for="NewSection.MeetingTimeInfo"></label>
+        <input asp-for="NewSection.MeetingTimeInfo" class="form-control" />
+        <span asp-validation-for="NewSection.MeetingTimeInfo" class="text-danger"></span>
+    </div>
 
     <button type="submit" class="btn btn-primary">Create Section</button>
 </form>

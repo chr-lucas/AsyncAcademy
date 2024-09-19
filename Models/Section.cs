@@ -41,5 +41,9 @@ namespace AsyncAcademy.Models
         [Display(Name = "Students Enrolled")]
         public required int StudentsEnrolled { get; set; }
 
+        [Required]
+        [Display(Name = "Meeting Time")]
+        [StringLength(60, MinimumLength = 1)]
+        public required string MeetingTimeInfo { get; set; }
     }
 }
