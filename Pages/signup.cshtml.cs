@@ -33,7 +33,7 @@ namespace AsyncAcademy.Pages
 
         private Enrollment generatePlaceholderCardEnrollment(int sectionId, int userId)
         {
-            Enrollment newEnrollment = default!;
+            Enrollment newEnrollment = new Enrollment();
             newEnrollment.SectionId = sectionId;
             newEnrollment.UserId = userId;
             return newEnrollment;
@@ -68,7 +68,7 @@ namespace AsyncAcademy.Pages
                 _context.Enrollments.Add(generatePlaceholderCardEnrollment(i, accountId));
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return RedirectToPage("./welcome", new { id = Account.Id });
         }
