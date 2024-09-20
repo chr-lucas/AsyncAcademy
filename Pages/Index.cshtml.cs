@@ -10,7 +10,7 @@ using AsyncAcademy.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
-namespace AsyncAcademy.Pages//.Accounts
+namespace AsyncAcademy.Pages
 {
     public class LoginModel : PageModel
     {
@@ -27,30 +27,43 @@ namespace AsyncAcademy.Pages//.Accounts
         {
         }
 
-        public RedirectToPageResult OnPost()
+        public IActionResult OnPost()
         {
+            // Check if username or password is empty
+            if (string.IsNullOrEmpty(Account.Username) || string.IsNullOrEmpty(Account.Pass))
+            {
+                ModelState.AddModelError(string.Empty, "Username and password are required to login.");
+                return Page();
+            }
+
             string enteredUsername = Account.Username;
             string enteredPassword = Account.Pass;
             var existingUsers = _context.Users.ToList();
 
-            //searches for a specific user through firstOrDefault() based on the entered username. Returns null if no matches from query:
+            // Searches for a specific user through FirstOrDefault() based on the entered username. Returns null if no matches from query:
             var user = (from row in _context.Users where row.Username == enteredUsername select row).FirstOrDefault();
 
-            //takes the specific user, that user's passd from db, and compares to entered pass:
+            // If user is not found, reload page with error message
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                return Page();
+            }
+
+            // Takes the specific user, that user's password from db, and compares to entered password:
             var passwordHasher = new PasswordHasher<User>();
             var passwordVerification = passwordHasher.VerifyHashedPassword(user, user.Pass, enteredPassword);
 
-            //If verification fails, reload page:
+            // If verification fails, reload page with error message
             if (passwordVerification == PasswordVerificationResult.Failed)
-                return RedirectToPage();
-
-            //If verification succeeds, redirect to Welcome page:
-            else
             {
-                HttpContext.Session.SetInt32("CurrentUserId", user.Id);
-                return RedirectToPage("./welcome", new { id = user.Id });
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                return Page();
             }
 
+            // If verification succeeds, redirect to Welcome page:
+            HttpContext.Session.SetInt32("CurrentUserId", user.Id);
+            return RedirectToPage("./welcome", new { id = user.Id });
         }
     }
 }
