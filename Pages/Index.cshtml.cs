@@ -10,7 +10,7 @@ using AsyncAcademy.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
-namespace AsyncAcademy.Pages//.Accounts
+namespace AsyncAcademy.Pages
 {
     public class LoginModel : PageModel
     {
@@ -23,34 +23,43 @@ namespace AsyncAcademy.Pages//.Accounts
 
         [BindProperty]
         public User Account { get; set; }
+        public string ErrorMessage { get; set; }
+
         public void OnGet()
         {
         }
 
-        public RedirectToPageResult OnPost()
+        public IActionResult OnPost()
         {
+            if (string.IsNullOrEmpty(Account.Username) || string.IsNullOrEmpty(Account.Pass))
+            {
+                ErrorMessage = "Username and password are required to login.";
+                return Page();
+            }
+
             string enteredUsername = Account.Username;
             string enteredPassword = Account.Pass;
             var existingUsers = _context.Users.ToList();
 
-            //searches for a specific user through firstOrDefault() based on the entered username. Returns null if no matches from query:
             var user = (from row in _context.Users where row.Username == enteredUsername select row).FirstOrDefault();
 
-            //takes the specific user, that user's passd from db, and compares to entered pass:
+            if (user == null)
+            {
+                ErrorMessage = "Invalid username or password.";
+                return Page();
+            }
+
             var passwordHasher = new PasswordHasher<User>();
             var passwordVerification = passwordHasher.VerifyHashedPassword(user, user.Pass, enteredPassword);
 
-            //If verification fails, reload page:
             if (passwordVerification == PasswordVerificationResult.Failed)
-                return RedirectToPage();
-
-            //If verification succeeds, redirect to Welcome page:
-            else
             {
-                HttpContext.Session.SetInt32("CurrentUserId", user.Id);
-                return RedirectToPage("./welcome");
+                ErrorMessage = "Invalid username or password.";
+                return Page();
             }
 
+            HttpContext.Session.SetInt32("CurrentUserId", user.Id);
+            return RedirectToPage("./welcome");
         }
     }
 }
