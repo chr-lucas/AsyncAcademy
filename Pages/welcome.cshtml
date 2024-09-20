@@ -10,10 +10,19 @@
             <h1 class="display-4">@ViewData["WelcomeText"]</h1>
         </div>
 
-        @foreach (string e in Model.EnrolledClassNames)
+        @for (int i = 0; i < Model.EnrolledCourses.Count; i++)
         {
+            var e = Model.EnrolledCourses[i];
+            var s = Model.EnrolledSections[i];
+            
             <div class="class-cards">
-                <h1>@e</h1>
+                <h1>@e.DepartmentId @e.CourseNumber.ToString()</h1>
+                <br>
+                @e.CourseTitle
+                <br>
+                @s.MeetingTimeInfo
+                <br>
+                @s.Location
             </div>
         }
     </div>
@@ -30,21 +39,21 @@
             </div>
             <div class="card todo-card">
                 <div class="card-body">
-                    <p>CS 1030</p>
+                    <p>CS 3750</p>
                     <p>Assignment 2</p>
                     <p>September 17, 2024 11:59 p.m.</p>
                 </div>
             </div>
             <div class="card todo-card">
                 <div class="card-body">
-                    <p>CS 3500</p>
+                    <p>CS 3750</p>
                     <p>Assignment 3</p>
                     <p>September 18, 2024 11:59 p.m.</p>
                 </div>
             </div>
             <div class="card todo-card">
                 <div class="card-body">
-                    <p>CS 2350</p>
+                    <p>CS 3750</p>
                     <p>Assignment 4</p>
                     <p>September 19, 2024 11:59 p.m.</p>
                 </div>
@@ -70,5 +79,12 @@
         padding: 10px;
         border: solid 1px #ddd;
         border-radius: 5px;
+    }
+
+    div.class-cards {
+        border: solid 3px #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        padding: 10px;
     }
 </style>

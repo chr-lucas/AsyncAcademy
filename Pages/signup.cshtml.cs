@@ -31,11 +31,19 @@ namespace AsyncAcademy.Pages
         [BindProperty]
         public string accountType { get; set; }
 
+        private Enrollment generatePlaceholderCardEnrollment(int sectionId, int userId)
+        {
+            Enrollment newEnrollment = new Enrollment();
+            newEnrollment.SectionId = sectionId;
+            newEnrollment.UserId = userId;
+            return newEnrollment;
+        }
+
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            Account.IsProfessor = (accountType == "professor"); // Part of stopgap solution for implementing different user groups
-            System.Diagnostics.Debug.WriteLine("Account type string is " + accountType);
+            // Part of stopgap solution for implementing different user groups
+            Account.IsProfessor = (accountType == "professor"); 
 
             //Create passwordHasher variable that will take data type "User"
             var passwordHasher = new PasswordHasher<User>();
@@ -50,6 +58,17 @@ namespace AsyncAcademy.Pages
 
             _context.Users.Add(Account);
             await _context.SaveChangesAsync();
+
+            // Fill in placeholder class cards
+            var existingUsers = _context.Users.ToList();
+            var user = (from row in _context.Users where row.Username == Account.Username select row).FirstOrDefault();
+            int accountId = user.Id;
+            for (int i = 1; i <= 4; i++) 
+            {
+                _context.Enrollments.Add(generatePlaceholderCardEnrollment(i, accountId));
+            }
+
+            _context.SaveChanges();
 
             return RedirectToPage("./welcome", new { id = Account.Id });
         }

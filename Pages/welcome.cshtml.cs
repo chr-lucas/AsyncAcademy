@@ -22,7 +22,8 @@ namespace AsyncAcademy.Pages//.Accounts
         [ViewData]
         public string WelcomeText { get; set; }
 
-        public List<String> EnrolledClassNames = new List<String>();
+        public List<Course> EnrolledCourses = [];
+        public List<Section> EnrolledSections = [];
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -60,7 +61,10 @@ namespace AsyncAcademy.Pages//.Accounts
                     {
                         return BadRequest();
                     }
-                    EnrolledClassNames.Add(correspondingSection.CourseName);
+
+                    //Course correspondingCourse = await _context.Course.FirstOrDefaultAsync(a => a.CourseId == correspondingSection.CourseID);
+                    //EnrolledCourses.Add(correspondingCourse);
+                    EnrolledSections.Add(correspondingSection);
                 }
             }
 
