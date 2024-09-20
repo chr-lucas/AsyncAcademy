@@ -1,3 +1,10 @@
+<!-- This is the critical bit to allow for HttpContext access -->
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    <!-- This sets a local variable 'id' = to the previously save userID -->
+    int? id = HttpContextAccessor.HttpContext.Session.GetInt32("CurrentUserId");
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,24 +27,29 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        <!-- And now I can pass that id variable to the asp-routing logic -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/welcome" asp-route-Id=@id>Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Profile">Profile</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Profile" asp-route-Id=@id>Profile</a>
                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Calendar">Calendar</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Image" asp-route-Id=@id>Image</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Calendar" asp-route-Id=@id>Calendar</a>
                         </li>
                     </ul>
-                    <div class="ml-auto"> <!-- This div will push the bell icon to the right -->
+                    <div class="ml-auto">
+                        <!-- This div will push the bell icon to the right -->
                         <a class="nav-link text-dark" href="#" title="Notifications" class="notification-icon">
                             <i class="fas fa-bell"></i>
                         </a>
-                    </div>   
+                    </div>
                 </div>
             </div>
         </nav>
