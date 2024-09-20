@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model AsyncAcademy.Pages.LoginModel
 @{
     Layout = "Shared/LoginLayout/_Layout.cshtml";
@@ -33,5 +33,9 @@
                 </a>
             </div>
         </div>
+        @if (Model.ErrorMessage != null)
+        {
+            <div class="text-danger">@Model.ErrorMessage</div>
+        }
     </form>
 </div>
