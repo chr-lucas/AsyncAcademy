@@ -1,0 +1,17 @@
+﻿@page "{id:int}"
+@model AsyncAcademy.Pages.ImageModel
+@{
+    ViewData["Title"] = "Image";
+}
+@using Microsoft.AspNetCore.Http
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="image-container">
+    <h3>Current Image</h3>
+    <p>Username: @Model.Account.Username</p>
+    <p>Username: @Model.Account.FirstName</p>
+    <p>Username: @Model.Account.LastName</p>
+    <!--<p>Username: @Model.Account.Username</p>-->
+    <!--<p>Last Name: @Model.Account.LastName</p>-->
+</div>
