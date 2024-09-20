@@ -1,6 +1,8 @@
 ﻿using AsyncAcademy.Utils;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AsyncAcademy.Models;
 
@@ -33,7 +35,8 @@ public class User
     [Required]
     [Display(Name = "Password")]
     public required string Pass { get; set; }
-    // Hashing the Pass field doesn't occur until post, so this comparison.
+
+    // Hashing the Pass field doesn't occur until post, so this comparison works on the raw pass.
     [Compare(nameof(Pass), ErrorMessage = "Passwords do not match.")] 
     [Required]
     [DataType(DataType.Password)]
@@ -50,5 +53,9 @@ public class User
     [Required]
     [Display(Name = "IsProfessor")]
     public required bool IsProfessor { get; set; }
+
+    // Nullable path to profile picture
+    [StringLength(255)]
+    public string ProfilePath { get; set; } = "/images/default_pfp.png";
 
 }
