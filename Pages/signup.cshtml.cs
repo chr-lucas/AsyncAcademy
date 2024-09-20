@@ -61,16 +61,18 @@ namespace AsyncAcademy.Pages
 
             // Fill in placeholder class cards
             var existingUsers = _context.Users.ToList();
+            List<int> sections = [2, 6, 10, 11];
             var user = (from row in _context.Users where row.Username == Account.Username select row).FirstOrDefault();
             int accountId = user.Id;
-            for (int i = 1; i <= 4; i++) 
+            foreach (var i in sections)
             {
                 _context.Enrollments.Add(generatePlaceholderCardEnrollment(i, accountId));
             }
 
             _context.SaveChanges();
 
-            return RedirectToPage("./welcome", new { id = Account.Id });
+            HttpContext.Session.SetInt32("CurrentUserId", Account.Id);
+            return RedirectToPage("./welcome");
         }
     }
 }

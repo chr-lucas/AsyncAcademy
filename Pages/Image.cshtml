@@ -3,15 +3,24 @@
 @{
     ViewData["Title"] = "Image";
 }
-@using Microsoft.AspNetCore.Http
 
 <h2>@ViewData["Title"]</h2>
 
 <div class="image-container">
-    <h3>Current Image</h3>
-    <p>Username: @Model.Account.Username</p>
-    <p>First: @Model.Account.FirstName</p>
-    <p>Last: @Model.Account.LastName</p>
-    <!--<p>Username: @Model.Account.Username</p>-->
-    <!--<p>Last Name: @Model.Account.LastName</p>-->
+    <h3>Current Profile Image</h3>
+    <div id="profile image">
+        <img src=@Model.Account.ProfilePath>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" asp-for="myFile" />
+        <input type="submit" />
+    </form>
+    <span class="text-danger">@Html.ValidationMessage("ImageError")</span>
 </div>
+
+<style>
+    img {
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+</style>
