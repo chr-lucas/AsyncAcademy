@@ -46,36 +46,11 @@ namespace AsyncAcademy.Pages//.Accounts
 
             //If verification succeeds, redirect to Welcome page:
             else
+            {
+                HttpContext.Session.SetInt32("CurrentUserId", user.Id);
                 return RedirectToPage("./welcome", new { id = user.Id });
+            }
 
-
-
-
-            //For-each approach: 
-
-            //foreach (User a in existingUsers)
-            //{
-            //    if (a.Username != enteredUsername)
-            //    {
-            //        continue; 
-            //    }
-
-            //    // Check if the provided password matches the hashed password
-            //    var passwordHasher = new PasswordHasher<User>();
-            //    var passwordVerification = passwordHasher.VerifyHashedPassword(a, a.Pass, enteredPassword);
-
-            //    if (passwordVerification == PasswordVerificationResult.Success)
-            //    {
-
-            //        return RedirectToPage("./welcome", new { id = a.Id });
-            //    }
-            //}
-
-            //// If no match, then reload page:
-            //return RedirectToPage();
-
-
-            //TEST COMMENT
         }
     }
 }
