@@ -34,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Image.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW1hZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -44,6 +48,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/SectionSignup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvblNpZ251cC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Shared/_ValidationScriptsPartial.cshtml]
@@ -65,6 +73,10 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Shared/LoginLayout/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXExvZ2luTGF5b3V0XF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-t8ux64xwrd
 
 [C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s

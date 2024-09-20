@@ -1292,3 +1292,4 @@ C:\Users\Chance\Documents\GitHub\AsyncAcademy\obj\Debug\net8.0\scopedcss\project
 C:\Users\Chance\Documents\GitHub\AsyncAcademy\obj\Debug\net8.0\AsyncAca.0CE21FB6.Up2Date
 C:\Users\Chance\Documents\GitHub\AsyncAcademy\obj\Debug\net8.0\AsyncAcademy.genruntimeconfig.cache
 C:\Users\Chance\Documents\GitHub\AsyncAcademy\obj\Debug\net8.0\ref\AsyncAcademy.dll
+C:\Users\alexm\Source\Repos\AsyncAcademy\obj\Debug\net8.0\scopedcss\Pages\Shared\LoginLayout\_Layout.cshtml.rz.scp.css

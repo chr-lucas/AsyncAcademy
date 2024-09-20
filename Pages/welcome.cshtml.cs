@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace AsyncAcademy.Pages//.Accounts
 {
@@ -27,8 +28,25 @@ namespace AsyncAcademy.Pages//.Accounts
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
+
+            //Get User ID from current session (aka, the logged in user's ID):
+            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+
+            if (currentUserID == null)
             {
+                return NotFound();
+            }
+
+            Debug.WriteLine("The current suer ID is: " + id);
+            Debug.WriteLine("The ACTUAL ID of logged in user is: " + currentUserID);
+
+            // If the current session ID does not match the URL ID:
+            if (id == null || currentUserID != id)
+            {
+                Debug.WriteLine("Mismatch between session ID and URL ID.");
+                Debug.WriteLine("The CORRECT ID ID: " + currentUserID);
+                // RedirectToPage("./welcome", new { id = currentUserID });
+                //RedirectToPage("./welcome/"+currentUserID);
                 return NotFound();
             }
 
