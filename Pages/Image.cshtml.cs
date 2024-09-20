@@ -8,34 +8,27 @@ namespace AsyncAcademy.Pages
     public class ImageModel(AsyncAcademy.Data.AsyncAcademyContext context) : PageModel
     {
         private AsyncAcademy.Data.AsyncAcademyContext _context = context;
-        private int _id;
 
         [BindProperty]
         public User? Account { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? Id)
+        public async Task<IActionResult> OnGetAsync()
         {
-            if (Id == null)
+            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+
+            if (currentUserID == null)
             {
                 return NotFound();
             }
 
-            Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == Id);
+            Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
 
             if (Account == null)
             {
                 return NotFound();
             }
 
-            _id = Account.Id;
-
             return Page();
         }
-
-        public int GetUserID()
-        {
-            return Account.Id;
-        }
-
     }
 }

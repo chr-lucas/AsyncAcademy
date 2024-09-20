@@ -1,4 +1,4 @@
-﻿@page "{id:int}"
+﻿@page
 @model AsyncAcademy.Pages.ImageModel
 @{
     ViewData["Title"] = "Image";
@@ -10,8 +10,8 @@
 <div class="image-container">
     <h3>Current Image</h3>
     <p>Username: @Model.Account.Username</p>
-    <p>Username: @Model.Account.FirstName</p>
-    <p>Username: @Model.Account.LastName</p>
+    <p>First: @Model.Account.FirstName</p>
+    <p>Last: @Model.Account.LastName</p>
     <!--<p>Username: @Model.Account.Username</p>-->
     <!--<p>Last Name: @Model.Account.LastName</p>-->
 </div>

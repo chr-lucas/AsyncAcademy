@@ -2,8 +2,6 @@
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 @{
-    <!-- This sets a local variable 'id' = to the previously save userID -->
-    int? id = HttpContextAccessor.HttpContext.Session.GetInt32("CurrentUserId");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -29,19 +27,19 @@
                     <ul class="navbar-nav flex-grow-1">
                         <!-- And now I can pass that id variable to the asp-routing logic -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/welcome" asp-route-Id=@id>Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/welcome">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Profile" asp-route-Id=@id>Profile</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Profile">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Image" asp-route-Id=@id>Image</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Image">Image</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Calendar" asp-route-Id=@id>Calendar</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Calendar">Calendar</a>
                         </li>
                     </ul>
                     <div class="ml-auto">

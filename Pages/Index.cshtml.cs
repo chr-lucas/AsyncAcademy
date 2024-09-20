@@ -48,7 +48,7 @@ namespace AsyncAcademy.Pages//.Accounts
             else
             {
                 HttpContext.Session.SetInt32("CurrentUserId", user.Id);
-                return RedirectToPage("./welcome", new { id = user.Id });
+                return RedirectToPage("./welcome");
             }
 
         }

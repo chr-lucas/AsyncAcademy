@@ -1,4 +1,4 @@
-@page "{id:int}"
+@page
 @model AsyncAcademy.Pages.ProfileModel
 @{
     ViewData["Title"] = "Profile";
@@ -7,7 +7,10 @@
 <h2>@ViewData["Title"]</h2>
 
 <div class="profile-container">
-    <h3>@Model.UserName's Profile</h3>
-    <p>Email: @Model.Email</p>
-    <p>Joined: @Model.JoinDate.ToString("MMMM dd, yyyy")</p>
+    <h3>Profile Details:</h3>
+    <p>First Name: @Model.Account.FirstName</p>
+    <p>Last Name: @Model.Account.LastName</p>
+    <p>Email: @Model.Account.Mail</p>
+    <p>Birthday: @Model.Account.Birthday.Date</p>
+    <p>Account Type: @Model.accountType</p>
 </div>
