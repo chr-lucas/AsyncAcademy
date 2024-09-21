@@ -63,9 +63,9 @@ namespace AsyncAcademy.Pages
             foreach (Section s in EnrolledSections)
             {
                 CalendarEvent NewEvent = new CalendarEvent();
-                NewEvent.Title = "Class"; // need to pull specific title
-                NewEvent.StartTime = s.StartTime;
-                NewEvent.EndTime = s.EndTime;
+                NewEvent.title = "Class"; // need to pull specific title
+                NewEvent.start = s.StartTime;
+                NewEvent.end = s.EndTime;
                 CalendarEvents.Add(NewEvent);
             }
 

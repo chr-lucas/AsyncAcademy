@@ -6,13 +6,13 @@ namespace AsyncAcademy.Models
     {
 
         [Required(ErrorMessage = "Event title is required.")]
-        public string Title { get; set; }
+        public string title { get; set; }
 
         [Required(ErrorMessage = "Event start time is required.")]
-        public DateTime StartTime { get; set; }
+        public DateTime start { get; set; }
 
         [Required(ErrorMessage = "Event end time is required.")]
-        public DateTime EndTime { get; set; }
+        public DateTime end { get; set; }
 
     }
 }
