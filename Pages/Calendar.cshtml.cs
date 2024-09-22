@@ -49,7 +49,7 @@ namespace AsyncAcademy.Pages
             {
                 if (e.UserId == currentUserID) //fills list with sections signed in user is enrolled in
                 {
-                    Section? correspondingSection = _context.Sections.FirstOrDefault(a => a.Id == e.SectionId);
+                    Section? correspondingSection = _context.Sections.FirstOrDefault(a => a.CourseId == e.SectionId);
                     if (correspondingSection == null)
                     {
                         BadRequest();

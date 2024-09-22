@@ -7,7 +7,8 @@ namespace AsyncAcademy.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Display(Name = "Course Id")]
+        public int CourseId { get; set; }
 
         // This needs to be an FK
         [Required(ErrorMessage = "Instructor ID is required")]
@@ -17,6 +18,11 @@ namespace AsyncAcademy.Models
         {
             throw new NotImplementedException();
         }
+
+        [StringLength(60, MinimumLength = 3)]
+        [Required]
+        [Display(Name = "Course Name")]
+        public required string CourseName{ get; set; }
 
         [Required]
         [DataType(DataType.Time)]

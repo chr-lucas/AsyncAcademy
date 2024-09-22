@@ -60,7 +60,7 @@ namespace AsyncAcademy.Pages//.Accounts
             {
                 if (e.UserId == currentUserID) 
                 {
-                    Section? correspondingSection = await _context.Sections.FirstOrDefaultAsync(a => a.Id == e.SectionId);
+                    Section? correspondingSection = await _context.Sections.FirstOrDefaultAsync(a => a.CourseId == e.SectionId);
                     if (correspondingSection == null)
                     {
                         return BadRequest();

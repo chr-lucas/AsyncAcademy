@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AsyncAcademy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac92cb218213fe9858c3ca4a76d386d3e41c9e90")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9a6c6665cfee97c05d26c7d5534466994753fc2")]
 [assembly: System.Reflection.AssemblyProductAttribute("AsyncAcademy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AsyncAcademy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
