@@ -40,7 +40,8 @@
                 },
 
                 //eventsource
-                events: @Json.Serialize(Model.CalendarEvents)
+                events: @Json.Serialize(Model.CalendarEvents),
+                displayEventTime: true
             })
             calendar.render()
         })

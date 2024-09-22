@@ -7,6 +7,7 @@ using AsyncAcademy.Migrations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace AsyncAcademy.Pages
@@ -27,7 +28,7 @@ namespace AsyncAcademy.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            //asigns user
+            //assigns user - Assisted by Chris L.
             int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
 
             if (currentUserID == null)
@@ -56,16 +57,80 @@ namespace AsyncAcademy.Pages
                     EnrolledSections.Add(correspondingSection);
                 }
             }
-
+            
             //create calendar events for each section
             //TO DO - NEED TO REFINE HOW CALENDAREVENT DATA IS COLLECTED TO MEET INFO REQUIREMENTS
 
             foreach (Section s in EnrolledSections)
             {
+                //Determines how many classes the user has per day
+                int classesPerDay = 0;
+                for (int i = 0; i < 5; i++)
+                {
+                    if (s.MeetingTimeInfo.Contains("Monday"))
+                    {
+                        classesPerDay++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Tuesday"))
+                    {
+                        classesPerDay++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Wednesday"))
+                    {
+                        classesPerDay++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Thursday"))
+                    {
+                        classesPerDay++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Friday"))
+                    {
+                        classesPerDay++;
+                    }
+                    break;
+
+                }
+
+                //Creates the calendar events for each section
                 CalendarEvent NewEvent = new CalendarEvent();
-                NewEvent.title = "Class"; // need to pull specific title
-                NewEvent.start = s.StartTime;
-                NewEvent.end = s.EndTime;
+                NewEvent.title = "Class " + s.MeetingTimeInfo; // need to pull specific title
+                NewEvent.startRecur = s.StartTime;
+                NewEvent.endRecur = s.EndTime;
+                NewEvent.startTime = s.StartTime;
+                NewEvent.endTime = s.StartTime.AddHours(2);
+                NewEvent.daysOfWeek = new int[classesPerDay];
+
+                //determines which day each event occurs - Monday - Friday as classes do not occur on the weekends
+                for (int i = 0; i < 5; i++)
+                {
+                    if (s.MeetingTimeInfo.Contains("Monday")) {
+                        NewEvent.daysOfWeek[i] = 1;
+                        i++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Tuesday"))
+                    {
+                        NewEvent.daysOfWeek[i] = 2;
+                        i++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Wednesday"))
+                    {
+                        NewEvent.daysOfWeek[i] = 3;
+                        i++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Thursday"))
+                    {
+                        NewEvent.daysOfWeek[i] = 4;
+                        i++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Friday"))
+                    {
+                        NewEvent.daysOfWeek[i] = 5;
+                        i++;
+                    }
+                    break;
+                   
+                }
+
                 CalendarEvents.Add(NewEvent);
             }
 
