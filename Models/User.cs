@@ -1,4 +1,5 @@
 ﻿using AsyncAcademy.Utils;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,6 +35,7 @@ public class User
     [StringLength(255, MinimumLength = 8)]
     [Required]
     [Display(Name = "Password")]
+    [ValidateNever]
     public required string Pass { get; set; }
 
     // Hashing the Pass field doesn't occur until post, so this comparison works on the raw pass.
@@ -42,6 +44,7 @@ public class User
     [DataType(DataType.Password)]
     [Display(Name = "Confirm Password")]
     [NotMapped] // Used in model verification but not added as a database attribute
+    [ValidateNever]
     public required string ConfirmPass { get; set; }
 
     [Required]

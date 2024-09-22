@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\alexm\\Source\\Repos\\AsyncAcademy\\wwwroot\\images\\default_pfp.png",
+      "PackagePath": "staticwebassets\\images\\default_pfp.png"
+    },
+    {
       "Id": "C:\\Users\\alexm\\Source\\Repos\\AsyncAcademy\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

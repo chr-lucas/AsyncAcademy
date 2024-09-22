@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XYeBL3SXP70R6nfimvLgcMpbCjNXXPcOPStDWiZ7lfU=",
+  "Hash": "47PBspM7vAvTqne8T3jcsGSPDWREqS18mdPTZPRHncM=",
   "Source": "AsyncAcademy",
   "BasePath": "_content/AsyncAcademy",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\alexm\\Source\\Repos\\AsyncAcademy\\wwwroot\\images\\default_pfp.png",
+      "SourceId": "AsyncAcademy",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\alexm\\Source\\Repos\\AsyncAcademy\\wwwroot\\",
+      "BasePath": "_content/AsyncAcademy",
+      "RelativePath": "images/default_pfp.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\default_pfp.png"
     },
     {
       "Identity": "C:\\Users\\alexm\\Source\\Repos\\AsyncAcademy\\wwwroot\\js\\site.js",

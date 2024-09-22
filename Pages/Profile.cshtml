@@ -2,15 +2,47 @@
 @model AsyncAcademy.Pages.ProfileModel
 @{
     ViewData["Title"] = "Profile";
+    bool isEditable = Model.isEditable;
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<div class="profile-container">
-    <h3>Profile Details:</h3>
-    <p>First Name: @Model.Account.FirstName</p>
-    <p>Last Name: @Model.Account.LastName</p>
+
+<form method="post">
+    <div class="profile-container">
+        <h3>Profile Details:</h3>
+
+@if(!isEditable)
+{
+
+        <p>First Name: @Model.Account.FirstName</p>
+        <p>Last Name: @Model.Account.LastName</p>
+        <p>Email: @Model.Account.Mail</p>
+        <p>Birthday: @Model.Account.Birthday.Date</p>
+        <p>Account Type: @Model.accountType</p>
+        <p>Editing? @Model.isEditable</p>
+        <button type="submit" name="action" value="Edit">Edit</button>
+
+    
+}
+
+else
+{
+    <p>First Name: <input type="text" name= "Account.FirstName" value="@Model.Account.FirstName"/></p>
+    <p> Last Name: <input type="text" name="Account.LastName" value="@Model.Account.LastName" /></p>
     <p>Email: @Model.Account.Mail</p>
-    <p>Birthday: @Model.Account.Birthday.Date</p>
+    <p>Birthday: <input type="date" name="Account.Birthday" value="@Model.Account.Birthday.ToString("yyyy-MM-dd")" /></p>
     <p>Account Type: @Model.accountType</p>
+    <input type="hidden" name="Account.Mail" value="@Model.Account.Mail" />
+    <input type="hidden" name="Account.Pass" value="@Model.Account.Pass" />
+    <input type="hidden" name="Account.Username" value="@Model.Account.Username" />
+    <input type="hidden" name="Account.ConfirmPass" value="@Model.Account.ConfirmPass" />
+
+    <button type="submit" name="action" value="Save">Save</button>
+
+
+}
+
 </div>
+</form>
+
