@@ -38,6 +38,10 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Image">Image</a>
                         </li>
+                        <!-- Dynamic Classes/Registration Link -->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page=@ViewData["NavBarLink"]>@ViewData["NavBarText"]</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Calendar">Calendar</a>
                         </li>

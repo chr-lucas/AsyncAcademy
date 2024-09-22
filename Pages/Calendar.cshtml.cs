@@ -18,6 +18,13 @@ namespace AsyncAcademy.Pages
 
         [BindProperty]
         public User? Account { get; set; }
+
+        [ViewData]
+        public string NavBarLink { get; set; } = "/SectionSignup";
+
+        [ViewData]
+        public string NavBarText { get; set; } = "Register";
+
          public List<Course> EnrolledCourses = [];
         public List<Section> EnrolledSections = [];
         public List<CalendarEvent> CalendarEvents = [];
@@ -42,6 +49,13 @@ namespace AsyncAcademy.Pages
             {
                 return NotFound();
             }
+
+            if (Account.IsProfessor)
+            {
+                NavBarLink = "/CreateSection";
+                NavBarText = "Classes";
+            }
+            
 
             // Get all corresponding classes for signed in user - Borrowed logic from Bash
             var Enrollments = _context.Enrollments.ToList();

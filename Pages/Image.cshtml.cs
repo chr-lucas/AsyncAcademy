@@ -16,6 +16,12 @@ namespace AsyncAcademy.Pages
 
         [BindProperty]
         public User? Account { get; set; }
+        
+        [ViewData]
+        public string NavBarLink { get; set; } = "/SectionSignup";
+
+        [ViewData]
+        public string NavBarText { get; set; } = "Register";
 
         [BindProperty]
         public IFormFile myFile { get; set; }
@@ -36,6 +42,12 @@ namespace AsyncAcademy.Pages
             if (Account == null)
             {
                 return NotFound();
+            }
+
+            if (Account.IsProfessor)
+            {
+                NavBarLink = "/CreateSection";
+                NavBarText = "Classes";
             }
             
             profilePath = Account.ProfilePath;
