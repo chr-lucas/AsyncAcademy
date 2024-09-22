@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using AsyncAcademy.Migrations;
+//using AsyncAcademy.Migrations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -107,7 +107,7 @@ namespace AsyncAcademy.Pages
 
                 //Creates the calendar events for each section
                 CalendarEvent NewEvent = new CalendarEvent();
-                NewEvent.title = "Class " + s.MeetingTimeInfo; // need to pull specific title
+                NewEvent.title = "Class " + s.CourseId; // need to pull specific title
                 NewEvent.startRecur = s.StartTime;
                 NewEvent.endRecur = s.EndTime;
                 NewEvent.startTime = s.StartTime;

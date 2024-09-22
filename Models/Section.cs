@@ -7,32 +7,32 @@ namespace AsyncAcademy.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Display(Name = "Course Id")]
-        public int CourseId { get; set; }
+        [Display(Name = "Section Id")]
+        public int SectionId { get; set; }
 
         // This needs to be an FK
         [Required(ErrorMessage = "Instructor ID is required")]
+        [Display(Name = "Instructor Id")]
         public required int InstructorId;
+
+        [Required(ErrorMessage = "Course ID is required")]
+        [Display(Name = "Course Id")]
+        public required int CourseId;
 
         public static implicit operator string?(Section? v)
         {
             throw new NotImplementedException();
         }
 
-        [StringLength(60, MinimumLength = 3)]
-        [Required]
-        [Display(Name = "Course Name")]
-        public required string CourseName{ get; set; }
-
         [Required]
         [DataType(DataType.Time)]
         [Display(Name = "Start Time")]
-        public DateTime StartTime { get; set; }
+        public required DateTime StartTime { get; set; }
 
         [Required]
         [DataType(DataType.Time)]
         [Display(Name = "End Time")]
-        public DateTime EndTime { get; set; }
+        public required DateTime EndTime { get; set; }
 
         [StringLength(60, MinimumLength = 1)]
         [Required]
@@ -51,5 +51,15 @@ namespace AsyncAcademy.Models
         [Display(Name = "Meeting Time")]
         [StringLength(60, MinimumLength = 1)]
         public required string MeetingTimeInfo { get; set; }
+
+        [Required]
+        [DataType(DataType.Time)]
+        [Display(Name = "Start Date")]
+        public required DateTime StartDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Time)]
+        [Display(Name = "End Date")]
+        public required DateTime EndDate { get; set; }
     }
 }

@@ -10,8 +10,8 @@ namespace AsyncAcademy.Models
         [StringLength(10)]
         public required string DepartmentId { get; set; }
 
-        //[Required]
-        //[StringLength(50)]
-        //public required string Name { get; set; }
+        [Required]
+        [StringLength(50)]
+        public required string Name { get; set; }
     }
 }

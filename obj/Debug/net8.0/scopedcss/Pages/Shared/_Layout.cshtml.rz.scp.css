@@ -17,6 +17,15 @@ a[b-ra7tn5ddw8] {
   border-color: #1861ac;
 }
 
+.nav-item[b-ra7tn5ddw8] {
+  margin-right: 15px; /* Adjust the spacing as needed */
+}
+
+.notification-icon[b-ra7tn5ddw8] {
+  /* margin-left: 50px; */
+}
+
+
 .nav-pills .nav-link.active[b-ra7tn5ddw8], .nav-pills .show > .nav-link[b-ra7tn5ddw8] {
   color: #fff;
   background-color: #1b6ec2;
