@@ -25,8 +25,6 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <script>
 
-        //making CalendarEvents a json object for the eventsource
-        var obj = @Json.Serialize(Model.CalendarEvents);
 
         //renders calendar
         document.addEventListener('DOMContentLoaded', function () {
@@ -39,9 +37,8 @@
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
 
-                //eventsource
-                events: @Json.Serialize(Model.CalendarEvents),
-                displayEventTime: true
+                // CalendarEvents as json object for the eventsource
+                events: @Json.Serialize(Model.CalendarEvents)
             })
             calendar.render()
         })
