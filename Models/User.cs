@@ -59,28 +59,25 @@ public class User
     public string ProfilePath { get; set; } = "/images/default_pfp.png";
 
     [StringLength(255)]
-    [Required]
     [Display(Name = "Street Address")]
-    public required string Addr_Street { get; set; }
+    public required string? Addr_Street { get; set; }
 
 
     [StringLength(255)]
-    [Required]
     [Display(Name = "City")]
-    public required string Addr_City { get; set; }
+    public required string? Addr_City { get; set; }
 
     [StringLength(2)]
-    [Required]
     [Display(Name = "State")]
-    public required string Addr_State { get; set; }
+    public required string? Addr_State { get; set; }
 
-    [Required]
+    [StringLength(5)]
     [Display(Name = "Zip Code")]
-    public required int Addr_Zip { get; set; }
+    public required string? Addr_Zip { get; set; }
 
-    [Required]
+    [StringLength(10)]
     [Display(Name = "Phone")]
-    public required int Phone { get; set; }
+    public required string? Phone { get; set; }
 
 
 }
