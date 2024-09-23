@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-//using AsyncAcademy.Migrations;
+using AsyncAcademy.Migrations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -54,9 +54,20 @@ namespace AsyncAcademy.Pages
             {
                 NavBarLink = "/CreateSection";
                 NavBarText = "Classes";
-            }
-            
 
+
+            }
+
+            if (!Account.IsProfessor)
+            {
+                GetStudentEvents(currentUserID);
+            }
+
+            return Page();
+        }
+
+        private void GetStudentEvents(int? currentUserID)
+        {
             // Get all corresponding classes for signed in user - Borrowed logic from Bash
             var Enrollments = _context.Enrollments.ToList();
             foreach (Enrollment e in Enrollments)
@@ -71,9 +82,8 @@ namespace AsyncAcademy.Pages
                     EnrolledSections.Add(correspondingSection);
                 }
             }
-            
+
             //create calendar events for each section
-            //TO DO - NEED TO REFINE HOW CALENDAREVENT DATA IS COLLECTED TO MEET INFO REQUIREMENTS
 
             foreach (Section s in EnrolledSections)
             {
@@ -105,19 +115,21 @@ namespace AsyncAcademy.Pages
 
                 }
 
+
                 //Creates the calendar events for each section
                 CalendarEvent NewEvent = new CalendarEvent();
                 NewEvent.title = "Class " + s.SectionId; // need to pull specific title
-                NewEvent.startRecur = s.StartTime;
-                NewEvent.endRecur = s.EndTime;
+                NewEvent.startRecur = s.StartDate;
+                NewEvent.endRecur = s.EndDate;
                 NewEvent.startTime = s.StartTime;
-                NewEvent.endTime = s.StartTime.AddHours(2);
+                NewEvent.endTime = s.EndTime;
                 NewEvent.daysOfWeek = new int[classesPerDay];
 
                 //determines which day each event occurs - Monday - Friday as classes do not occur on the weekends
                 for (int i = 0; i < 5; i++)
                 {
-                    if (s.MeetingTimeInfo.Contains("Monday")) {
+                    if (s.MeetingTimeInfo.Contains("Monday"))
+                    {
                         NewEvent.daysOfWeek[i] = 1;
                         i++;
                     }
@@ -142,14 +154,11 @@ namespace AsyncAcademy.Pages
                         i++;
                     }
                     break;
-                   
+
                 }
 
                 CalendarEvents.Add(NewEvent);
             }
-
-
-            return Page();
         }
     }
 }
