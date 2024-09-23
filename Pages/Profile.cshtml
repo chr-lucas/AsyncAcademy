@@ -10,63 +10,212 @@
 
 <form method="post">
     <div class="profile-container">
-        <h3>Profile Details:</h3>
 
 
 @if(!isEditable)
 {
 
-        <p>First Name: @Model.Account.FirstName</p>
-        <p>Last Name: @Model.Account.LastName</p>
-        <p>Email: @Model.Account.Mail</p>
-        <p>Birthday: @Model.Account.Birthday.Date</p>
-        <p>Account Type: @Model.accountType</p>
-        <p>Street Address: @Model.Account.Addr_Street</p>
-        <p>City: @Model.Account.Addr_City</p>
-        <p>State: @Model.Account.Addr_State</p>
-        <p>ZipCode: @Model.Account.Addr_Zip</p>
-        <p>Phone: @Model.Account.Phone</p>
-        <button type="submit" name="action" value="Edit">Edit</button>
+
+            
+
+     <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">First Name:</label>
+            <div class="col-sm-10">
+                    <p class="form-control-plaintext"> @Model.Account.FirstName</p>
+            </div>
+    </div>
 
 
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Last Name:</label>
+            <div class="col-sm-10">
+                    <p>@Model.Account.LastName</p>
+            </div>
+    </div>
+
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+                    <p>@Model.Account.Mail</p>
+            </div>
+    </div>
+     
+     
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Date of Birth:</label>
+            <div class="col-sm-10">
+                    <p>@Model.Account.Birthday.Date</p>
+            </div>
+    </div>
+
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Account Type:</label>
+            <div class="col-sm-10">
+                    <p>@Model.accountType</p>
+            </div>
+    </div>
+
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Street Address:</label>
+            <div class="col-sm-10">
+                    <p>@Model.Account.Addr_Street</p>
+            </div>
+    </div>
+
+
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">City:</label>
+            <div class="col-sm-10">
+                    <p>@Model.Account.Addr_City</p>
+            </div>
+    </div>
+
+    
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">State:</label>
+            <div class="col-sm-10">
+                    <p>@Model.Account.Addr_State</p>
+            </div>
+    </div>
+
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">ZipCode:</label>
+            <div class="col-sm-10">
+                    <p>@Model.Account.Addr_Zip</p>
+            </div>
+    </div>
+
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Phone Number:</label>
+            <div class="col-sm-10">
+                    <p>@Model.Account.Phone</p>
+
+            </div>
+    </div>
+
+
+
+
+
+    <button type="submit" name="action" value="Edit" class="btn btn-primary">Edit</button>
     
 }
 
 
 else
 {
-     <p>First Name: <input type="text" name="Account.FirstName" value="@Model.Account.FirstName" /></p>
-     <span asp-validation-for="Account.FirstName" class="text-danger"></span> 
 
-    <p>Last Name: <input type="text" name="Account.LastName" value="@Model.Account.LastName" /></p>
-    <span asp-validation-for="Account.LastName" class="text-danger"></span> 
 
-    <p>Email: @Model.Account.Mail</p>
-    <p>Birthday: <input type="date" name="Account.Birthday" value="@Model.Account.Birthday.ToString("yyyy-MM-dd")" /></p>
-    <span asp-validation-for="Account.Birthday" class="text-danger"></span> <!-- Validation for birthday -->
 
-    <p>Street Address: <input type="text" name="Account.Addr_Street" value="@Model.Account.Addr_Street" /></p>
-    <span asp-validation-for="Account.Addr_Street" class="text-danger"></span> 
 
-    <p>City: <input type="text" name="Account.Addr_City" value="@Model.Account.Addr_City" /></p>
-    <span asp-validation-for="Account.Addr_City" class="text-danger"></span> 
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">First Name:</label>
+            <div class="col-sm-10">
+                    <input type="text" name="Account.FirstName" value="@Model.Account.FirstName" />
+                    <span asp-validation-for="Account.FirstName" class="text-danger"></span>
+            </div>
+    </div>
 
-    <p>State: <input type="text" name="Account.Addr_State" value="@Model.Account.Addr_State" /></p>
-    <span asp-validation-for="Account.Addr_State" class="text-danger"></span> 
 
-    <p>ZipCode: <input type="text" name="Account.Addr_Zip" value="@Model.Account.Addr_Zip" /></p>
-    <span asp-validation-for="Account.Addr_Zip" class="text-danger"></span> 
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Last Name:</label>
+            <div class="col-sm-10">
+                    <input type="text" name="Account.LastName" value="@Model.Account.LastName" />
+                    <span asp-validation-for="Account.LastName" class="text-danger"></span>
+            </div>
+    </div>
 
-    <p>Phone: <input type="text" name="Account.Phone" value="@Model.Account.Phone" /></p>
-    <span asp-validation-for="Account.Phone" class="text-danger"></span> 
 
-    <p>Account Type: @Model.accountType</p>
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+                    <p>@Model.Account.Mail</p>
+            </div>
+    </div>
+
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Account Type:</label>
+            <div class="col-sm-10">
+                    <p>@Model.accountType</p>
+            </div>
+    </div>
+
+     
+     
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Date of Birth:</label>
+            <div class="col-sm-10">
+                    <input type="date" name="Account.Birthday" value="@Model.Account.Birthday.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="Account.Birthday" class="text-danger"></span> <!-- Validation for birthday -->
+            </div>
+    </div>
+
+
+
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Street Address:</label>
+            <div class="col-sm-10">
+                    <input type="text" name="Account.Addr_Street" value="@Model.Account.Addr_Street" />
+                    <span asp-validation-for="Account.Addr_Street" class="text-danger"></span>
+            </div>
+    </div>
+
+
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">City:</label>
+            <div class="col-sm-10">
+                    <input type="text" name="Account.Addr_City" value="@Model.Account.Addr_City" />
+                    <span asp-validation-for="Account.Addr_City" class="text-danger"></span>
+            </div>
+    </div>
+
+    
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">State:</label>
+            <div class="col-sm-10">
+                   <input type="text" name="Account.Addr_State" value="@Model.Account.Addr_State" />
+                   <span asp-validation-for="Account.Addr_State" class="text-danger"></span> 
+            </div>
+    </div>
+
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">ZipCode:</label>
+            <div class="col-sm-10">
+                    <input type="text" name="Account.Addr_Zip" value="@Model.Account.Addr_Zip" />
+                    <span asp-validation-for="Account.Addr_Zip" class="text-danger"></span>
+            </div>
+    </div>
+
+
+    <div class="form-group row"> 
+        <label class="col-sm-2 col-form-label">Phone Number:</label>
+            <div class="col-sm-10">
+                    <input type="text" name="Account.Phone" value="@Model.Account.Phone" />
+                    <span asp-validation-for="Account.Phone" class="text-danger"></span>
+
+            </div>
+    </div>
+
+
+    
     <input type="hidden" name="Account.Mail" value="@Model.Account.Mail" />
     <input type="hidden" name="Account.Pass" value="@Model.Account.Pass" />
     <input type="hidden" name="Account.Username" value="@Model.Account.Username" />
     <input type="hidden" name="Account.ConfirmPass" value="@Model.Account.ConfirmPass" />
 
-    <button type="submit" name="action" value="Save">Save</button>
+     <button type="submit" name="action" value="Save" class="btn btn-success">Save</button>
 
 
 }
