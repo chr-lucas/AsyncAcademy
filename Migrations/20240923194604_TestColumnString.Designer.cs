@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncAcademy.Migrations
 {
     [DbContext(typeof(AsyncAcademyContext))]
-    [Migration("20240922220037_Address-Phone-Fields")]
-    partial class AddressPhoneFields
+    [Migration("20240923194604_TestColumnString")]
+    partial class TestColumnString
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,10 +42,18 @@ namespace AsyncAcademy.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
+                    b.Property<int>("CreditHours")
+                        .HasColumnType("int");
+
                     b.Property<string>("DepartmentId")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("CourseId");
 
@@ -57,6 +65,11 @@ namespace AsyncAcademy.Migrations
                     b.Property<string>("DepartmentId")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("DepartmentId");
 
@@ -84,11 +97,14 @@ namespace AsyncAcademy.Migrations
 
             modelBuilder.Entity("AsyncAcademy.Models.Section", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("SectionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SectionId"));
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -103,6 +119,9 @@ namespace AsyncAcademy.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
@@ -112,7 +131,7 @@ namespace AsyncAcademy.Migrations
                     b.Property<int>("StudentsEnrolled")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("SectionId");
 
                     b.ToTable("Sections");
                 });
@@ -125,9 +144,21 @@ namespace AsyncAcademy.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
+                    b.Property<string>("Addr_City")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Addr_State")
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<string>("Addr_Street")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Addr_Zip")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
 
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
@@ -154,14 +185,17 @@ namespace AsyncAcademy.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                    b.Property<string>("Phone")
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("ProfilePath")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Test")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
                         .IsRequired()

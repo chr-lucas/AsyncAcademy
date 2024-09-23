@@ -78,7 +78,8 @@ public class User
     [Display(Name = "Zip Code")]
     public required string? Addr_Zip { get; set; }
 
-    [StringLength(10)]
+    [StringLength(13, MinimumLength =10)]
+    [DataType(DataType.PhoneNumber)]
     [Display(Name = "Phone")]
     public required string? Phone { get; set; }
 

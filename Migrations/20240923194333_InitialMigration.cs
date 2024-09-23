@@ -88,11 +88,11 @@ namespace AsyncAcademy.Migrations
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsProfessor = table.Column<bool>(type: "bit", nullable: false),
                     ProfilePath = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Addr_Street = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Addr_City = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Addr_State = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
-                    Addr_Zip = table.Column<int>(type: "int", nullable: false),
-                    Phone = table.Column<int>(type: "int", nullable: false)
+                    Addr_Street = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Addr_City = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Addr_State = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true),
+                    Addr_Zip = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: true)
                 },
                 constraints: table =>
                 {
