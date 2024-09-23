@@ -22,6 +22,12 @@ namespace AsyncAcademy.Pages
         [BindProperty]
         public User? Account { get; set; }
 
+        [ViewData]
+        public string NavBarLink { get; set; } = "/SectionSignup";
+
+        [ViewData]
+        public string NavBarText { get; set; } = "Register";
+
         public async Task<IActionResult> OnGetAsync()
         {
             //// Sample data - replace with actual user data retrieval logic
@@ -45,6 +51,8 @@ namespace AsyncAcademy.Pages
             if (Account.IsProfessor == true)
             {
                 accountType = "Professor";
+                NavBarLink = "/CreateSection";
+                NavBarText = "Classes";
             }
 
             return Page();

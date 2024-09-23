@@ -43,7 +43,7 @@ namespace AsyncAcademy.Pages
             // Fill in placeholder class cards
             for (int i = 1; i <= 4; i++) 
             {
-                _context.Enrollments.Add(new Enrollment { SectionId = NewSection.Id, UserId = userId });
+                _context.Enrollments.Add(new Enrollment { SectionId = NewSection.CourseId, UserId = userId });
             }
 
             await _context.SaveChangesAsync();

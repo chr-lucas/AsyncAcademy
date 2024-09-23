@@ -22,6 +22,13 @@ namespace AsyncAcademy.Pages//.Accounts
         [ViewData]
         public string WelcomeText { get; set; }
 
+        [ViewData]
+        public string NavBarLink { get; set; } = "/SectionSignup";
+
+        [ViewData]
+        public string NavBarText { get; set; } = "Register";
+
+
         public List<Course> EnrolledCourses = [];
         public List<Section> EnrolledSections = [];
 
@@ -48,6 +55,9 @@ namespace AsyncAcademy.Pages//.Accounts
             if (Account.IsProfessor) 
             {
                 WelcomeText = $"Welcome, Professor {firstname} {lastname}";
+                // Set ViewData variables for instructors
+                ViewData["NavBarLink"] = "/CreateSection";
+                ViewData["NavBarText"] = "Classes";
             }
             else
             {
@@ -60,7 +70,7 @@ namespace AsyncAcademy.Pages//.Accounts
             {
                 if (e.UserId == currentUserID) 
                 {
-                    Section? correspondingSection = await _context.Sections.FirstOrDefaultAsync(a => a.Id == e.SectionId);
+                    Section? correspondingSection = await _context.Sections.FirstOrDefaultAsync(a => a.CourseId == e.SectionId);
                     if (correspondingSection == null)
                     {
                         return BadRequest();

@@ -61,25 +61,29 @@ public class User
     [StringLength(255)]
     public string ProfilePath { get; set; } = "/images/default_pfp.png";
 
-
     [StringLength(255)]
-    public string? StreetAddress { get; set; }
-
-
-    [StringLength(255)]
-    public string? City { get; set; }
+    [Required]
+    [Display(Name = "Street Address")]
+    public required string Addr_Street { get; set; }
 
 
     [StringLength(255)]
-    public string? State { get; set; }
+    [Required]
+    [Display(Name = "City")]
+    public required string Addr_City { get; set; }
 
+    [StringLength(2)]
+    [Required]
+    [Display(Name = "State")]
+    public required string Addr_State { get; set; }
 
-    [StringLength(10)]
-    public string? ZipCode { get; set; }
+    [Required]
+    [Display(Name = "Zip Code")]
+    public required int Addr_Zip { get; set; }
 
+    [Required]
+    [Display(Name = "Phone")]
+    public required int Phone { get; set; }
 
-    [StringLength(255)]
-    [Phone(ErrorMessage = "Invalid phone number.")]
-    public string? PhoneNumber { get; set; }
 
 }

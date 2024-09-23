@@ -40,11 +40,8 @@
                 },
 
                 //eventsource
-                eventSources: [ 
-                    {
-                        url: obj //Currently, this is not displaying objects 
-                    }
-                ]
+                events: @Json.Serialize(Model.CalendarEvents),
+                displayEventTime: true
             })
             calendar.render()
         })
@@ -53,6 +50,5 @@
 </head>
 <body>
     <div id='calendar'></div>
-    <h1>@Json.Serialize(Model.CalendarEvents)</h1> <!--Printing here to see if json object is formatting correctly-->
 </body>
 </html>

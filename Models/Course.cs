@@ -25,6 +25,15 @@ public class Course
     [Display(Name = "Class Title")]
     public required string CourseTitle { get; set; }
 
-    
+    [StringLength(500, MinimumLength = 1)]
+    [Required]
+    [Display(Name = "Class Description")]
+    public required string Description { get; set; }
+
+    [Required]
+    [Display(Name = "Credit Hours")]
+    public required int CreditHours { get; set; }
+
+
 }
 
