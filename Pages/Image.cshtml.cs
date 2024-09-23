@@ -4,6 +4,8 @@ using AsyncAcademy.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Identity.Client;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AsyncAcademy.Pages
 {
@@ -13,6 +15,7 @@ namespace AsyncAcademy.Pages
         private AsyncAcademy.Data.AsyncAcademyContext _context = context;
         private IWebHostEnvironment _environment = environment;
         public string profilePath;
+        public string[] _extensions = {".jpg", ".png"};
 
         [BindProperty]
         public User? Account { get; set; }
@@ -60,17 +63,27 @@ namespace AsyncAcademy.Pages
             int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
             Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
 
-            if (myFile == null)
+            if (myFile == null || myFile.Length == 0)
             {
                 ModelState.AddModelError("ImageError", "No image uploaded.");
                 return Page();
             }
 
-            if (myFile.Length > TwoMegaBytes)
+            if (myFile != null)
             {
-                ModelState.AddModelError("ImageError", "Image too large. Upload a file less than 2MB in size.");
-                return Page();
+                var extension = Path.GetExtension(myFile.FileName);
+                if (!_extensions.Contains(extension.ToLower()))
+                {
+                    ModelState.AddModelError("ImageError", "File must be a PNG or JPEG.");
+                    return Page();
+                }
+                if (myFile.Length > TwoMegaBytes)
+                {
+                    ModelState.AddModelError("ImageError", "Image too large. Upload a file less than 2MB in size.");
+                    return Page();
+                }
             }
+
             
             myFileName = Account.Id.ToString() + "_" + myFile.FileName;
 
