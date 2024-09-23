@@ -20,13 +20,41 @@ namespace AsyncAcademy.Pages
         public Section NewSection { get; set; } = default!;
 
         [ViewData]
-        public string NavBarLink { get; set; } = "/SectionSignup";
+        public string NavBarLink { get; set; } // Removed default initialization
 
         [ViewData]
-        public string NavBarText { get; set; } = "Register";
+        public string NavBarText { get; set; } // Removed default initialization
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
+            // Assuming you can get the user ID from the session or other mechanism
+            int? userId = HttpContext.Session.GetInt32("CurrentUserId");
+
+            if (userId == null)
+            {
+                return NotFound();
+            }
+
+            // Retrieve the current user's account
+            var account = await _context.Users.FirstOrDefaultAsync(a => a.Id == userId);
+
+            if (account == null)
+            {
+                return NotFound();
+            }
+
+            // Set ViewData variables based on user role
+            if (account.IsProfessor)
+            {
+                NavBarLink = "/CreateSection"; // Set NavBarLink for professors
+                NavBarText = "Classes"; // Set NavBarText for professors
+            }
+            else
+            {
+                NavBarLink = "/SectionSignup"; // Set NavBarLink for non-professors
+                NavBarText = "Register"; // Set NavBarText for non-professors
+            }
+
             return Page();
         }
 
@@ -51,13 +79,6 @@ namespace AsyncAcademy.Pages
             if (account == null)
             {
                 return NotFound();
-            }
-
-            if (account.IsProfessor)
-            {
-                // Set ViewData variables for instructors
-                ViewData["NavBarLink"] = "/CreateSection";
-                ViewData["NavBarText"] = "Classes";
             }
 
             NewSection.InstructorId = userId.Value; // Set the instructor ID to the current user's ID
