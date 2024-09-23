@@ -82,6 +82,8 @@ namespace AsyncAcademy.Pages
                 }
             }
 
+            
+
             //create calendar events for each section
 
             foreach (Section s in EnrolledSections)
@@ -114,6 +116,7 @@ namespace AsyncAcademy.Pages
 
                 }
 
+                Course? course = _context.Course.FirstOrDefault(a => a.CourseId == s.CourseId); 
 
                 //Creates the calendar events for each section
                 CalendarEvent NewEvent = new CalendarEvent();

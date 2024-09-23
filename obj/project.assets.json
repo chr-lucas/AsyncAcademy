@@ -7893,19 +7893,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Chance\\.nuget\\packages\\": {}
+    "C:\\Users\\hanna\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Chance\\Documents\\GitHub\\AsyncAcademy\\AsyncAcademy.csproj",
+      "projectUniqueName": "C:\\Users\\hanna\\Source\\Repos\\chr-lucas\\AsyncAcademy\\AsyncAcademy.csproj",
       "projectName": "AsyncAcademy",
-      "projectPath": "C:\\Users\\Chance\\Documents\\GitHub\\AsyncAcademy\\AsyncAcademy.csproj",
-      "packagesPath": "C:\\Users\\Chance\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Chance\\Documents\\GitHub\\AsyncAcademy\\obj\\",
+      "projectPath": "C:\\Users\\hanna\\Source\\Repos\\chr-lucas\\AsyncAcademy\\AsyncAcademy.csproj",
+      "packagesPath": "C:\\Users\\hanna\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hanna\\Source\\Repos\\chr-lucas\\AsyncAcademy\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Chance\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hanna\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7913,7 +7913,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -7926,11 +7925,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -7983,7 +7977,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

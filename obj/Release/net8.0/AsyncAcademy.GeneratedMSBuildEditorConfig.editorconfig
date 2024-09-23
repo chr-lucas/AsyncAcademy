@@ -50,6 +50,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/hanna/source/repos/chr-lucas/AsyncAcademy/Pages/Section Pages/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvbiBQYWdlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hanna/source/repos/chr-lucas/AsyncAcademy/Pages/Section Pages/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvbiBQYWdlc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hanna/source/repos/chr-lucas/AsyncAcademy/Pages/Section Pages/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvbiBQYWdlc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hanna/source/repos/chr-lucas/AsyncAcademy/Pages/Section Pages/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvbiBQYWdlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hanna/source/repos/chr-lucas/AsyncAcademy/Pages/Section Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvbiBQYWdlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/hanna/source/repos/chr-lucas/AsyncAcademy/Pages/SectionSignup.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvblNpZ251cC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
