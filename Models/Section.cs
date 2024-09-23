@@ -13,11 +13,11 @@ namespace AsyncAcademy.Models
         // This needs to be an FK
         [Required(ErrorMessage = "Instructor ID is required")]
         [Display(Name = "Instructor Id")]
-        public required int InstructorId;
+        public required int InstructorId {  get; set; }
 
         [Required(ErrorMessage = "Course ID is required")]
         [Display(Name = "Course Id")]
-        public required int CourseId;
+        public required int CourseId { get; set; }
 
         public static implicit operator string?(Section? v)
         {
