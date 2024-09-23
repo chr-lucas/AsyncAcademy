@@ -104,7 +104,7 @@ namespace AsyncAcademy.Pages
                     return Page();
                 }
 
-                if (await TryUpdateModelAsync<User>(Account, "Account", a => a.FirstName, a => a.LastName, a => a.Birthday))
+                if (await TryUpdateModelAsync<User>(Account, "Account", a => a.FirstName, a => a.LastName, a => a.Birthday, a => a.Addr_Street, a => a.Addr_City, a => a.Addr_State, a => a.Addr_Zip, a => a.Phone))
                 {
                     Debug.WriteLine("CHANGES BEING SAVED???????????");
 

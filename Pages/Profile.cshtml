@@ -45,11 +45,20 @@ else
     <p>Birthday: <input type="date" name="Account.Birthday" value="@Model.Account.Birthday.ToString("yyyy-MM-dd")" /></p>
     <span asp-validation-for="Account.Birthday" class="text-danger"></span> <!-- Validation for birthday -->
 
-    <p>Street Address: <input type="text" name="Account.Street_Address" value="@Model.Account.Addr_Street" /></p>
-    <p>City: <input type="text" name="Account.City" value="@Model.Account.Addr_City" /></p>
-    <p>State: <input type="text" name="Account.State" value="@Model.Account.Addr_State" /></p>
-    <p>ZipCode: <input type="text" name="Account.ZipCode" value="@Model.Account.Addr_Zip" /></p>
-    <p>Phone: <input type="text" name="Account.PhoneNumber" value="@Model.Account.Phone" /></p>
+    <p>Street Address: <input type="text" name="Account.Addr_Street" value="@Model.Account.Addr_Street" /></p>
+    <span asp-validation-for="Account.Addr_Street" class="text-danger"></span> 
+
+    <p>City: <input type="text" name="Account.Addr_City" value="@Model.Account.Addr_City" /></p>
+    <span asp-validation-for="Account.Addr_City" class="text-danger"></span> 
+
+    <p>State: <input type="text" name="Account.Addr_State" value="@Model.Account.Addr_State" /></p>
+    <span asp-validation-for="Account.Addr_State" class="text-danger"></span> 
+
+    <p>ZipCode: <input type="text" name="Account.Addr_Zip" value="@Model.Account.Addr_Zip" /></p>
+    <span asp-validation-for="Account.Addr_Zip" class="text-danger"></span> 
+
+    <p>Phone: <input type="text" name="Account.Phone" value="@Model.Account.Phone" /></p>
+    <span asp-validation-for="Account.Phone" class="text-danger"></span> 
 
     <p>Account Type: @Model.accountType</p>
     <input type="hidden" name="Account.Mail" value="@Model.Account.Mail" />
