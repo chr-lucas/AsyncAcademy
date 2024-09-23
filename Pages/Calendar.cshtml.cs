@@ -63,7 +63,7 @@ namespace AsyncAcademy.Pages
             {
                 if (e.UserId == currentUserID) //fills list with sections signed in user is enrolled in
                 {
-                    Section? correspondingSection = _context.Sections.FirstOrDefault(a => a.CourseId == e.SectionId);
+                    Section? correspondingSection = _context.Sections.FirstOrDefault(a => a.SectionId == e.SectionId);
                     if (correspondingSection == null)
                     {
                         BadRequest();
@@ -107,7 +107,7 @@ namespace AsyncAcademy.Pages
 
                 //Creates the calendar events for each section
                 CalendarEvent NewEvent = new CalendarEvent();
-                NewEvent.title = "Class " + s.CourseId; // need to pull specific title
+                NewEvent.title = "Class " + s.SectionId; // need to pull specific title
                 NewEvent.startRecur = s.StartTime;
                 NewEvent.endRecur = s.EndTime;
                 NewEvent.startTime = s.StartTime;
