@@ -24,9 +24,9 @@ namespace AsyncAcademy.Pages
         [ViewData]
         public string NavBarText { get; set; } = "Register";
 
-         public List<Course> EnrolledCourses = [];
         public List<Section> EnrolledSections = [];
         public List<CalendarEvent> CalendarEvents = [];
+        public List<Section> InstructorSections = [];
 
         public JsonResult result { get; set; }
 
@@ -53,16 +53,103 @@ namespace AsyncAcademy.Pages
             {
                 NavBarLink = "/SectionSignup";
                 NavBarText = "Classes";
-
-
+                GetInstructorEvents(currentUserID);
             }
 
             if (!Account.IsProfessor)
             {
                 GetStudentEvents(currentUserID);
+
             }
 
             return Page();
+        }
+
+        private void GetInstructorEvents(int? currentUserID)
+        {
+            foreach (Section s in _context.Sections)
+            {
+                if (s.InstructorId == currentUserID)
+                {
+                    InstructorSections.Add(s);
+                }
+            }
+
+            foreach (Section s in InstructorSections)
+            {
+                //Determines how many classes the user has per day
+                int classesPerDay = 0;
+                for (int i = 0; i < 5; i++)
+                {
+                    if (s.MeetingTimeInfo.Contains("Monday"))
+                    {
+                        classesPerDay++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Tuesday"))
+                    {
+                        classesPerDay++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Wednesday"))
+                    {
+                        classesPerDay++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Thursday"))
+                    {
+                        classesPerDay++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Friday"))
+                    {
+                        classesPerDay++;
+                    }
+                    break;
+
+                }
+
+                Course? course = _context.Course.FirstOrDefault(a => a.CourseId == s.CourseId);
+
+                //Creates the calendar events for each section
+                CalendarEvent NewEvent = new CalendarEvent();
+                NewEvent.title = course.CourseTitle; // need to pull specific title
+                NewEvent.startRecur = s.StartDate;
+                NewEvent.endRecur = s.EndDate;
+                NewEvent.startTime = s.StartTime;
+                NewEvent.endTime = s.EndTime;
+                NewEvent.daysOfWeek = new int[classesPerDay];
+
+                //determines which day each event occurs - Monday - Friday as classes do not occur on the weekends
+                for (int i = 0; i < 5; i++)
+                {
+                    if (s.MeetingTimeInfo.Contains("Monday"))
+                    {
+                        NewEvent.daysOfWeek[i] = 1;
+                        i++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Tuesday"))
+                    {
+                        NewEvent.daysOfWeek[i] = 2;
+                        i++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Wednesday"))
+                    {
+                        NewEvent.daysOfWeek[i] = 3;
+                        i++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Thursday"))
+                    {
+                        NewEvent.daysOfWeek[i] = 4;
+                        i++;
+                    }
+                    if (s.MeetingTimeInfo.Contains("Friday"))
+                    {
+                        NewEvent.daysOfWeek[i] = 5;
+                        i++;
+                    }
+                    break;
+
+                }
+
+                CalendarEvents.Add(NewEvent);
+            }
         }
 
         private void GetStudentEvents(int? currentUserID)
@@ -120,7 +207,7 @@ namespace AsyncAcademy.Pages
 
                 //Creates the calendar events for each section
                 CalendarEvent NewEvent = new CalendarEvent();
-                NewEvent.title = "Class " + s.SectionId; // need to pull specific title
+                NewEvent.title = course.CourseTitle; // need to pull specific title
                 NewEvent.startRecur = s.StartDate;
                 NewEvent.endRecur = s.EndDate;
                 NewEvent.startTime = s.StartTime;
