@@ -12,6 +12,7 @@
     <div class="profile-container">
         <h3>Profile Details:</h3>
 
+
 @if(!isEditable)
 {
 
@@ -23,15 +24,29 @@
         <p>Editing? @Model.isEditable</p>
         <button type="submit" name="action" value="Edit">Edit</button>
 
+
     
 }
 
+
 else
 {
-    <p>First Name: <input type="text" name= "Account.FirstName" value="@Model.Account.FirstName"/></p>
-    <p> Last Name: <input type="text" name="Account.LastName" value="@Model.Account.LastName" /></p>
+     <p>First Name: <input type="text" name="Account.FirstName" value="@Model.Account.FirstName" /></p>
+     <span asp-validation-for="Account.FirstName" class="text-danger"></span> 
+
+    <p>Last Name: <input type="text" name="Account.LastName" value="@Model.Account.LastName" /></p>
+    <span asp-validation-for="Account.LastName" class="text-danger"></span> 
+
     <p>Email: @Model.Account.Mail</p>
     <p>Birthday: <input type="date" name="Account.Birthday" value="@Model.Account.Birthday.ToString("yyyy-MM-dd")" /></p>
+    <span asp-validation-for="Account.Birthday" class="text-danger"></span> <!-- Validation for birthday -->
+
+    <p>Street Address: <input type="text" name="Account.Street_Address" value="@Model.Account.StreetAddress" /></p>
+    <p>City: <input type="text" name="Account.City" value="@Model.Account.City" /></p>
+    <p>State: <input type="text" name="Account.State" value="@Model.Account.State" /></p>
+    <p>ZipCode: <input type="text" name="Account.ZipCode" value="@Model.Account.ZipCode" /></p>
+    <p>Phone: <input type="text" name="Account.PhoneNumber" value="@Model.Account.PhoneNumber" /></p>
+
     <p>Account Type: @Model.accountType</p>
     <input type="hidden" name="Account.Mail" value="@Model.Account.Mail" />
     <input type="hidden" name="Account.Pass" value="@Model.Account.Pass" />

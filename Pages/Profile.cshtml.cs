@@ -88,6 +88,14 @@ namespace AsyncAcademy.Pages
             {
                 Debug.WriteLine("SAVE BUTTON WAS PRESSED");
 
+                // Check if the model state is valid
+                if (!ModelState.IsValid)
+                {
+                    // Redisplay the form with validation errors
+                    isEditable = true; // Keep the form in edit mode
+                    return Page();
+                }
+
                 if (await TryUpdateModelAsync<User>(Account, "Account", a => a.FirstName, a => a.LastName, a => a.Birthday))
                 {
                     Debug.WriteLine("CHANGES BEING SAVED???????????");
