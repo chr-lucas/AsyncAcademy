@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 using System.Threading.Tasks;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace AsyncAcademy.Pages
 {
@@ -19,6 +19,12 @@ namespace AsyncAcademy.Pages
         [BindProperty]
         public Section NewSection { get; set; } = default!;
 
+        [ViewData]
+        public string NavBarLink { get; set; } = "/SectionSignup";
+
+        [ViewData]
+        public string NavBarText { get; set; } = "Register";
+
         public IActionResult OnGet()
         {
             return Page();
@@ -32,10 +38,29 @@ namespace AsyncAcademy.Pages
             }
 
             // Assuming you can get the user ID from the session or other mechanism
-            // Here is a placeholder example:
-            int userId = 1; // Replace with actual logic to get the current user's ID
+            int? userId = HttpContext.Session.GetInt32("CurrentUserId");
 
-            NewSection.InstructorId = userId; // Set the instructor ID to the current user's ID
+            if (userId == null)
+            {
+                return NotFound();
+            }
+
+            // Retrieve the current user's account
+            var account = await _context.Users.FirstOrDefaultAsync(a => a.Id == userId);
+
+            if (account == null)
+            {
+                return NotFound();
+            }
+
+            if (account.IsProfessor)
+            {
+                // Set ViewData variables for instructors
+                ViewData["NavBarLink"] = "/CreateSection";
+                ViewData["NavBarText"] = "Classes";
+            }
+
+            NewSection.InstructorId = userId.Value; // Set the instructor ID to the current user's ID
 
             _context.Sections.Add(NewSection);
             await _context.SaveChangesAsync();
@@ -43,7 +68,7 @@ namespace AsyncAcademy.Pages
             // Fill in placeholder class cards
             for (int i = 1; i <= 4; i++) 
             {
-                _context.Enrollments.Add(new Enrollment { SectionId = NewSection.CourseId, UserId = userId });
+                _context.Enrollments.Add(new Enrollment { SectionId = NewSection.CourseId, UserId = userId.Value });
             }
 
             await _context.SaveChangesAsync();
