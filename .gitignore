@@ -25,3 +25,5 @@ obj/Debug/net8.0/AsyncAcademy.AssemblyInfoInputs.cache
 obj/Debug/net8.0/AsyncAcademy.AssemblyInfo.cs
 obj/AsyncAcademy.csproj.nuget.g.props
 obj/AsyncAcademy.csproj.nuget.dgspec.json
+obj/Debug/net8.0/AsyncAcademy.AssemblyInfo.cs
+*.cache
