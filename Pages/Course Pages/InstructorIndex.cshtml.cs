@@ -19,11 +19,29 @@ namespace AsyncAcademy.Pages.Course_Pages
             _context = context;
         }
 
-        public IList<Course> Course { get;set; } = default!;
+        public IList<Course> Course { get; set; } = default!;
+        public User Account { get; set; } = default!;
 
-        public async Task OnGetAsync()
+        
+        public async Task<IActionResult> OnGetAsync()
         {
+            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+
+            if (currentUserID == null)
+            {
+                return NotFound();
+            }
+
+            Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
+
+            if (Account == null)
+            {
+                return NotFound();
+            }
+
             Course = await _context.Course.ToListAsync();
+
+            return Page();
         }
     }
 }
