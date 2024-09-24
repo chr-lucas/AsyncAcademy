@@ -39,7 +39,12 @@ namespace AsyncAcademy.Pages.Course_Pages
                 return NotFound();
             }
 
-            Course = await _context.Course.ToListAsync();
+            //Only shows course that the instructor teaches
+            Course = await _context.Course
+                .Where(c => c.InstructorId == Account.Id)
+                .ToListAsync();
+
+            
 
             return Page();
         }
