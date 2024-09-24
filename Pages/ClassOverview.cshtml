@@ -1,0 +1,43 @@
+<!-- All Kevins code. If you change code, please comment -->
+  
+@page
+@model AsyncAcademy.Pages.ClassOverviewModel
+@{
+    ViewData["Title"] = "Class Overview";
+}
+
+<div class="class-overview">
+    <h1>@Model.Course.Name</h1>
+    <h2>@Model.Course.Department @Model.Course.CourseNumber</h2>
+    <p>Meeting Time: @Model.Course.MeetingTimeInfo</p>
+    <p>Location: @Model.Course.Location</p>
+
+    <div class="menu">
+        <h3>Menu</h3>
+        <ul>
+            <li><a asp-page="/Assignments" asp-route-courseId="@Model.Course.Id">Assignments</a></li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .class-overview {
+        border: solid 3px #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .menu {
+        margin-top: 20px;
+    }
+
+    .menu ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .menu li {
+        margin-bottom: 10px;
+    }
+</style>
