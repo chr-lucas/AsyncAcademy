@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -12,16 +11,20 @@ namespace AsyncAcademy.Pages.Course_Pages
 {
     public class StudentIndexModel : PageModel
     {
-        private readonly AsyncAcademy.Data.AsyncAcademyContext _context;
+        private readonly AsyncAcademyContext _context;
 
-        public StudentIndexModel(AsyncAcademy.Data.AsyncAcademyContext context)
+        public StudentIndexModel(AsyncAcademyContext context)
         {
             _context = context;
         }
 
-        public IList<Course> Course { get;set; } = default!;
-        public User Account { get; set; } = default!;
+        // List of courses user is enrolled in
+        public IList<Course> EnrolledCourses { get; set; } = new List<Course>();
 
+        // List of courses user is not enrolled in
+        public IList<Course> AvailableCourses { get; set; } = new List<Course>();
+
+        public User Account { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -39,7 +42,20 @@ namespace AsyncAcademy.Pages.Course_Pages
                 return NotFound();
             }
 
-            Course = await _context.Course.ToListAsync();
+            // Fetch courses the user is enrolled in
+            var enrolledCoursesQuery = from enrollment in _context.Enrollments
+                                       join course in _context.Course
+                                       on enrollment.CourseId equals course.Id
+                                       where enrollment.UserId == currentUserID
+                                       select course;
+
+            // Store enrolled courses in a list
+            EnrolledCourses = await enrolledCoursesQuery.ToListAsync();
+
+            // Fetch all available courses for the second table
+            AvailableCourses = await _context.Course
+                                              .Where(c => !EnrolledCourses.Select(ec => ec.Id).Contains(c.Id))
+                                              .ToListAsync();
 
             return Page();
         }
