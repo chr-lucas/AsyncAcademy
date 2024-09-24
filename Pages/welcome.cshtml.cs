@@ -28,6 +28,7 @@ namespace AsyncAcademy.Pages
 
         public List<Course> EnrolledCourses = new List<Course>(); // Initialize as a new list
         public List<Section> EnrolledSections = new List<Section>(); // Initialize as a new list
+        public List<Department> EnrolledCourseDepartments = new List<Department>(); // Initialize as a new list
 
         public WelcomeModel(AsyncAcademy.Data.AsyncAcademyContext context)
         {
@@ -72,13 +73,18 @@ namespace AsyncAcademy.Pages
             {
                 if (e.UserId == currentUserID) 
                 {
+                    
                     Section? correspondingSection = await _context.Sections.FirstOrDefaultAsync(a => a.SectionId == e.SectionId);
+                    Course? correspondingCourse = await _context.Course.FirstOrDefaultAsync(a => a.CourseId == correspondingSection.CourseId);
+                    Department? correspondingDepartment = await _context.Department.FirstOrDefaultAsync(a => a.DepartmentId == correspondingCourse.DepartmentId);
                     if (correspondingSection == null)
                     {
                         return BadRequest();
                     }
 
                     EnrolledSections.Add(correspondingSection);
+                    EnrolledCourses.Add(correspondingCourse);
+                    EnrolledCourseDepartments.Add(correspondingDepartment);
                 }
             }
 
