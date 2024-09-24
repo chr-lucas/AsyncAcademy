@@ -55,13 +55,13 @@ namespace AsyncAcademy.Pages
             {
                 WelcomeText = $"Welcome, Professor {firstname} {lastname}";
                 // Set ViewData variables for instructors
-                NavBarLink = "/Course/InstructorIndex"; // Set NavBarLink directly
+                NavBarLink = "/InstructorIndex"; // Set NavBarLink directly
                 NavBarText = "Classes"; // Set NavBarText directly
             }
             else
             {
                 WelcomeText = $"Welcome, {firstname} {lastname}";
-                NavBarLink = "/Course/StudentIndex"; // Set NavBarLink for non-professors
+                NavBarLink = "/StudentIndex"; // Set NavBarLink for non-professors
                 NavBarText = "Register"; // Set NavBarText for non-professors
             }
 
