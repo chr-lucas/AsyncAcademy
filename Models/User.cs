@@ -78,9 +78,9 @@ public class User
     [Display(Name = "Zip Code")]
     public required string? Addr_Zip { get; set; }
 
-    [StringLength(13, MinimumLength =10)]
     [DataType(DataType.PhoneNumber)]
     [Display(Name = "Phone")]
+    [RegularExpression("^(0)(/d{9})$", ErrorMessage = "Phone Number must be 10 Digits Long.")]
     public required string? Phone { get; set; }
 
 

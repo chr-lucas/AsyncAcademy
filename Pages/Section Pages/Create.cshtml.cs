@@ -25,7 +25,7 @@ namespace AsyncAcademy.Pages.Section_Page
         }
 
         [BindProperty]
-        public Section Section { get; set; } = default!;
+        public Course Course { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -35,7 +35,7 @@ namespace AsyncAcademy.Pages.Section_Page
                 return Page();
             }
 
-            _context.Sections.Add(Section);
+            _context.Course.Add(Course);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

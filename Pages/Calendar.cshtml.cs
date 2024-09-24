@@ -24,9 +24,9 @@ namespace AsyncAcademy.Pages
         [ViewData]
         public string NavBarText { get; set; } = "Register";
 
-        public List<Section> EnrolledSections = [];
+        public List<Course> EnrolledSections = [];
         public List<CalendarEvent> CalendarEvents = [];
-        public List<Section> InstructorSections = [];
+        public List<Course> InstructorSections = [];
 
         public JsonResult result { get; set; }
 
@@ -67,7 +67,7 @@ namespace AsyncAcademy.Pages
 
         private void GetInstructorEvents(int? currentUserID)
         {
-            foreach (Section s in _context.Sections)
+            foreach (Course s in _context.Course)
             {
                 if (s.InstructorId == currentUserID)
                 {
@@ -75,7 +75,7 @@ namespace AsyncAcademy.Pages
                 }
             }
 
-            foreach (Section s in InstructorSections)
+            foreach (Course s in InstructorSections)
             {
                 //Determines how many classes the user has per day
                 int classesPerDay = 0;
@@ -105,11 +105,12 @@ namespace AsyncAcademy.Pages
 
                 }
 
-                Course? course = _context.Course.FirstOrDefault(a => a.CourseId == s.CourseId);
+                //Unneeded due to course table change
+                //Course? course = _context.Course.FirstOrDefault(a => a.CourseId == s.CourseId);
 
                 //Creates the calendar events for each section
                 CalendarEvent NewEvent = new CalendarEvent();
-                NewEvent.title = course.CourseTitle; // need to pull specific title
+                NewEvent.title = s.Name; // need to pull specific title
                 NewEvent.startRecur = s.StartDate;
                 NewEvent.endRecur = s.EndDate;
                 NewEvent.startTime = s.StartTime;
@@ -160,7 +161,7 @@ namespace AsyncAcademy.Pages
             {
                 if (e.UserId == currentUserID) //fills list with sections signed in user is enrolled in
                 {
-                    Section? correspondingSection = _context.Sections.FirstOrDefault(a => a.SectionId == e.SectionId);
+                    Course? correspondingSection = _context.Course.FirstOrDefault(a => a.Id == e.CourseId);
                     if (correspondingSection == null)
                     {
                         BadRequest();
@@ -173,7 +174,7 @@ namespace AsyncAcademy.Pages
 
             //create calendar events for each section
 
-            foreach (Section s in EnrolledSections)
+            foreach (Course s in EnrolledSections)
             {
                 //Determines how many classes the user has per day
                 int classesPerDay = 0;
@@ -203,11 +204,12 @@ namespace AsyncAcademy.Pages
 
                 }
 
-                Course? course = _context.Course.FirstOrDefault(a => a.CourseId == s.CourseId); 
+                //Unneeded due to course table change
+                //Course? course = _context.Course.FirstOrDefault(a => a.CourseId == s.CourseId); 
 
                 //Creates the calendar events for each section
                 CalendarEvent NewEvent = new CalendarEvent();
-                NewEvent.title = course.CourseTitle; // need to pull specific title
+                NewEvent.title = s.Name; // need to pull specific title
                 NewEvent.startRecur = s.StartDate;
                 NewEvent.endRecur = s.EndDate;
                 NewEvent.startTime = s.StartTime;

@@ -19,11 +19,11 @@ namespace AsyncAcademy.Pages.Section_Page
             _context = context;
         }
 
-        public IList<Section> Section { get;set; } = default!;
+        public IList<Course> Course { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Section = await _context.Sections.ToListAsync();
+            Course = await _context.Course.ToListAsync();
         }
     }
 }

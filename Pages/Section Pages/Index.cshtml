@@ -14,28 +14,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Section[0].StartTime)
+                @Html.DisplayNameFor(model => model.Course[0].StartTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Section[0].EndTime)
+                @Html.DisplayNameFor(model => model.Course[0].EndTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Section[0].Location)
+                @Html.DisplayNameFor(model => model.Course[0].Location)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Section[0].StudentCapacity)
+                @Html.DisplayNameFor(model => model.Course[0].StudentCapacity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Section[0].StudentsEnrolled)
+                @Html.DisplayNameFor(model => model.Course[0].StudentsEnrolled)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Section[0].MeetingTimeInfo)
+                @Html.DisplayNameFor(model => model.Course[0].MeetingTimeInfo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Section[0].StartDate)
+                @Html.DisplayNameFor(model => model.Course[0].StartDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Section[0].EndDate)
+                @Html.DisplayNameFor(model => model.Course[0].EndDate)
             </th>
             <!--<th>-->
                 <!--Leading at symbol removed to comment-->
@@ -45,7 +45,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Section) {
+@foreach (var item in Model.Course) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.StartTime)
@@ -75,9 +75,9 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.SectionId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.SectionId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.SectionId">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

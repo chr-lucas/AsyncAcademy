@@ -5,39 +5,39 @@
 
 <form method="post">
     <div class="form-group">
-        <label asp-for="NewSection.StartTime"></label>
-        <input asp-for="NewSection.StartTime" type="time" class="form-control" />
-        <span asp-validation-for="NewSection.StartTime" class="text-danger"></span>
+        <label asp-for="NewCourse.StartTime"></label>
+        <input asp-for="NewCourse.StartTime" type="time" class="form-control" />
+        <span asp-validation-for="NewCourse.StartTime" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="NewSection.EndTime"></label>
-        <input asp-for="NewSection.EndTime" type="time" class="form-control" />
-        <span asp-validation-for="NewSection.EndTime" class="text-danger"></span>
+        <label asp-for="NewCourse.EndTime"></label>
+        <input asp-for="NewCourse.EndTime" type="time" class="form-control" />
+        <span asp-validation-for="NewCourse.EndTime" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="NewSection.Location"></label>
-        <input asp-for="NewSection.Location" class="form-control" />
-        <span asp-validation-for="NewSection.Location" class="text-danger"></span>
+        <label asp-for="NewCourse.Location"></label>
+        <input asp-for="NewCourse.Location" class="form-control" />
+        <span asp-validation-for="NewCourse.Location" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="NewSection.StudentCapacity"></label>
-        <input asp-for="NewSection.StudentCapacity" type="number" class="form-control" />
-        <span asp-validation-for="NewSection.StudentCapacity" class="text-danger"></span>
+        <label asp-for="NewCourse.StudentCapacity"></label>
+        <input asp-for="NewCourse.StudentCapacity" type="number" class="form-control" />
+        <span asp-validation-for="NewCourse.StudentCapacity" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="NewSection.StudentsEnrolled"></label>
-        <input asp-for="NewSection.StudentsEnrolled" type="number" class="form-control" />
-        <span asp-validation-for="NewSection.StudentsEnrolled" class="text-danger"></span>
+        <label asp-for="NewCourse.StudentsEnrolled"></label>
+        <input asp-for="NewCourse.StudentsEnrolled" type="number" class="form-control" />
+        <span asp-validation-for="NewCourse.StudentsEnrolled" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="NewSection.MeetingTimeInfo"></label>
-        <input asp-for="NewSection.MeetingTimeInfo" class="form-control" />
-        <span asp-validation-for="NewSection.MeetingTimeInfo" class="text-danger"></span>
+        <label asp-for="NewCourse.MeetingTimeInfo"></label>
+        <input asp-for="NewCourse.MeetingTimeInfo" class="form-control" />
+        <span asp-validation-for="NewCourse.MeetingTimeInfo" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Create Section</button>

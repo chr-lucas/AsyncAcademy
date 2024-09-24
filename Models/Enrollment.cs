@@ -14,6 +14,6 @@ namespace AsyncAcademy.Models
         public int UserId { get; set; }
 
         [Required]
-        public int SectionId {  get; set; }
+        public int CourseId {  get; set; }
     }
 }

@@ -73,18 +73,21 @@ namespace AsyncAcademy.Pages
             {
                 if (e.UserId == currentUserID) 
                 {
+                    // These lines no longer needed now that all data is in Course table
+                    // Section? correspondingSection = await _context.Sections.FirstOrDefaultAsync(a => a.SectionId == e.SectionId);
+                    //Department? correspondingDepartment = await _context.Department.FirstOrDefaultAsync(a => a.DepartmentId == correspondingCourse.DepartmentId);
                     
-                    Section? correspondingSection = await _context.Sections.FirstOrDefaultAsync(a => a.SectionId == e.SectionId);
-                    Course? correspondingCourse = await _context.Course.FirstOrDefaultAsync(a => a.CourseId == correspondingSection.CourseId);
-                    Department? correspondingDepartment = await _context.Department.FirstOrDefaultAsync(a => a.DepartmentId == correspondingCourse.DepartmentId);
-                    if (correspondingSection == null)
+                    Course? correspondingCourse = await _context.Course.FirstOrDefaultAsync(a => a.Id == e.CourseId);
+                    if (correspondingCourse == null)
                     {
                         return BadRequest();
                     }
 
-                    EnrolledSections.Add(correspondingSection);
+                    //No longer needed now that everything is in Course table
+                    //EnrolledSections.Add(correspondingSection);
+                    //EnrolledCourseDepartments.Add(correspondingDepartment);
+
                     EnrolledCourses.Add(correspondingCourse);
-                    EnrolledCourseDepartments.Add(correspondingDepartment);
                 }
             }
 

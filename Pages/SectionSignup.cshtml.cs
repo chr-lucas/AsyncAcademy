@@ -17,7 +17,7 @@ namespace AsyncAcademy.Pages
         }
 
         [BindProperty]
-        public Section NewSection { get; set; } = default!;
+        public Course NewCourse { get; set; } = default!;
 
         [ViewData]
         public string NavBarLink { get; set; } // Removed default initialization
@@ -81,15 +81,15 @@ namespace AsyncAcademy.Pages
                 return NotFound();
             }
 
-            NewSection.InstructorId = userId.Value; // Set the instructor ID to the current user's ID
+            NewCourse.InstructorId = userId.Value; // Set the instructor ID to the current user's ID
 
-            _context.Sections.Add(NewSection);
+            _context.Course.Add(NewCourse);
             await _context.SaveChangesAsync();
 
             // Fill in placeholder class cards
             for (int i = 1; i <= 4; i++) 
             {
-                _context.Enrollments.Add(new Enrollment { SectionId = NewSection.CourseId, UserId = userId.Value });
+                _context.Enrollments.Add(new Enrollment { CourseId = NewCourse.Id, UserId = userId.Value });
             }
 
             await _context.SaveChangesAsync();
