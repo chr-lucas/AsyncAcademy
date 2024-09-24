@@ -10,11 +10,11 @@ using AsyncAcademy.Models;
 
 namespace AsyncAcademy.Pages.Course_Pages
 {
-    public class IndexModel : PageModel
+    public class InstructorIndexModel : PageModel
     {
         private readonly AsyncAcademy.Data.AsyncAcademyContext _context;
 
-        public IndexModel(AsyncAcademy.Data.AsyncAcademyContext context)
+        public InstructorIndexModel(AsyncAcademy.Data.AsyncAcademyContext context)
         {
             _context = context;
         }

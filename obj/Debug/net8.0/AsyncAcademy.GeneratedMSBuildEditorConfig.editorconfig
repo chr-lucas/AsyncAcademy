@@ -50,8 +50,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291cnNlIFBhZ2VzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Chance/Documents/GitHub/AsyncAcademy/Pages/Course Pages/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291cnNlIFBhZ2VzXEluZGV4LmNzaHRtbA==
+[C:/Users/Chance/Documents/GitHub/AsyncAcademy/Pages/Course Pages/InstructorIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291cnNlIFBhZ2VzXEluc3RydWN0b3JJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Chance/Documents/GitHub/AsyncAcademy/Pages/Course Pages/StudentIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291cnNlIFBhZ2VzXFN0dWRlbnRJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Chance/Documents/GitHub/AsyncAcademy/Pages/Error.cshtml]
