@@ -22,6 +22,41 @@ namespace AsyncAcademy.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AsyncAcademy.Models.Assignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Due")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MaxPoints")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Assignment");
+                });
+
             modelBuilder.Entity("AsyncAcademy.Models.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -129,19 +164,6 @@ namespace AsyncAcademy.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Enrollments");
-                });
-
-            modelBuilder.Entity("AsyncAcademy.Models.Section", b =>
-                {
-                    b.Property<int>("Unused")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Unused"));
-
-                    b.HasKey("Unused");
-
-                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.User", b =>

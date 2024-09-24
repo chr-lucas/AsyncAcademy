@@ -12,6 +12,24 @@ namespace AsyncAcademy.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Assignment",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MaxPoints = table.Column<int>(type: "int", nullable: false),
+                    Due = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Assignment", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Course",
                 columns: table => new
                 {
@@ -66,18 +84,6 @@ namespace AsyncAcademy.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sections",
-                columns: table => new
-                {
-                    Unused = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sections", x => x.Unused);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -107,6 +113,9 @@ namespace AsyncAcademy.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Assignment");
+
+            migrationBuilder.DropTable(
                 name: "Course");
 
             migrationBuilder.DropTable(
@@ -114,9 +123,6 @@ namespace AsyncAcademy.Migrations
 
             migrationBuilder.DropTable(
                 name: "Enrollments");
-
-            migrationBuilder.DropTable(
-                name: "Sections");
 
             migrationBuilder.DropTable(
                 name: "Users");
