@@ -27,8 +27,6 @@ namespace AsyncAcademy.Pages
         public string NavBarText { get; set; } // Removed default initialization
 
         public List<Course> EnrolledCourses = new List<Course>(); // Initialize as a new list
-        public List<Section> EnrolledSections = new List<Section>(); // Initialize as a new list
-        public List<Department> EnrolledCourseDepartments = new List<Department>(); // Initialize as a new list
 
         public WelcomeModel(AsyncAcademy.Data.AsyncAcademyContext context)
         {
@@ -73,19 +71,11 @@ namespace AsyncAcademy.Pages
             {
                 if (e.UserId == currentUserID) 
                 {
-                    // These lines no longer needed now that all data is in Course table
-                    // Section? correspondingSection = await _context.Sections.FirstOrDefaultAsync(a => a.SectionId == e.SectionId);
-                    //Department? correspondingDepartment = await _context.Department.FirstOrDefaultAsync(a => a.DepartmentId == correspondingCourse.DepartmentId);
-                    
                     Course? correspondingCourse = await _context.Course.FirstOrDefaultAsync(a => a.Id == e.CourseId);
                     if (correspondingCourse == null)
                     {
                         return BadRequest();
                     }
-
-                    //No longer needed now that everything is in Course table
-                    //EnrolledSections.Add(correspondingSection);
-                    //EnrolledCourseDepartments.Add(correspondingDepartment);
 
                     EnrolledCourses.Add(correspondingCourse);
                 }

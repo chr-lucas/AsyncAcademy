@@ -17,87 +17,87 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AsyncAcademy
 build_property.RootNamespace = AsyncAcademy
-build_property.ProjectDir = C:\Users\alexm\Source\Repos\AsyncAcademy\
+build_property.ProjectDir = C:\Users\sebas\OneDrive\Documents\GitHub\AsyncAcademy\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\alexm\Source\Repos\AsyncAcademy
+build_property.MSBuildProjectDirectory = C:\Users\sebas\OneDrive\Documents\GitHub\AsyncAcademy
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Calendar.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Calendar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FsZW5kYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Error.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Image.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Image.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW1hZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Index.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Privacy.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Profile.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Section Pages/Create.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Section Pages/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvbiBQYWdlc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Section Pages/Delete.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Section Pages/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvbiBQYWdlc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Section Pages/Details.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Section Pages/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvbiBQYWdlc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Section Pages/Edit.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Section Pages/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvbiBQYWdlc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Section Pages/Index.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Section Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvbiBQYWdlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/SectionSignup.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/SectionSignup.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VjdGlvblNpZ251cC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/signup.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/signup.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcc2lnbnVwLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/welcome.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/welcome.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcd2VsY29tZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/_ViewImports.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/_ViewStart.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Shared/LoginLayout/_Layout.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Shared/LoginLayout/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXExvZ2luTGF5b3V0XF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-t8ux64xwrd
 
-[C:/Users/alexm/Source/Repos/AsyncAcademy/Pages/Shared/_Layout.cshtml]
+[C:/Users/sebas/OneDrive/Documents/GitHub/AsyncAcademy/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ra7tn5ddw8
