@@ -10,9 +10,31 @@
             <h1 class="display-4">@ViewData["WelcomeText"]</h1>
         </div>
 
+        <!-- Start of Kevin's code for the Class Overview page -->
         @for (int i = 0; i < Model.EnrolledCourses.Count; i++)
         {
             var e = Model.EnrolledCourses[i];
+<<<<<<< HEAD
+=======
+    
+            <div class="class-cards">
+                <h1><a asp-page="/ClassOverview" asp-route-courseId="@e.Id">@e.Department @e.CourseNumber</a></h1>
+                <br>
+                @e.Name
+                <br>
+                @e.MeetingTimeInfo
+                <br>
+                @e.Location
+            </div>
+        }
+        <!-- End of Kevin's code for the Class Overview page -->
+
+
+       <!-- @for (int i = 0; i < Model.EnrolledCourses.Count; i++)
+        {
+            var e = Model.EnrolledCourses[i];
+            <!--var s = Model.EnrolledSections[i]; All data now in Course table-->
+>>>>>>> ad277995e2af38ba366b1325eccb6de27f5f95c6
             
             <div class="class-cards">
                 <h1>@e.Department @e.CourseNumber</h1>
@@ -23,7 +45,7 @@
                 <br>
                 @e.Location
             </div>
-        }
+        } -->
     </div>
 
     <div class="col-md-4">
