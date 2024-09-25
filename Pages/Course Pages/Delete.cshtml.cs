@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 
-namespace AsyncAcademy.Pages.Section_Page
+namespace AsyncAcademy.Pages.Course_Pages
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace AsyncAcademy.Pages.Section_Page
         }
 
         [BindProperty]
-        public Section Section { get; set; } = default!;
+        public Course Course { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +29,15 @@ namespace AsyncAcademy.Pages.Section_Page
                 return NotFound();
             }
 
-            var section = await _context.Sections.FirstOrDefaultAsync(m => m.SectionId == id);
+            var course = await _context.Course.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (section == null)
+            if (course == null)
             {
                 return NotFound();
             }
             else
             {
-                Section = section;
+                Course = course;
             }
             return Page();
         }
@@ -49,11 +49,11 @@ namespace AsyncAcademy.Pages.Section_Page
                 return NotFound();
             }
 
-            var section = await _context.Sections.FindAsync(id);
-            if (section != null)
+            var course = await _context.Course.FindAsync(id);
+            if (course != null)
             {
-                Section = section;
-                _context.Sections.Remove(Section);
+                Course = course;
+                _context.Course.Remove(Course);
                 await _context.SaveChangesAsync();
             }
 

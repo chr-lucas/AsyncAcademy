@@ -31,14 +31,6 @@ namespace AsyncAcademy.Pages
         [BindProperty]
         public string accountType { get; set; }
 
-        private Enrollment generatePlaceholderCardEnrollment(int sectionId, int userId)
-        {
-            Enrollment newEnrollment = new Enrollment();
-            newEnrollment.SectionId = sectionId;
-            newEnrollment.UserId = userId;
-            return newEnrollment;
-        }
-
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
@@ -58,18 +50,6 @@ namespace AsyncAcademy.Pages
 
             _context.Users.Add(Account);
             await _context.SaveChangesAsync();
-
-            // Fill in placeholder class cards
-            var existingUsers = _context.Users.ToList();
-            List<int> sections = [1, 2, 3, 4];
-            var user = (from row in _context.Users where row.Username == Account.Username select row).FirstOrDefault();
-            int accountId = user.Id;
-            foreach (var i in sections)
-            {
-                _context.Enrollments.Add(generatePlaceholderCardEnrollment(i, accountId));
-            }
-
-            _context.SaveChanges();
 
             HttpContext.Session.SetInt32("CurrentUserId", Account.Id);
             return RedirectToPage("./welcome");

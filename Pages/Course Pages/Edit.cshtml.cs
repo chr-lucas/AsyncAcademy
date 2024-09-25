@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 
-namespace AsyncAcademy.Pages.Section_Page
+namespace AsyncAcademy.Pages.Course_Pages
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace AsyncAcademy.Pages.Section_Page
         }
 
         [BindProperty]
-        public Section Section { get; set; } = default!;
+        public Course Course { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +30,12 @@ namespace AsyncAcademy.Pages.Section_Page
                 return NotFound();
             }
 
-            var section =  await _context.Sections.FirstOrDefaultAsync(m => m.SectionId == id);
-            if (section == null)
+            var course =  await _context.Course.FirstOrDefaultAsync(m => m.Id == id);
+            if (course == null)
             {
                 return NotFound();
             }
-            Section = section;
+            Course = course;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace AsyncAcademy.Pages.Section_Page
                 return Page();
             }
 
-            _context.Attach(Section).State = EntityState.Modified;
+            _context.Attach(Course).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace AsyncAcademy.Pages.Section_Page
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SectionExists(Section.SectionId))
+                if (!CourseExists(Course.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace AsyncAcademy.Pages.Section_Page
             return RedirectToPage("./Index");
         }
 
-        private bool SectionExists(int id)
+        private bool CourseExists(int id)
         {
-            return _context.Sections.Any(e => e.SectionId == id);
+            return _context.Course.Any(e => e.Id == id);
         }
     }
 }

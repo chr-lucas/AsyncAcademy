@@ -1,0 +1,103 @@
+﻿@page
+@model AsyncAcademy.Pages.Course_Pages.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Course</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.CourseNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.CourseNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Department)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Department)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.CreditHours)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.CreditHours)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.InstructorId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.InstructorId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.StartTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.StartTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.EndTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.EndTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Location)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Location)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.StudentCapacity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.StudentCapacity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.StudentsEnrolled)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.StudentsEnrolled)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.MeetingTimeInfo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.MeetingTimeInfo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.StartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.EndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.EndDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Course.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

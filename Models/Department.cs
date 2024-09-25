@@ -6,12 +6,15 @@ namespace AsyncAcademy.Models
     public class Department
     {
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [StringLength(10)]
-        public required string DepartmentId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public required int Id { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public required string Name { get; set; }
+        [StringLength(4)]
+        public required string NameShort { get; set; }
+
+        [Required]
+        [StringLength(80)]
+        public required string NameLong { get; set; }
     }
 }

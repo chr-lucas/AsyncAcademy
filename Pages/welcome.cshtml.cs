@@ -27,7 +27,6 @@ namespace AsyncAcademy.Pages
         public string NavBarText { get; set; } // Removed default initialization
 
         public List<Course> EnrolledCourses = new List<Course>(); // Initialize as a new list
-        public List<Section> EnrolledSections = new List<Section>(); // Initialize as a new list
 
         public WelcomeModel(AsyncAcademy.Data.AsyncAcademyContext context)
         {
@@ -56,13 +55,13 @@ namespace AsyncAcademy.Pages
             {
                 WelcomeText = $"Welcome, Professor {firstname} {lastname}";
                 // Set ViewData variables for instructors
-                NavBarLink = "/SectionSignup"; // Set NavBarLink directly
+                NavBarLink = "Course Pages/InstructorIndex"; // Set NavBarLink directly
                 NavBarText = "Classes"; // Set NavBarText directly
             }
             else
             {
                 WelcomeText = $"Welcome, {firstname} {lastname}";
-                NavBarLink = "/CreateSection"; // Set NavBarLink for non-professors
+                NavBarLink = "Course Pages/StudentIndex"; // Set NavBarLink for non-professors
                 NavBarText = "Register"; // Set NavBarText for non-professors
             }
 
@@ -72,13 +71,13 @@ namespace AsyncAcademy.Pages
             {
                 if (e.UserId == currentUserID) 
                 {
-                    Section? correspondingSection = await _context.Sections.FirstOrDefaultAsync(a => a.SectionId == e.SectionId);
-                    if (correspondingSection == null)
+                    Course? correspondingCourse = await _context.Course.FirstOrDefaultAsync(a => a.Id == e.CourseId);
+                    if (correspondingCourse == null)
                     {
                         return BadRequest();
                     }
 
-                    EnrolledSections.Add(correspondingSection);
+                    EnrolledCourses.Add(correspondingCourse);
                 }
             }
 

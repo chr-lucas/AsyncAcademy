@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 
-namespace AsyncAcademy.Pages.Section_Page
+namespace AsyncAcademy.Pages.Course_Pages
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace AsyncAcademy.Pages.Section_Page
             _context = context;
         }
 
-        public Section Section { get; set; } = default!;
+        public Course Course { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,14 +28,14 @@ namespace AsyncAcademy.Pages.Section_Page
                 return NotFound();
             }
 
-            var section = await _context.Sections.FirstOrDefaultAsync(m => m.SectionId == id);
-            if (section == null)
+            var course = await _context.Course.FirstOrDefaultAsync(m => m.Id == id);
+            if (course == null)
             {
                 return NotFound();
             }
             else
             {
-                Section = section;
+                Course = course;
             }
             return Page();
         }
