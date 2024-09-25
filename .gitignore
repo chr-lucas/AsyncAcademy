@@ -4,6 +4,7 @@
 
 /.vs/AsyncAcademy/FileContentIndex
 /.vs
+bin/
 /bin/Debug
 /obj/Debug
 obj/AsyncAcademy.csproj.nuget.dgspec.json
