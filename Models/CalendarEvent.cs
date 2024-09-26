@@ -12,11 +12,11 @@ namespace AsyncAcademy.Models
 
         //time class occurs
         [Required(ErrorMessage = "Event start time is required.")]
-        public DateTime startTime { get; set; }
+        public string startTime { get; set; }
 
         //time class ends
         [Required(ErrorMessage = "Event end time is required.")]
-        public DateTime endTime { get; set; }
+        public string endTime { get; set; }
 
         //Date semester begins
         public DateTime startRecur { get; set; }
