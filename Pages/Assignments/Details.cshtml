@@ -1,0 +1,57 @@
+﻿@page
+@model AsyncAcademy.Pages.Assignments.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Assignment.Title Details</h1>
+
+<div>
+    <hr>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Assignment.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Assignment.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Assignment.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Assignment.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Assignment.MaxPoints)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Assignment.MaxPoints)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Assignment.Due)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Assignment.Due)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Assignment.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Assignment.Type)
+        </dd>
+        <dt class="col-sm-2">
+            Submissions 
+        </dt>
+        <dd class="col-sm-10">
+            <!--Will need to add logic for pulling submissions during future sprints-->
+        </dd>
+    </dl>
+</div>
+<div>
+     @if (Model.Account.IsProfessor)
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Assignment.Id">Edit</a>
+    }
+    <a asp-page="/Assignments/Index" asp-route-courseId="@Model.Course.Id">Back to List</a>
+</div>
