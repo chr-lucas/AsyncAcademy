@@ -7893,19 +7893,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Chance\\.nuget\\packages\\": {}
+    "C:\\Users\\Kevin\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Chance\\Documents\\GitHub\\AsyncAcademy\\AsyncAcademy.csproj",
+      "projectUniqueName": "C:\\Users\\Kevin\\AsyncAcademy\\AsyncAcademy.csproj",
       "projectName": "AsyncAcademy",
-      "projectPath": "C:\\Users\\Chance\\Documents\\GitHub\\AsyncAcademy\\AsyncAcademy.csproj",
-      "packagesPath": "C:\\Users\\Chance\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Chance\\Documents\\GitHub\\AsyncAcademy\\obj\\",
+      "projectPath": "C:\\Users\\Kevin\\AsyncAcademy\\AsyncAcademy.csproj",
+      "packagesPath": "C:\\Users\\Kevin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Kevin\\AsyncAcademy\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Chance\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Kevin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7983,7 +7990,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

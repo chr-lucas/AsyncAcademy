@@ -20,6 +20,12 @@ namespace AsyncAcademy.Pages.Course_Pages
         }
 
         public Course Course { get; set; } = default!;
+        public User Account { get; set; } = default!;
+
+        [ViewData]
+        public string NavBarLink { get; set; } // Navigation link
+        [ViewData]
+        public string NavBarText { get; set; } // Navigation text
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -37,7 +43,39 @@ namespace AsyncAcademy.Pages.Course_Pages
             {
                 Course = course;
             }
+
+            // Set navigation properties
+            await SetNavBarPropertiesAsync();
+
             return Page();
+        }
+
+        private async Task SetNavBarPropertiesAsync()
+        {
+            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+
+            if (currentUserID == null)
+            {
+                return; // User is not logged in, do not set nav properties
+            }
+
+            Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
+
+            if (Account == null)
+            {
+                return; // Account not found, do not set nav properties
+            }
+
+            if (Account.IsProfessor) 
+            {
+                NavBarLink = "InstructorIndex"; // Set NavBarLink directly
+                NavBarText = "Classes"; // Set NavBarText directly
+            }
+            else
+            {
+                NavBarLink = "StudentIndex"; // Set NavBarLink for non-professors
+                NavBarText = "Register"; // Set NavBarText for non-professors
+            }
         }
     }
 }
