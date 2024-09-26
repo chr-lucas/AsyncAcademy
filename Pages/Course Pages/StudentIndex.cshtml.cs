@@ -26,6 +26,12 @@ namespace AsyncAcademy.Pages.Course_Pages
 
         public User Account { get; set; } = default!;
 
+        [ViewData]
+        public string NavBarLink { get; set; } // Removed default initialization
+
+        [ViewData]
+        public string NavBarText { get; set; } // Removed default initialization
+
         public async Task<IActionResult> OnGetAsync()
         {
             int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
@@ -40,6 +46,20 @@ namespace AsyncAcademy.Pages.Course_Pages
             if (Account == null)
             {
                 return NotFound();
+            }
+
+            if (Account.IsProfessor) 
+            {
+                //WelcomeText = $"Welcome, Professor {firstname} {lastname}";
+                // Set ViewData variables for instructors
+                NavBarLink = "Course Pages/InstructorIndex"; // Set NavBarLink directly
+                NavBarText = "Classes"; // Set NavBarText directly
+            }
+            else
+            {
+                //WelcomeText = $"Welcome, {firstname} {lastname}";
+                NavBarLink = "Course Pages/StudentIndex"; // Set NavBarLink for non-professors
+                NavBarText = "Register"; // Set NavBarText for non-professors
             }
 
             // Fetch courses the user is enrolled in

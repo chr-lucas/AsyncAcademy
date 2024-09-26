@@ -23,7 +23,7 @@ namespace AsyncAcademy.Pages
         public User? Account { get; set; }
 
         [ViewData]
-        public string NavBarLink { get; set; } = "/CreateSection";
+        public string NavBarLink { get; set; } = "Course Pages/StudentIndex";
 
         [ViewData]
         public string NavBarText { get; set; } = "Register";
@@ -51,7 +51,7 @@ namespace AsyncAcademy.Pages
             if (Account.IsProfessor == true)
             {
                 accountType = "Professor";
-                NavBarLink = "/SectionSignup";
+                NavBarLink = "Course Pages/InstructorIndex";
                 NavBarText = "Classes";
             }
 

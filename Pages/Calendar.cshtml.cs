@@ -19,7 +19,7 @@ namespace AsyncAcademy.Pages
         public User? Account { get; set; }
 
         [ViewData]
-        public string NavBarLink { get; set; } = "/CreateSection";
+        public string NavBarLink { get; set; } = "Course Pages/StudentIndex";
 
         [ViewData]
         public string NavBarText { get; set; } = "Register";
@@ -51,7 +51,7 @@ namespace AsyncAcademy.Pages
 
             if (Account.IsProfessor)
             {
-                NavBarLink = "/SectionSignup";
+                NavBarLink = "Course Pages/InstructorIndex";
                 NavBarText = "Classes";
                 GetInstructorEvents(currentUserID);
             }
@@ -113,8 +113,8 @@ namespace AsyncAcademy.Pages
                 NewEvent.title = s.Name; // need to pull specific title
                 NewEvent.startRecur = s.StartDate;
                 NewEvent.endRecur = s.EndDate;
-                NewEvent.startTime = s.StartTime;
-                NewEvent.endTime = s.EndTime;
+                NewEvent.startTime = s.StartTime.ToString("HH:mm:ss");
+                NewEvent.endTime = s.EndTime.ToString("HH:mm:ss");
                 NewEvent.daysOfWeek = new int[classesPerDay];
 
                 //determines which day each event occurs - Monday - Friday as classes do not occur on the weekends
@@ -212,8 +212,8 @@ namespace AsyncAcademy.Pages
                 NewEvent.title = s.Name; // need to pull specific title
                 NewEvent.startRecur = s.StartDate;
                 NewEvent.endRecur = s.EndDate;
-                NewEvent.startTime = s.StartTime;
-                NewEvent.endTime = s.EndTime;
+                NewEvent.startTime = s.StartTime.ToString("HH:mm:ss");
+                NewEvent.endTime = s.EndTime.ToString("HH:mm:ss");
                 NewEvent.daysOfWeek = new int[classesPerDay];
 
                 //determines which day each event occurs - Monday - Friday as classes do not occur on the weekends
