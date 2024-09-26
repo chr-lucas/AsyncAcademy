@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AsyncAcademy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e99055f26e131d397b50942fb29baff51dbb769c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39daf0a453a42f2951b241af751906a62dd59ec9")]
 [assembly: System.Reflection.AssemblyProductAttribute("AsyncAcademy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AsyncAcademy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
