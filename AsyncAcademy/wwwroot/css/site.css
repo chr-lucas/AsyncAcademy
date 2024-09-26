@@ -37,8 +37,8 @@ body {
 
 /* Dark mode styles */
 body.dark {
-  background-color: #121212;
-  color: #e0e0e0;
+  background-color: black;
+  color: white;
 }
 
 .navbar-light.dark {
@@ -57,4 +57,12 @@ body.dark {
 
 .nav-link.dark {
   color: #e0e0e0;
+}
+
+/* Set table text color to white in dark mode */
+body.dark table,
+body.dark table th,
+body.dark table td {
+  color: white !important; /* Ensure both header and data cells are white */
+  background-color: transparent; /* Optional: Set background to transparent if needed */
 }
