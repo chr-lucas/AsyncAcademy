@@ -25,12 +25,12 @@ builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); /
 var app = builder.Build();
 
 // Upon service creation, check logic for seeding an empty database
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
-//
-//    SeedData.Initialize(services);
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var SeedData = new SeedData();
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

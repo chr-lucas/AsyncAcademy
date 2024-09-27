@@ -2,16 +2,21 @@
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 using AsyncAcademy.Pages.Course_Pages;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AsyncAcademy.Models
 {
     public class SeedData
     {
+        public User Student { get; set; }
+        public User Instructor { get; set; }
 
-        public static void Initialize(IServiceProvider serviceProvider)
+        public void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new AsyncAcademyContext(
-                serviceProvider.GetRequiredService<DbContextOptions<AsyncAcademyContext>>()))
+            var passwordHasher = new PasswordHasher<User>();
+
+            using (var context = new AsyncAcademyContext(serviceProvider.GetRequiredService<DbContextOptions<AsyncAcademyContext>>()))
             {
                 if (context == null || context.Course == null || context.Users == null || context.Department == null)
                 {
@@ -147,48 +152,57 @@ namespace AsyncAcademy.Models
 
                 );
 
-                context.Users.AddRange(
-                    new User
-                    {
-                        Id = 1,
-                        Username = "instructortest",
-                        FirstName = "Test",
-                        LastName = "Instructor",
-                        Mail = "instructor@test.com",
-                        Pass = "Pass1234",
-                        ConfirmPass = "ignore",
-                        Birthday = DateTime.Parse("January 1, 2000"),
-                        IsProfessor = true,
-                        ProfilePath = "/images/default_pfp.png",
-                        Addr_State = null,
-                        Addr_City = null,
-                        Addr_Street = null,
-                        Addr_Zip = null,
-                        Phone = null
-                    },
+                CreateTestInstructor();
+                CreateTestStudent();
+                // Hash passwords for seed users prior to insert
+                Instructor.Pass = passwordHasher.HashPassword(Instructor, Instructor.Pass);
+                Student.Pass = passwordHasher.HashPassword(Student, Student.Pass);
 
-                    new User
-                    {
-                        Id = 2,
-                        Username = "studenttest",
-                        FirstName = "Test",
-                        LastName = "Student",
-                        Mail = "student@test.com",
-                        Pass = "Pass1234",
-                        ConfirmPass = "ignore",
-                        Birthday = DateTime.Parse("January 1, 2000"),
-                        IsProfessor = false,
-                        ProfilePath = "/images/default_pfp.png",
-                        Addr_State = null,
-                        Addr_City = null,
-                        Addr_Street = null,
-                        Addr_Zip = null,
-                        Phone = null
-                    }
+                context.Users.AddRange(
+                    Instructor,
+                    Student
                 );
 
                 context.SaveChanges();
             }
+        }
+
+        public void CreateTestInstructor()
+        { 
+            Instructor.Id = 1;
+            Instructor.Username = "instructortest";
+            Instructor.FirstName = "Test";
+            Instructor.LastName = "Instructor";
+            Instructor.Mail = "instructor@test.com";
+            Instructor.Pass = "Pass1234";
+            Instructor.ConfirmPass = "Pass1234";
+            Instructor.Birthday = DateTime.Parse("January 1, 1980");
+            Instructor.IsProfessor = true;
+            Instructor.ProfilePath = "/images/default_pfp.png";
+            Instructor.Addr_Street = null;
+            Instructor.Addr_City = null;
+            Instructor.Addr_State = null;
+            Instructor.Addr_Zip = null;
+            Instructor.Phone = null;
+        }
+
+        public void CreateTestStudent()
+        {
+            Student.Id = 2;
+            Student.Username = "studenttest";
+            Student.FirstName = "Test";
+            Student.LastName = "Student";
+            Student.Mail = "student@test.com";
+            Student.Pass = "Pass1234";
+            Student.ConfirmPass = "Pass1234";
+            Student.Birthday = DateTime.Parse("December 31, 2000");
+            Student.IsProfessor = false;
+            Student.ProfilePath = "/images/default_pfp.png";
+            Student.Addr_Street = null;
+            Student.Addr_City = null;
+            Student.Addr_State = null;
+            Student.Addr_Zip = null;
+            Student.Phone = null;
         }
     }
 }
