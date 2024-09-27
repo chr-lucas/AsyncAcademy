@@ -52,6 +52,7 @@
      @if (Model.Account.IsProfessor)
     {
         <a asp-page="./Edit" asp-route-id="@Model.Assignment.Id">Edit</a>
+        <a asp-page="./Delete" asp-route-id="@Model.Assignment.Id">Delete</a>
     }
     <a asp-page="/Assignments/Index" asp-route-courseId="@Model.Course.Id">Back to List</a>
 </div>

@@ -2,12 +2,11 @@
 @model AsyncAcademy.Pages.Assignments.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Assignment";
 }
 
-<h1>Create</h1>
+<h1>Create Assignment</h1>
 
-<h4>Assignment</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -40,7 +39,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Assignment.Type" class="control-label"></label>
-                <input asp-for="Assignment.Type" class="form-control" />
+                <select asp-for="Assignment.Type" class="form-control">
+                    <option>Text Entry</option>
+                    <option>File Submission</option>
+                    <option>URL</option>
+                </select>
                 <span asp-validation-for="Assignment.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -51,8 +54,7 @@
 </div>
 
 <div>
-    <!--Not sure this will work properly if form is not filled out prior-->
-    <a asp-page="/Assignments/Index" asp-route-courseId="Assignment.CourseId">Back to List</a>
+    <a href="#" onclick="history.back()" style="color:blue" >Back to List</a>
 </div>
 
 @section Scripts {
