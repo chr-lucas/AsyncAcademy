@@ -16,6 +16,12 @@ namespace AsyncAcademy.Pages
         public int? currentUserID { get; set; }
         private readonly AsyncAcademy.Data.AsyncAcademyContext _context;
 
+        [ViewData]
+        public string NavBarLink { get; set; } = "Course Pages/StudentIndex";
+
+        [ViewData]
+        public string NavBarText { get; set; } = "Register";
+
         [BindProperty]
         public Enrollment Enrollment { get; set; } = default!;
 
