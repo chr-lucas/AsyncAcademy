@@ -10,6 +10,13 @@ using AsyncAcademy.Models;
 
 namespace AsyncAcademy.Pages
 {
+    public class ToDoItem
+    {
+        public string Course { get; set; }
+        public string Assignment { get; set; }
+        public DateTime DueDate { get; set; }
+    }
+
     public class WelcomeModel : PageModel
     {
         private AsyncAcademy.Data.AsyncAcademyContext _context;
@@ -27,6 +34,9 @@ namespace AsyncAcademy.Pages
         public string NavBarText { get; set; } // Removed default initialization
 
         public List<Course> EnrolledCourses = new List<Course>(); // Initialize as a new list
+
+        public List<ToDoItem> ToDoList { get; set; } = new List<ToDoItem>();
+
 
         public WelcomeModel(AsyncAcademy.Data.AsyncAcademyContext context)
         {
@@ -80,6 +90,16 @@ namespace AsyncAcademy.Pages
                     EnrolledCourses.Add(correspondingCourse);
                 }
             }
+
+            // Sample data for ToDoList
+        ToDoList = new List<ToDoItem>
+        {
+            new ToDoItem { Course = "CS 3750", Assignment = "Assignment 1", DueDate = new DateTime(2024, 9, 16, 23, 59, 0) },
+            new ToDoItem { Course = "CS 3750", Assignment = "Assignment 2", DueDate = new DateTime(2024, 9, 17, 23, 59, 0) },
+            new ToDoItem { Course = "CS 3750", Assignment = "Assignment 3", DueDate = new DateTime(2024, 9, 18, 23, 59, 0) },
+            new ToDoItem { Course = "CS 3750", Assignment = "Assignment 4", DueDate = new DateTime(2024, 9, 19, 23, 59, 0) },
+            new ToDoItem { Course = "CS 3750", Assignment = "Assignment 5", DueDate = new DateTime(2024, 9, 20, 23, 59, 0) }
+        };
 
             return Page();
         }

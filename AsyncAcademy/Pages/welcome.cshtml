@@ -10,7 +10,6 @@
             <h1 class="display-4">@ViewData["WelcomeText"]</h1>
         </div>
 
-        <!-- Start of Kevin's code for the Class Overview page -->
         @for (int i = 0; i < Model.EnrolledCourses.Count; i++)
         {
             var e = Model.EnrolledCourses[i];
@@ -25,48 +24,21 @@
                 @e.Location
             </div>
         }
-        <!-- End of Kevin's code for the Class Overview page -->
-
     </div>
 
     <div class="col-md-4">
         <div class="todo-list">
             <h2>To-Do List</h2>
-            <div class="card todo-card">
-                <div class="card-body">
-                    <p>CS 3750</p>
-                    <p>Assignment 1</p>
-                    <p>September 16, 2024 11:59 p.m.</p>
+            @foreach (var item in Model.ToDoList)
+            {
+                <div class="card todo-card">
+                    <div class="card-body">
+                        <p>@item.Course</p>
+                        <p>@item.Assignment</p>
+                        <p>@item.DueDate.ToString("MMMM dd, yyyy h:mm tt")</p>
+                    </div>
                 </div>
-            </div>
-            <div class="card todo-card">
-                <div class="card-body">
-                    <p>CS 3750</p>
-                    <p>Assignment 2</p>
-                    <p>September 17, 2024 11:59 p.m.</p>
-                </div>
-            </div>
-            <div class="card todo-card">
-                <div class="card-body">
-                    <p>CS 3750</p>
-                    <p>Assignment 3</p>
-                    <p>September 18, 2024 11:59 p.m.</p>
-                </div>
-            </div>
-            <div class="card todo-card">
-                <div class="card-body">
-                    <p>CS 3750</p>
-                    <p>Assignment 4</p>
-                    <p>September 19, 2024 11:59 p.m.</p>
-                </div>
-            </div>
-            <div class="card todo-card">
-                <div class="card-body">
-                    <p>CS 3750</p>
-                    <p>Assignment 5</p>
-                    <p>September 20, 2024 11:59 p.m.</p>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
@@ -74,6 +46,8 @@
 <style>
     .todo-list {
         margin-top: 20px;
+        background-color: black;
+        color: white;
     }
 
     .todo-card {
@@ -81,6 +55,8 @@
         padding: 10px;
         border: solid 1px #ddd;
         border-radius: 5px;
+        color: white;
+        background-color: black;
     }
 
     div.class-cards {
