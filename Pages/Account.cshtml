@@ -3,36 +3,37 @@
 
 @{
     ViewData["Title"] = "Account";
+    int? currentUserId = Model.currentUserID;
 }
 
-<h1>Account</h1>
+<h1>Student Account</h1>
 
-<h4>Enrollment</h4>
 <hr />
+
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Enrollment.UserId" class="control-label"></label>
-                <input asp-for="Enrollment.UserId" class="form-control" />
-                <span asp-validation-for="Enrollment.UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Enrollment.CourseId" class="control-label"></label>
-                <input asp-for="Enrollment.CourseId" class="form-control" />
-                <span asp-validation-for="Enrollment.CourseId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="col-md-6">
+        <h3>Student owes: <b> @Model.AmountOwed.ToString("C")</b> </h3>
     </div>
+    <div class="col-md-4">
+        <h3>Enrolled Courses: </h3>
+        <ul>
+            @foreach (var course in Model.EnrolledCourses)
+            {
+                <li>@course.Name (@course.CreditHours credit hours. )</li>
+            }
+
+        </ul>
+
+
+    </div>
+
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
+<div class="row">
+
 </div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
