@@ -1,0 +1,66 @@
+﻿@page
+@model AsyncAcademy.Pages.Assignments.IndexModel
+
+@{
+    ViewData["Title"] = "Assignments";
+}
+
+<h1>Assignments</h1>
+
+<p>
+    @if (Model.Account.IsProfessor)
+    {
+        <a asp-page="Create">Create New</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment[0].MaxPoints)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment[0].Due)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment[0].Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Assignment) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxPoints)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Due)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
+                    @if (Model.Account.IsProfessor)
+                    {
+                       <p> | </p> <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                       <p> | </p> <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

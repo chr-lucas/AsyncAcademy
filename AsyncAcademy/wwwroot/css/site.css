@@ -1,0 +1,68 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/* Default light mode styles */
+body {
+  background-color: #fff;
+  color: #000;
+}
+
+.navbar-light {
+  background-color: #f8f9fa;
+}
+
+.footer {
+  background-color: #f8f9fa;
+}
+
+/* Dark mode styles */
+body.dark {
+  background-color: black;
+  color: white;
+}
+
+.navbar-light.dark {
+  background-color: #1c1c1c;
+}
+
+.footer.dark {
+  background-color: #1c1c1c;
+}
+
+/* Dark mode buttons and other elements */
+.btn-secondary.dark {
+  background-color: #333;
+  border-color: #555;
+}
+
+.nav-link.dark {
+  color: #e0e0e0;
+}
+
+/* Set table text color to white in dark mode */
+body.dark table,
+body.dark table th,
+body.dark table td {
+  color: white !important; /* Ensure both header and data cells are white */
+  background-color: transparent; /* Optional: Set background to transparent if needed */
+}
