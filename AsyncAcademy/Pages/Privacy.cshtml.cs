@@ -17,6 +17,12 @@ namespace AsyncAcademy.Pages
         public string NavBarText { get; set; } = "Register";
 
         [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
+        [ViewData]
         public string WelcomeText { get; set; }
 
         public PrivacyModel(ILogger<PrivacyModel> logger, AsyncAcademy.Data.AsyncAcademyContext context)
@@ -48,6 +54,8 @@ namespace AsyncAcademy.Pages
                 WelcomeText = $"Welcome, Professor {firstname} {lastname}";
                 NavBarLink = "Course Pages/InstructorIndex";
                 NavBarText = "Classes";
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
             }
             else
             {

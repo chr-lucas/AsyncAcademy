@@ -33,6 +33,13 @@ namespace AsyncAcademy.Pages
         [ViewData]
         public string NavBarText { get; set; } // Removed default initialization
 
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
+
         public List<Course> EnrolledCourses = new List<Course>(); // Initialize as a new list
 
         public List<ToDoItem> ToDoList { get; set; } = new List<ToDoItem>();
@@ -67,6 +74,8 @@ namespace AsyncAcademy.Pages
                 // Set ViewData variables for instructors
                 NavBarLink = "Course Pages/InstructorIndex"; // Set NavBarLink directly
                 NavBarText = "Classes"; // Set NavBarText directly
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
             }
             else
             {

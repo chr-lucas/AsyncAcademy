@@ -28,6 +28,12 @@ namespace AsyncAcademy.Pages
         [ViewData]
         public string NavBarText { get; set; } = "Register";
 
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
         public async Task<IActionResult> OnGetAsync()
         {
             //// Sample data - replace with actual user data retrieval logic
@@ -53,6 +59,13 @@ namespace AsyncAcademy.Pages
                 accountType = "Professor";
                 NavBarLink = "Course Pages/InstructorIndex";
                 NavBarText = "Classes";
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
+            }
+            else
+            {
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
 
             return Page();
@@ -75,8 +88,6 @@ namespace AsyncAcademy.Pages
             {
                 _context.Users.Attach(Account);
             }
-
-            Debug.WriteLine(_context.Entry(Account).State); // Check the entity state before saving
             Debug.WriteLine("TEST!!");
 
 
@@ -89,12 +100,12 @@ namespace AsyncAcademy.Pages
             {
                 isEditable = true;
                 Debug.WriteLine("EDIT BUTTON WAS PRESSED");
+                Debug.WriteLine(ViewData["NavBarAccountText"]);
                 return Page();
             }
 
             else if(action == "Save")
             {
-                Debug.WriteLine("SAVE BUTTON WAS PRESSED");
 
                 // Check if the model state is valid
                 if (!ModelState.IsValid)

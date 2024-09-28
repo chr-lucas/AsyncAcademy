@@ -22,6 +22,12 @@ namespace AsyncAcademy.Pages
         [ViewData]
         public string NavBarText { get; set; } = "Register";
 
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
         [BindProperty]
         public Enrollment Enrollment { get; set; } = default!;
 

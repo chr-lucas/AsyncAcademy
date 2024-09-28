@@ -28,7 +28,13 @@ namespace AsyncAcademy.Pages.Course_Pages
         [ViewData]
         public string NavBarText { get; set; } // Removed default initialization
 
-        
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
+
         public async Task<IActionResult> OnGetAsync()
         {
             int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
@@ -51,6 +57,8 @@ namespace AsyncAcademy.Pages.Course_Pages
                 // Set ViewData variables for instructors
                 NavBarLink = "Course Pages/InstructorIndex"; // Set NavBarLink directly
                 NavBarText = "Classes"; // Set NavBarText directly
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
             }
             else
             {

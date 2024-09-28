@@ -13,6 +13,12 @@ namespace AsyncAcademy.Pages.Course_Pages
     {
         private readonly AsyncAcademyContext _context;
 
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
         public StudentIndexModel(AsyncAcademyContext context)
         {
             _context = context;
