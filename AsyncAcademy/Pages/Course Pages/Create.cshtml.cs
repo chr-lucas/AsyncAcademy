@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -101,6 +101,13 @@ namespace AsyncAcademy.Pages.Course_Pages
             Course.InstructorId = Account.Id;
 
             _context.Course.Add(Course);
+            await _context.SaveChangesAsync();
+
+            // Code for displaying class card in professor view of welcome page
+            Enrollment newEnrollment = new Enrollment();
+            newEnrollment.UserId = Account.Id;
+            newEnrollment.CourseId = Course.Id;
+            _context.Enrollments.Add(newEnrollment);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("InstructorIndex");
