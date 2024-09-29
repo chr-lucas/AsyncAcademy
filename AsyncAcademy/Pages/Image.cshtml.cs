@@ -26,6 +26,12 @@ namespace AsyncAcademy.Pages
         [ViewData]
         public string NavBarText { get; set; } = "Register";
 
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
         [BindProperty]
         public IFormFile myFile { get; set; }
 
@@ -51,6 +57,8 @@ namespace AsyncAcademy.Pages
             {
                 NavBarLink = "Course Pages/InstructorIndex";
                 NavBarText = "Classes";
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
             }
             
             profilePath = Account.ProfilePath;

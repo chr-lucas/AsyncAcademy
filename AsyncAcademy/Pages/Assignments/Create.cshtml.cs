@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 using Microsoft.EntityFrameworkCore;
+using Elfie.Serialization;
+using System.Runtime.ConstrainedExecution;
 
 namespace AsyncAcademy.Pages.Assignments
 {
@@ -20,8 +22,6 @@ namespace AsyncAcademy.Pages.Assignments
             _context = context;
         }
         public User Account { get; set; }
-
-        public Course Course { get; set; }
 
         [ViewData]
         public string NavBarLink { get; set; }
@@ -64,7 +64,7 @@ namespace AsyncAcademy.Pages.Assignments
         }
 
         [BindProperty]
-        public Assignment Assignment { get; set; } = default!;
+        public Assignment Assignment { get; set; }
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -77,13 +77,9 @@ namespace AsyncAcademy.Pages.Assignments
             _context.Assignment.Add(Assignment);
             await _context.SaveChangesAsync();
 
-            Course = await _context.Course.FirstOrDefaultAsync(c => c.Id == Assignment.CourseId);
+            return RedirectToPage("/Assignments/Details", new {id = Assignment.Id });
 
 
-            return RedirectToPage("/Welcome");
-
-
-            //return RedirectToPage("/Assignments?courseId=" + Assignment.CourseId); not working
         }
     }
 }

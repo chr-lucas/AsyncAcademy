@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,18 +15,38 @@ namespace AsyncAcademy.Pages.Course_Pages
     {
         private readonly AsyncAcademy.Data.AsyncAcademyContext _context;
 
-        public CreateModel(AsyncAcademy.Data.AsyncAcademyContext context)
-        {
-            _context = context;
-        }
-
         [ViewData]
         public string NavBarLink { get; set; } // Removed default initialization
 
         [ViewData]
         public string NavBarText { get; set; } // Removed default initialization
 
-        public IActionResult OnGet()
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
+
+        [BindProperty]
+        public Course Course { get; set; } = default!;
+        public User Account { get; set; } = default!;
+
+        public String Department { get; set; } = default!;
+
+        public List<Department> AvailableDepartments { get; set; } = new List<Department>();
+
+        public int DepartmentId { get; set; }
+
+        public CreateModel(AsyncAcademy.Data.AsyncAcademyContext context)
+        {
+            _context = context;
+        }
+
+  
+
+
+        public async Task<IActionResult> OnGet()
         {
             int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
 
@@ -42,14 +62,17 @@ namespace AsyncAcademy.Pages.Course_Pages
                 return NotFound();
             }
 
+          
+            //Queries through the Department table and grabs all objects from it
+            AvailableDepartments = await _context.Department.ToListAsync();
+            
+
             SetNavBarProperties();
 
             return Page();
         }
 
-        [BindProperty]
-        public Course Course { get; set; } = default!;
-        public User Account { get; set; } = default!;
+
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -80,6 +103,13 @@ namespace AsyncAcademy.Pages.Course_Pages
             _context.Course.Add(Course);
             await _context.SaveChangesAsync();
 
+            // Code for displaying class card in professor view of welcome page
+            Enrollment newEnrollment = new Enrollment();
+            newEnrollment.UserId = Account.Id;
+            newEnrollment.CourseId = Course.Id;
+            _context.Enrollments.Add(newEnrollment);
+            await _context.SaveChangesAsync();
+
             return RedirectToPage("InstructorIndex");
         }
 
@@ -89,6 +119,8 @@ namespace AsyncAcademy.Pages.Course_Pages
             {
                 NavBarLink = "InstructorIndex"; // Set NavBarLink directly
                 NavBarText = "Classes"; // Set NavBarText directly
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
             }
             else
             {

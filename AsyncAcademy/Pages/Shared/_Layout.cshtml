@@ -38,9 +38,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page=@ViewData["NavBarLink"]>@ViewData["NavBarText"]</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Account">Account</a>
-                        </li>
+
+                        <!-- Conditionally render Account tab -->
+                        @if (!string.IsNullOrEmpty(ViewData["NavBarAccountTabLink"]?.ToString()) && !string.IsNullOrEmpty(ViewData["NavBarAccountText"]?.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page=@ViewData["NavBarAccountTabLink"]>@ViewData["NavBarAccountText"]</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Calendar">Calendar</a>
                         </li>
@@ -62,6 +67,7 @@
 
     <div class="container">
         <main role="main" class="pb-3">
+            <!-- Debug output -->
             @RenderBody()
         </main>
     </div>

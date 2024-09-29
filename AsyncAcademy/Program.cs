@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using AsyncAcademy.Data;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using AsyncAcademy.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,6 +23,14 @@ builder.Services.AddSession(options =>
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // The Last Part
 
 var app = builder.Build();
+
+// Upon service creation, check logic for seeding an empty database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var SeedData = new SeedData();
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

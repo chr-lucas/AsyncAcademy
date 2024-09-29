@@ -29,10 +29,12 @@ body {
 
 .navbar-light {
   background-color: #f8f9fa;
+  color: #000; /* Text color for light mode */
 }
 
 .footer {
   background-color: #f8f9fa;
+  color: #000; /* Text color for light mode */
 }
 
 /* Dark mode styles */
@@ -42,11 +44,17 @@ body.dark {
 }
 
 .navbar-light.dark {
-  background-color: #1c1c1c;
+  background-color: #1c1c1c; /* Dark background for navbar */
+  color: white; /* Text color for dark mode */
+}
+
+.navbar-light.dark .nav-link {
+  color: white; /* Ensure nav links are white in dark mode */
 }
 
 .footer.dark {
-  background-color: #1c1c1c;
+  background-color: #1c1c1c; /* Dark background for footer */
+  color: white; /* Text color for dark mode */
 }
 
 /* Dark mode buttons and other elements */
