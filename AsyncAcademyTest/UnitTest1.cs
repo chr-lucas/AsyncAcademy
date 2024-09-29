@@ -10,7 +10,7 @@ namespace AsyncAcademyTest
     [TestClass]
     public class UnitTest1
     {
-        private readonly string _connectionString = "OurConnectionStringHere"; // Replace with actual connection string
+        private readonly string _connectionString = "Data Source=titan.cs.weber.edu,10433;Initial Catalog=3750_f24_aa;User ID=3750_f24_aa;Password=AsyncAcademy*1;TrustServerCertificate=True;"; // Replace with actual connection string
 
         [TestMethod]
         public void InstructorCanCreateCourseTest()
@@ -23,8 +23,14 @@ namespace AsyncAcademyTest
             // Create the context
             using (var _context = new AsyncAcademyContext(options))
             {
-                // Start with known instructor user id
-                int userId = 27;
+                // Select the Id of the first user who is an instructor (IsProfessor == true)
+                var instructor = _context.Users.FirstOrDefault(u => u.IsProfessor);
+
+                // Ensure that an instructor exists
+                Assert.IsNotNull(instructor, "No instructor found in the database.");
+
+                // Store the instructor's userId
+                int userId = instructor.Id;
 
                 // Count how many courses the instructor is teaching initially
                 int initialCourseCount = _context.Course.Count(c => c.InstructorId == userId);
