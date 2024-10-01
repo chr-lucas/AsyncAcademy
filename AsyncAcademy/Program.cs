@@ -28,7 +28,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var SeedData = new SeedData();
+    var SeedData = new SeedData(scope.ServiceProvider.GetRequiredService<AsyncAcademyContext>());
     SeedData.Initialize(services);
 }
 

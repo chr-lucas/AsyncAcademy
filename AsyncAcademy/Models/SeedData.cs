@@ -1,16 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using AsyncAcademy.Data;
-using AsyncAcademy.Models;
-using AsyncAcademy.Pages.Course_Pages;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AsyncAcademy.Models
 {
-    public class SeedData
+    public class SeedData(AsyncAcademyContext context)
     {
-        public User Student { get; set; }
-        public User Instructor { get; set; }
+        private readonly AsyncAcademyContext _context = context;
+        [BindProperty]
+        public User InstructorAccount { get; set; } = default!;
+        [BindProperty]
+        public User StudentAccount { get; set; } = default!;
 
         public void Initialize(IServiceProvider serviceProvider)
         {
@@ -29,7 +31,9 @@ namespace AsyncAcademy.Models
                     return;   // DB already has data
                 }
 
-                context.Course.AddRange(
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    context.Course.AddRange(
                     new Course
                     {
                         Id = 1,
@@ -104,105 +108,119 @@ namespace AsyncAcademy.Models
                         MeetingTimeInfo = "Monday, Tuesday, Wednesday, Thursday, Friday",
                         StartDate = DateTime.Parse("9/1/2024 2:00:00 PM"),
                         EndDate = DateTime.Parse("12/15/2024 4:30:00 PM")
-                    }
-                );
+                    });
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Course ON;");
+                    context.SaveChanges();
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Course OFF");
+                    transaction.Commit();
+                }
 
-                context.Department.AddRange(
-                    new Department
-                    {
-                        Id = 1,
-                        NameShort = "CS",
-                        NameLong = "Computer Science"
-                    },
+                using (var transaction = context.Database.BeginTransaction())
+                {
 
-                    new Department
-                    {
-                        Id = 2,
-                        NameShort = "MATH",
-                        NameLong = "Math"
-                    },
+                    context.Department.AddRange(
+                        new Department
+                        {
+                            Id = 1,
+                            NameShort = "CS",
+                            NameLong = "Computer Science"
+                        },
 
-                    new Department
-                    {
-                        Id = 3,
-                        NameShort = "NET",
-                        NameLong = "Network Management"
-                    },
+                        new Department
+                        {
+                            Id = 2,
+                            NameShort = "MATH",
+                            NameLong = "Math"
+                        },
 
-                    new Department
-                    {
-                        Id = 4,
-                        NameShort = "MUSC",
-                        NameLong = "Music"
-                    },
+                        new Department
+                        {
+                            Id = 3,
+                            NameShort = "NET",
+                            NameLong = "Network Management"
+                        },
 
-                    new Department
-                    {
-                        Id = 5,
-                        NameShort = "SE",
-                        NameLong = "Systems Engineering"
-                    },
+                        new Department
+                        {
+                            Id = 4,
+                            NameShort = "MUSC",
+                            NameLong = "Music"
+                        },
 
-                    new Department
-                    {
-                        Id = 6,
-                        NameShort = "ENG",
-                        NameLong = "Engineering"
-                    }
+                        new Department
+                        {
+                            Id = 5,
+                            NameShort = "SE",
+                            NameLong = "Systems Engineering"
+                        },
 
-                );
+                        new Department
+                        {
+                            Id = 6,
+                            NameShort = "ENG",
+                            NameLong = "Engineering"
+                        });
 
-                CreateTestInstructor();
-                CreateTestStudent();
-                // Hash passwords for seed users prior to insert
-                Instructor.Pass = passwordHasher.HashPassword(Instructor, Instructor.Pass);
-                Student.Pass = passwordHasher.HashPassword(Student, Student.Pass);
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Department ON;");
+                    context.SaveChanges();
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Department OFF");
+                    transaction.Commit();
+                }
 
-                context.Users.AddRange(
-                    Instructor,
-                    Student
-                );
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    string pass = "Pass1234";
+                    context.Users.AddRange(
+                        new User
+                        {
+                            Id = 1,
+                            Username = "instructortest",
+                            FirstName = "Test",
+                            LastName = "Instructor",
+                            Mail = "instructor@test.com",
+                            Pass = passwordHasher.HashPassword(InstructorAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("January 1, 1980"),
+                            IsProfessor = true,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 2,
+                            Username = "studenttest",
+                            FirstName = "Test",
+                            LastName = "Student",
+                            Mail = "student@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        });
+
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Users ON;");
+                    context.SaveChanges();
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Users OFF");
+                    transaction.Commit();
+                }
+
+                //// Hash passwords for seed users prior to insert
+                //InstructorAccount.Pass = passwordHasher.HashPassword(InstructorAccount, InstructorAccount.Pass);
+                //StudentAccount.Pass = passwordHasher.HashPassword(StudentAccount, StudentAccount.Pass);
 
                 context.SaveChanges();
             }
         }
-
-        public void CreateTestInstructor()
-        { 
-            Instructor.Id = 1;
-            Instructor.Username = "instructortest";
-            Instructor.FirstName = "Test";
-            Instructor.LastName = "Instructor";
-            Instructor.Mail = "instructor@test.com";
-            Instructor.Pass = "Pass1234";
-            Instructor.ConfirmPass = "Pass1234";
-            Instructor.Birthday = DateTime.Parse("January 1, 1980");
-            Instructor.IsProfessor = true;
-            Instructor.ProfilePath = "/images/default_pfp.png";
-            Instructor.Addr_Street = null;
-            Instructor.Addr_City = null;
-            Instructor.Addr_State = null;
-            Instructor.Addr_Zip = null;
-            Instructor.Phone = null;
-        }
-
-        public void CreateTestStudent()
-        {
-            Student.Id = 2;
-            Student.Username = "studenttest";
-            Student.FirstName = "Test";
-            Student.LastName = "Student";
-            Student.Mail = "student@test.com";
-            Student.Pass = "Pass1234";
-            Student.ConfirmPass = "Pass1234";
-            Student.Birthday = DateTime.Parse("December 31, 2000");
-            Student.IsProfessor = false;
-            Student.ProfilePath = "/images/default_pfp.png";
-            Student.Addr_Street = null;
-            Student.Addr_City = null;
-            Student.Addr_State = null;
-            Student.Addr_Zip = null;
-            Student.Phone = null;
-        }
     }
+
 }
