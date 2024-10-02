@@ -10,22 +10,35 @@ namespace AsyncAcademy.Models
         [Required(ErrorMessage = "Event title is required.")]
         public string title { get; set; }
 
-        //time class occurs
-        [Required(ErrorMessage = "Event start time is required.")]
-        public string startTime { get; set; }
+        //DateTime of Start time (For Assignments start and end should match)
+        public DateTime? start { get; set; }
 
-        //time class ends
-        [Required(ErrorMessage = "Event end time is required.")]
-        public string endTime { get; set; }
+        //DateTime of End time (For Assignments start and end should match)
+        public DateTime? end { get; set; }
+        
+        //Clickable URL assigned to object
+        public string? url { get; set; }
 
-        //Date semester begins
-        public DateTime startRecur { get; set; }
+        //time class occurs (For Recurring events)
+        public string? startTime { get; set; }
 
-        //Date semester ends
-        public DateTime endRecur { get; set; }
+        //time class ends (For Recurring events)
+        public string? endTime { get; set; }
+
+        //Date semester begins (For Recurring events)
+        public DateTime? startRecur { get; set; }
+
+        //Date semester ends (For Recurring events)
+        public DateTime? endRecur { get; set; }
 
         //Days classes occur
         public int[]? daysOfWeek { get; set; }
+
+        //Set Event Display Attributes
+        public string? display { get; set; } = "auto";
+        public string? backgroundColor { get; set; }
+        public string? borderColor { get; set; }
+        public string? textColor { get; set; }
 
     }
 }
