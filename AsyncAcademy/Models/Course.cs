@@ -67,12 +67,12 @@ public class Course
     public required string MeetingTimeInfo { get; set; }
 
     [Required]
-    [DataType(DataType.Time)]
+    [DataType(DataType.Date)]
     [Display(Name = "Start Date")]
     public required DateTime StartDate { get; set; }
 
     [Required]
-    [DataType(DataType.Time)]
+    [DataType(DataType.Date)]
     [Display(Name = "End Date")]
     public required DateTime EndDate { get; set; }
 }
