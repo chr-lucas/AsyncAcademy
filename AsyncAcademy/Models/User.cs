@@ -48,7 +48,7 @@ public class User
     public required string ConfirmPass { get; set; }
 
     [Required]
-    [ValidiateBirthday] // custom validation
+    [ValidiateBirthday] // custom validation. Validiate is mis-spelled. Validate is the correct spelling
     [DataType(DataType.Date)]
     public DateTime Birthday { get; set; }
 
@@ -80,7 +80,7 @@ public class User
 
     [DataType(DataType.PhoneNumber)]
     [Display(Name = "Phone")]
-    [RegularExpression("^(0)(/d{9})$", ErrorMessage = "Phone Number must be 10 Digits Long.")]
+    [RegularExpression(@"^(0)(/d{9})$", ErrorMessage = "Phone Number must be 10 Digits Long.")]
     public required string? Phone { get; set; }
 
 
