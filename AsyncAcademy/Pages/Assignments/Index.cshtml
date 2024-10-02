@@ -10,7 +10,7 @@
 <p>
     @if (Model.Account.IsProfessor)
     {
-        <a asp-page="Create">Create New</a>
+        <a asp-page="/Assignments/Create" asp-route-courseId="@Model.Course.Id">Create New</a>
     }
 </p>
 <table class="table">
