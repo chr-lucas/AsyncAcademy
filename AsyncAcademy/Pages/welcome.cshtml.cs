@@ -51,66 +51,68 @@ namespace AsyncAcademy.Pages
         }
 
         public async Task<IActionResult> OnGetAsync()
+{
+    int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+
+    if (currentUserID == null)
+    {
+        return NotFound();
+    }
+
+    Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
+
+    if (Account == null)
+    {
+        return NotFound();
+    }
+
+    var firstname = Account.FirstName;
+    var lastname = Account.LastName;
+    if (Account.IsProfessor) 
+    {
+        WelcomeText = $"Welcome, Professor {firstname} {lastname}";
+        NavBarLink = "Course Pages/InstructorIndex";
+        NavBarText = "Classes";
+    }
+    else
+    {
+        WelcomeText = $"Welcome, {firstname} {lastname}";
+        NavBarLink = "Course Pages/StudentIndex";
+        NavBarText = "Register";
+    }
+
+    // Get all enrolled courses for the current student
+    var Enrollments = await _context.Enrollments
+        .Where(e => e.UserId == currentUserID)
+        .ToListAsync();
+    
+    // Get list of course IDs that the student is enrolled in
+    var enrolledCourseIds = Enrollments.Select(e => e.CourseId).ToList();
+
+    EnrolledCourses = await _context.Course
+        .Where(c => enrolledCourseIds.Contains(c.Id))
+        .ToListAsync();
+
+    // Get the upcoming assignments, filtering by the student's enrolled courses and excluding past due assignments
+    DateTime now = DateTime.Now; // Or use DateTime.UtcNow for consistency
+    ToDoList = await _context.Assignment
+        .Where(a => a.Due > now && enrolledCourseIds.Contains(a.CourseId)) // Filter by enrolled courses
+        .OrderBy(a => a.Due)
+        .Take(5)
+        .Select(a => new ToDoItem
         {
-            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+            Course = _context.Course
+                .Where(c => c.Id == a.CourseId)
+                .Select(c => c.Department + " " + c.CourseNumber)
+                .FirstOrDefault(),
+            Assignment = a.Title,
+            DueDate = a.Due
+        })
+        .ToListAsync();
 
-            if (currentUserID == null)
-            {
-                return NotFound();
-            }
+    return Page();
+}
 
-            Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
 
-            if (Account == null)
-            {
-                return NotFound();
-            }
-
-            var firstname = Account.FirstName;
-            var lastname = Account.LastName;
-            if (Account.IsProfessor) 
-            {
-                WelcomeText = $"Welcome, Professor {firstname} {lastname}";
-                // Set ViewData variables for instructors
-                NavBarLink = "Course Pages/InstructorIndex"; // Set NavBarLink directly
-                NavBarText = "Classes"; // Set NavBarText directly
-                NavBarAccountTabLink = "";
-                NavBarAccountText = "";
-            }
-            else
-            {
-                WelcomeText = $"Welcome, {firstname} {lastname}";
-                NavBarLink = "Course Pages/StudentIndex"; // Set NavBarLink for non-professors
-                NavBarText = "Register"; // Set NavBarText for non-professors
-            }
-
-            // Get all corresponding classes
-            var Enrollments = await _context.Enrollments.ToListAsync(); // Use async to avoid blocking
-            foreach (Enrollment e in Enrollments) 
-            {
-                if (e.UserId == currentUserID) 
-                {
-                    Course? correspondingCourse = await _context.Course.FirstOrDefaultAsync(a => a.Id == e.CourseId);
-                    if (correspondingCourse == null)
-                    {
-                        return BadRequest();
-                    }
-
-                    EnrolledCourses.Add(correspondingCourse);
-                }
-            }
-
-            // Sample data for ToDoList
-        ToDoList = new List<ToDoItem>
-        {
-            new ToDoItem { Course = "CS 3750", Assignment = "Assignment 1", DueDate = new DateTime(2024, 9, 16, 23, 59, 0) },
-            new ToDoItem { Course = "CS 3750", Assignment = "Assignment 2", DueDate = new DateTime(2024, 9, 17, 23, 59, 0) },
-            new ToDoItem { Course = "CS 3750", Assignment = "Assignment 3", DueDate = new DateTime(2024, 9, 18, 23, 59, 0) },
-            new ToDoItem { Course = "CS 3750", Assignment = "Assignment 4", DueDate = new DateTime(2024, 9, 19, 23, 59, 0) },
-            new ToDoItem { Course = "CS 3750", Assignment = "Assignment 5", DueDate = new DateTime(2024, 9, 20, 23, 59, 0) }
-        };
-
-            return Page();
-        }
     }
 }

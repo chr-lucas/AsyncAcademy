@@ -29,18 +29,26 @@
     <div class="col-md-4">
         <div class="todo-list">
             <h2>To-Do List</h2>
-            @foreach (var item in Model.ToDoList)
+            @if (Model.ToDoList.Count == 0)
             {
-                <div class="card todo-card">
-                    <div class="card-body">
-                        <p>@item.Course</p>
-                        <p>@item.Assignment</p>
-                        <p>@item.DueDate.ToString("MMMM dd, yyyy h:mm tt")</p>
+                <p>No upcoming assignments.</p>
+            }
+            else
+            {
+                @foreach (var item in Model.ToDoList)
+                {
+                    <div class="card todo-card">
+                        <div class="card-body">
+                            <p>@item.Course</p>
+                            <p>@item.Assignment</p>
+                            <p>@item.DueDate.ToString("MMMM dd, yyyy h:mm tt")</p>
+                        </div>
                     </div>
-                </div>
+                }
             }
         </div>
     </div>
+
 </div>
 
 <style>
