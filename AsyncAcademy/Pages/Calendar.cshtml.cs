@@ -32,11 +32,13 @@ namespace AsyncAcademy.Pages
 
         public List<Course> EnrolledSections = [];
         public List<CalendarEvent> CalendarEvents = [];
+        public List<Assignment> UpcomingAssignments = [];
         public List<Course> InstructorSections = [];
+        public List<string> colorWheel = ["PaleTurquoise","Gold","LightPink","PaleGreen","Plum"];
+        public int colorIndex = 0;
+
 
         public JsonResult result { get; set; }
-
-
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -113,9 +115,6 @@ namespace AsyncAcademy.Pages
 
                 }
 
-                //Unneeded due to course table change
-                //Course? course = _context.Course.FirstOrDefault(a => a.CourseId == s.CourseId);
-
                 //Creates the calendar events for each section
                 CalendarEvent NewEvent = new CalendarEvent();
                 NewEvent.title = s.Name; // need to pull specific title
@@ -175,13 +174,33 @@ namespace AsyncAcademy.Pages
                         BadRequest();
                     }
                     EnrolledSections.Add(correspondingSection);
+
+                    // Get all assignments for current course
+                    // Add .Where(a => a.Due > DateTime.Now) to filter our past events
+                    // Filter out events that already have a submission?
+                    var upcomingAssignments = _context.Assignment.Where(a => a.CourseId == correspondingSection.Id).ToList();
+                    UpcomingAssignments.AddRange(upcomingAssignments);
+                    
+                    foreach (Assignment a in UpcomingAssignments)
+                    {
+                        //Creates the calendar events for each assignment
+                        CalendarEvent FutureAssignment = new CalendarEvent();
+                        FutureAssignment.title = a.Title;
+                        FutureAssignment.start = a.Due;
+                        FutureAssignment.end = a.Due.AddSeconds(1);
+                        FutureAssignment.url = "/Assignments/Submit?id=" + a.Id.ToString();
+                        FutureAssignment.display = "list-item";
+                        FutureAssignment.backgroundColor = colorWheel[colorIndex];
+                        FutureAssignment.borderColor = colorWheel[colorIndex];
+                        CalendarEvents.Add(FutureAssignment);
+                    }
+                    colorIndex++; // increment colors for next set of assignments
                 }
             }
 
-            
+            colorIndex = 0; // reset color wheel for courses
 
             //create calendar events for each section
-
             foreach (Course s in EnrolledSections)
             {
                 //Determines how many classes the user has per day
@@ -212,9 +231,6 @@ namespace AsyncAcademy.Pages
 
                 }
 
-                //Unneeded due to course table change
-                //Course? course = _context.Course.FirstOrDefault(a => a.CourseId == s.CourseId); 
-
                 //Creates the calendar events for each section
                 CalendarEvent NewEvent = new CalendarEvent();
                 NewEvent.title = s.Name; // need to pull specific title
@@ -222,6 +238,10 @@ namespace AsyncAcademy.Pages
                 NewEvent.endRecur = s.EndDate;
                 NewEvent.startTime = s.StartTime.ToString("HH:mm:ss");
                 NewEvent.endTime = s.EndTime.ToString("HH:mm:ss");
+                NewEvent.display = "block";
+                NewEvent.backgroundColor = colorWheel[colorIndex];
+                NewEvent.borderColor = colorWheel[colorIndex];
+                NewEvent.textColor = "black";
                 NewEvent.daysOfWeek = new int[classesPerDay];
 
                 //determines which day each event occurs - Monday - Friday as classes do not occur on the weekends
@@ -255,9 +275,24 @@ namespace AsyncAcademy.Pages
                     break;
 
                 }
+                colorIndex++;
 
                 CalendarEvents.Add(NewEvent);
             }
+
+            //foreach(Assignment a in UpcomingAssignments)
+            //{
+            //    //Creates the calendar events for each assignment
+            //    CalendarEvent FutureAssignment = new CalendarEvent();
+            //    FutureAssignment.title = a.Title;
+            //    FutureAssignment.start = a.Due;
+            //    FutureAssignment.end = a.Due.AddSeconds(1);
+            //    FutureAssignment.url = "/Assignments/Submit?id=" + a.Id.ToString();
+            //    FutureAssignment.display = "list-item";
+            //    FutureAssignment.backgroundColor = "PaleVioletRed";
+            //    FutureAssignment.borderColor = "PaleVioletRed";
+            //    CalendarEvents.Add(FutureAssignment);
+            //}
         }
     }
 }
