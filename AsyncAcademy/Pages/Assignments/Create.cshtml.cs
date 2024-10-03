@@ -7,6 +7,9 @@ using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 using Microsoft.EntityFrameworkCore;
 
+//Create assignment page for a course, only accessible by instrcutor
+//Code below written by Hanna Whitney unless notated otherwise
+
 namespace AsyncAcademy.Pages.Assignments
 {
     public class CreateModel : PageModel

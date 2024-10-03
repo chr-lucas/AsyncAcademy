@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 
+//Edit assignment page for a course, only accessible by instrcutor
+//Code below written by Hanna Whitney unless notated otherwise
+
 namespace AsyncAcademy.Pages.Assignments
 {
     public class EditModel : PageModel
@@ -66,7 +69,7 @@ namespace AsyncAcademy.Pages.Assignments
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Assignments/Details", new { id = Assignment.Id });
         }
 
         private bool AssignmentExists(int id)

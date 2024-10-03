@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 
+//Delete assignment page for a course, only accessible by instrcutor
+//Code below written by Hanna Whitney unless notated otherwise
+
 namespace AsyncAcademy.Pages.Assignments
 {
     public class DeleteModel : PageModel
@@ -20,17 +23,55 @@ namespace AsyncAcademy.Pages.Assignments
         }
 
         [BindProperty]
-        public Assignment Assignment { get; set; } = default!;
+        public Assignment Assignment { get; set; }
+
+
+        public User Account { get; set; }
+
+        public Course Course { get; set; }
+
+        [ViewData]
+        public string NavBarLink { get; set; }
+
+        [ViewData]
+        public string NavBarText { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            //assigns user - Assisted by Chris L.
+            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+
+            if (currentUserID == null)
+            {
+                return NotFound();
+            }
+
+            Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
+
+            if (Account == null)
+            {
+                return NotFound();
+            }
+
+            //sets navbar
+            if (Account.IsProfessor)
+            {
+
+                NavBarLink = "Course Pages/InstructorIndex";
+                NavBarText = "Classes";
+            }
+            else
+            {
+                NavBarLink = "Course Pages/StudentIndex";
+                NavBarText = "Register";
+            }
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var assignment = await _context.Assignment.FirstOrDefaultAsync(m => m.Id == id);
-
             if (assignment == null)
             {
                 return NotFound();
@@ -38,6 +79,14 @@ namespace AsyncAcademy.Pages.Assignments
             else
             {
                 Assignment = assignment;
+            }
+
+            //assigns course - Assisted by Kevin B.
+            Course = await _context.Course.FirstOrDefaultAsync(c => c.Id == assignment.CourseId);
+
+            if (Course == null)
+            {
+                NotFound();
             }
             return Page();
         }
@@ -52,12 +101,13 @@ namespace AsyncAcademy.Pages.Assignments
             var assignment = await _context.Assignment.FindAsync(id);
             if (assignment != null)
             {
+
                 Assignment = assignment;
                 _context.Assignment.Remove(Assignment);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Assignments/Index", new { courseId = assignment.CourseId });
         }
     }
 }

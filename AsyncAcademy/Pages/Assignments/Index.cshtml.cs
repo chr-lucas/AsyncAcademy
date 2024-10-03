@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 
+//Main assignment display page for a couse
+//Code below written by Hanna Whitney unless notated otherwise
+
 namespace AsyncAcademy.Pages.Assignments
 {
     public class IndexModel : PageModel

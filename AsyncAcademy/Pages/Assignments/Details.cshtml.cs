@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 
+//Page to display details of an assignment for a course
+//Code below written by Hanna Whitney unless notated otherwise
+
 namespace AsyncAcademy.Pages.Assignments
 {
     public class DetailsModel : PageModel
@@ -52,16 +55,14 @@ namespace AsyncAcademy.Pages.Assignments
             //sets navbar
             if (Account.IsProfessor)
             {
-                //WelcomeText = $"Welcome, Professor {firstname} {lastname}";
-                // Set ViewData variables for instructors
-                NavBarLink = "Course Pages/InstructorIndex"; // Set NavBarLink directly
-                NavBarText = "Classes"; // Set NavBarText directly
+                
+                NavBarLink = "Course Pages/InstructorIndex";
+                NavBarText = "Classes"; 
             }
             else
             {
-                //WelcomeText = $"Welcome, {firstname} {lastname}";
-                NavBarLink = "Course Pages/StudentIndex"; // Set NavBarLink for non-professors
-                NavBarText = "Register"; // Set NavBarText for non-professors
+                NavBarLink = "Course Pages/StudentIndex"; 
+                NavBarText = "Register";
             }
 
             if (id == null)
