@@ -1,29 +1,34 @@
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
-using System.Linq;
+using System.Threading.Tasks;
+using AsyncAcademy.Pages.Course_Pages;
 
 namespace AsyncAcademyTest
 {
     [TestClass]
     public class UnitTest1
     {
-        private readonly string _connectionString = "Data Source=titan.cs.weber.edu,10433;Initial Catalog=3750_f24_aa;User ID=3750_f24_aa;Password=AsyncAcademy*1;TrustServerCertificate=True;"; // Replace with actual connection string
+        private readonly string _connectionString = "Data Source=titan.cs.weber.edu,10433;Initial Catalog=3750_f24_aa;User ID=3750_f24_aa;Password=AsyncAcademy*1;TrustServerCertificate=True;";
 
         [TestMethod]
-        public void InstructorCanCreateCourseTest()
+        public async Task InstructorCanCreateCourseTest()
         {
             // Setup DbContextOptions for database
             var options = new DbContextOptionsBuilder<AsyncAcademyContext>()
-                .UseSqlServer(_connectionString)  // Use the provided connection string
+                .UseSqlServer(_connectionString)
                 .Options;
 
             // Create the context
             using (var _context = new AsyncAcademyContext(options))
             {
-                // Select the Id of the first user who is an instructor (IsProfessor == true)
+                // Select the first instructor (IsProfessor == true)
                 var instructor = _context.Users.FirstOrDefault(u => u.IsProfessor);
 
                 // Ensure that an instructor exists
@@ -32,41 +37,59 @@ namespace AsyncAcademyTest
                 // Store the instructor's userId
                 int userId = instructor.Id;
 
+                // Mock HttpContext and ISession
+                var mockHttpContext = new Mock<HttpContext>();
+                var mockSession = new Mock<ISession>();
+
+                // Simulate the session returning the instructor's userId when "CurrentUserId" is accessed
+                byte[] userIdBytes = BitConverter.GetBytes(userId); // Store the int value as byte[] like session data would
+                mockSession.Setup(s => s.TryGetValue("CurrentUserId", out userIdBytes)).Returns(true);
+                mockHttpContext.Setup(c => c.Session).Returns(mockSession.Object);
+
+                // Create a mock PageContext
+                var mockPageContext = new Mock<PageContext>();
+                mockPageContext.Object.HttpContext = mockHttpContext.Object;
+
+                // Create the PageModel instance
+                var pageModel = new CreateModel(_context)
+                {
+                    PageContext = mockPageContext.Object,
+                    Course = new Course
+                    {
+                        // Set placeholder values, OnPostAsync should overwrite the InstructorId based on session
+                        InstructorId = 0,
+                        CourseNumber = "101A",
+                        Department = "CS",
+                        Name = "Introduction to Programming",
+                        Description = "An introductory course to programming with C#.",
+                        CreditHours = 3,
+                        StartTime = DateTime.Parse("09:00:00"),
+                        EndTime = DateTime.Parse("11:00:00"),
+                        Location = "Room 101",
+                        StudentCapacity = 30,
+                        StudentsEnrolled = 0,
+                        MeetingTimeInfo = "MWF 9:00AM - 11:00AM",
+                        StartDate = DateTime.Now,
+                        EndDate = DateTime.Now.AddMonths(4)
+                    }
+                };
+
                 // Count how many courses the instructor is teaching initially
                 int initialCourseCount = _context.Course.Count(c => c.InstructorId == userId);
 
-                // Create a new course for the instructor
-                var course = new Course
-                {
-                    CourseNumber = "101A",
-                    Department = "CS",
-                    Name = "Introduction to Programming",
-                    Description = "An introductory course to programming with C#.",
-                    CreditHours = 3,
-                    InstructorId = userId,  // Associate the course with the instructor
-                    StartTime = DateTime.Parse("09:00:00"),
-                    EndTime = DateTime.Parse("11:00:00"),
-                    Location = "Room 101",
-                    StudentCapacity = 30,
-                    StudentsEnrolled = 0,
-                    MeetingTimeInfo = "MWF 9:00AM - 11:00AM",
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddMonths(4)
-                };
+                // Call OnPostAsync to simulate form submission
+                var result = await pageModel.OnPostAsync();
 
-                _context.Course.Add(course);  // Add the course to the database
-                _context.SaveChanges();       // Save the course to the database
-
-                // Count how many courses the professor is teaching after adding the course
+                // Count how many courses the instructor is teaching after adding the course
                 int finalCourseCount = _context.Course.Count(c => c.InstructorId == userId);
 
                 // Assert that the number of courses has increased by one
                 Assert.AreEqual(initialCourseCount + 1, finalCourseCount);
 
-                //Remove the newly created course after the assertion
-                _context.Course.Remove(course);  // Delete the course from the database
-                _context.SaveChanges();          // Save the changes to apply the deletion
-
+                // Clean up by removing the newly created course
+                var createdCourse = _context.Course.FirstOrDefault(c => c.CourseNumber == "101A" && c.InstructorId == userId);
+                _context.Course.Remove(createdCourse);
+                await _context.SaveChangesAsync();
             }
         }
     }
