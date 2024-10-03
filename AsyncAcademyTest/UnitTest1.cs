@@ -43,7 +43,12 @@ namespace AsyncAcademyTest
 
                 // Simulate the session returning the instructor's userId when "CurrentUserId" is accessed
                 byte[] userIdBytes = BitConverter.GetBytes(userId); // Store the int value as byte[] like session data would
-                mockSession.Setup(s => s.TryGetValue("CurrentUserId", out userIdBytes)).Returns(true);
+                if (BitConverter.IsLittleEndian) // Account for Endian reversal
+                {
+                    Array.Reverse(userIdBytes);
+                }
+                byte[] idResult = userIdBytes;
+                mockSession.Setup(s => s.TryGetValue("CurrentUserId", out idResult)).Returns(true);
                 mockHttpContext.Setup(c => c.Session).Returns(mockSession.Object);
 
                 // Create a mock PageContext
