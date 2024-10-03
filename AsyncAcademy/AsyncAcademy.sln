@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncAcademy", "AsyncAcademy.csproj", "{15AF163C-57A1-4054-8EE5-94784F1CA5A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAcademyTest", "..\AsyncAcademyTest\AsyncAcademyTest.csproj", "{D551853F-B3D7-465F-B51C-D25DCBEAD0A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncAcademyTest", "..\AsyncAcademyTest\AsyncAcademyTest.csproj", "{D551853F-B3D7-465F-B51C-D25DCBEAD0A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
