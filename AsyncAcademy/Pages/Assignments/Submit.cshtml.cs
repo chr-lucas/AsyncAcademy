@@ -34,16 +34,23 @@ namespace AsyncAcademy.Pages.Assignments
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) // <----- Never gets beyond this check
             {
                 return Page();
             }
 
             Submission.AssignmentId = Assignment.Id; // Assuming you have an AssignmentId in your Submission model
+            //New Submission fields added by Chris
+            if (HttpContext.Session.GetInt32("CurrentUserId") != null)
+            {
+                Submission.UserId = (int)HttpContext.Session.GetInt32("CurrentUserId");
+            }
+            Submission.Timestamp = DateTime.Now;
+            //
             _context.Submissions.Add(Submission);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Assignments/Details", new { id = Assignment.Id });
         }
     }
 }
