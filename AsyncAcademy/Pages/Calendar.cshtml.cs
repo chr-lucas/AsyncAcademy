@@ -192,6 +192,7 @@ namespace AsyncAcademy.Pages
                         FutureAssignment.display = "list-item";
                         FutureAssignment.backgroundColor = colorWheel[colorIndex];
                         FutureAssignment.borderColor = colorWheel[colorIndex];
+                        FutureAssignment.textColor = "Black";
                         CalendarEvents.Add(FutureAssignment);
                     }
                     colorIndex++; // increment colors for next set of assignments
