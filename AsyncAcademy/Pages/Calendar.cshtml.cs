@@ -242,6 +242,7 @@ namespace AsyncAcademy.Pages
                 NewEvent.display = "block";
                 NewEvent.backgroundColor = colorWheel[colorIndex];
                 NewEvent.borderColor = colorWheel[colorIndex];
+                NewEvent.url = "";
                 NewEvent.textColor = "black";
                 NewEvent.daysOfWeek = new int[classesPerDay];
 
