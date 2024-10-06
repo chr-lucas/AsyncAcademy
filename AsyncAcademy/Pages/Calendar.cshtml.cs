@@ -34,7 +34,7 @@ namespace AsyncAcademy.Pages
         public List<CalendarEvent> CalendarEvents = [];
         public List<Assignment> UpcomingAssignments = [];
         public List<Course> InstructorSections = [];
-        public List<string> colorWheel = ["PaleTurquoise","Gold","LightPink","PaleGreen","Plum"];
+        public List<string> colorWheel = ["#FFDD57", "#EAD4FF", "#FFC9C5", "#BFF2D1", "#C4D6F5"];
         public int colorIndex = 0;
 
 
@@ -122,6 +122,11 @@ namespace AsyncAcademy.Pages
                 NewEvent.endRecur = s.EndDate;
                 NewEvent.startTime = s.StartTime.ToString("HH:mm:ss");
                 NewEvent.endTime = s.EndTime.ToString("HH:mm:ss");
+                NewEvent.backgroundColor = colorWheel[colorIndex];
+                NewEvent.borderColor = colorWheel[colorIndex];
+                NewEvent.textColor = "black";
+                NewEvent.display = "block";
+                NewEvent.url = "";
                 NewEvent.daysOfWeek = new int[classesPerDay];
 
                 //determines which day each event occurs - Monday - Friday as classes do not occur on the weekends
@@ -157,6 +162,7 @@ namespace AsyncAcademy.Pages
                 }
 
                 CalendarEvents.Add(NewEvent);
+                colorIndex++;
             }
         }
 
@@ -281,20 +287,6 @@ namespace AsyncAcademy.Pages
 
                 CalendarEvents.Add(NewEvent);
             }
-
-            //foreach(Assignment a in UpcomingAssignments)
-            //{
-            //    //Creates the calendar events for each assignment
-            //    CalendarEvent FutureAssignment = new CalendarEvent();
-            //    FutureAssignment.title = a.Title;
-            //    FutureAssignment.start = a.Due;
-            //    FutureAssignment.end = a.Due.AddSeconds(1);
-            //    FutureAssignment.url = "/Assignments/Submit?id=" + a.Id.ToString();
-            //    FutureAssignment.display = "list-item";
-            //    FutureAssignment.backgroundColor = "PaleVioletRed";
-            //    FutureAssignment.borderColor = "PaleVioletRed";
-            //    CalendarEvents.Add(FutureAssignment);
-            //}
         }
     }
 }
