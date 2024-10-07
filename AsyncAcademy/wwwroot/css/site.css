@@ -39,9 +39,16 @@ body {
 
 /* Dark mode styles */
 body.dark {
-  background-color: black;
-  color: white;
+    background-color: #121212;
+    color: white;
 }
+
+
+.footer.dark {
+    background-color: #1E1E1E !important; /* Dark background for footer */
+    color: white; /* Text color for dark mode */
+}
+
 
 .navbar-light.dark {
   background-color: #1c1c1c; /* Dark background for navbar */
@@ -52,20 +59,40 @@ body.dark {
   color: white; /* Ensure nav links are white in dark mode */
 }
 
-.footer.dark {
-  background-color: #1c1c1c; /* Dark background for footer */
-  color: white; /* Text color for dark mode */
-}
 
-/* Dark mode buttons and other elements */
-.btn-secondary.dark {
-  background-color: #333;
-  border-color: #555;
+body.dark {
+    color: white;
 }
 
 .nav-link.dark {
   color: #e0e0e0;
 }
+
+
+.navbar-dark {
+    background-color: red;
+}
+
+body.dark .navbar {
+    background-color: #1E1E1E !important;
+    border-color: #333;
+}
+
+
+a.nav-link {
+    color: #4FC3F7 !important;
+}
+
+
+
+.class-cards.dark {
+    background-color: #1E1E1E; /* Dark background for cards */
+    transition: background-color 0.3s ease;
+    border-color: #E0E0E0; /* Lighter border for contrast */
+    color: white; /* Light text color */
+}
+
+
 
 /* Set table text color to white in dark mode */
 body.dark table,
@@ -73,4 +100,27 @@ body.dark table th,
 body.dark table td {
   color: white !important; /* Ensure both header and data cells are white */
   background-color: transparent; /* Optional: Set background to transparent if needed */
+}
+
+
+
+
+a:hover {
+    color: #BB86FC;
+}
+
+
+.class-cards {
+    background-color: white;
+    transition: background-color 0.3s ease;
+}
+
+.class-cards:hover {
+        background-color: #636363; /* Apply hover effect to .class-cards */
+        transform: translateY(-10px);
+        transition: transform 0.3s ease;
+}
+
+a.nav-link:hover {
+    color: white !important; /* Apply hover effect to .nav-link */
 }
