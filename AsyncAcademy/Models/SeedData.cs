@@ -235,19 +235,19 @@ namespace AsyncAcademy.Models
                         },
                         new Enrollment
                         {
-                            Id = 1,
+                            Id = 2,
                             UserId = 2,
                             CourseId = 2
                         },
                         new Enrollment
                         {
-                            Id = 1,
+                            Id = 3,
                             UserId = 2,
                             CourseId = 3
                         },
                         new Enrollment
                         {
-                            Id = 1,
+                            Id = 4,
                             UserId = 2,
                             CourseId = 4
                         });
