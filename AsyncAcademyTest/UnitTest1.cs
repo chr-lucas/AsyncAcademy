@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AsyncAcademy.Pages.Course_Pages;
 
@@ -15,24 +16,38 @@ namespace AsyncAcademyTest
     [TestClass]
     public class UnitTest1
     {
-        private readonly string _connectionString = "Data Source=titan.cs.weber.edu,10433;Initial Catalog=3750_f24_aa;User ID=3750_f24_aa;Password=AsyncAcademy*1;TrustServerCertificate=True;";
-
         [TestMethod]
         public async Task InstructorCanCreateCourseTest()
         {
-            // Setup DbContextOptions for database
+            // Use InMemory database instead of a real SQL Server database
             var options = new DbContextOptionsBuilder<AsyncAcademyContext>()
-                .UseSqlServer(_connectionString)
+                .UseInMemoryDatabase(databaseName: "AsyncAcademyTestDb")
                 .Options;
 
-            // Create the context
+            // Initialize the InMemory database context
             using (var _context = new AsyncAcademyContext(options))
             {
-                // Select the first instructor (IsProfessor == true)
-                var instructor = _context.Users.FirstOrDefault(u => u.IsProfessor);
-
-                // Ensure that an instructor exists
-                Assert.IsNotNull(instructor, "No instructor found in the database.");
+                // Seed the in-memory database with a mock instructor
+                var instructor = new User
+                {
+                    Id = 1,
+                    Username = "professor123",
+                    FirstName = "John",
+                    LastName = "Doe",
+                    Mail = "john.doe@example.com",
+                    Pass = "ValidPassword1",
+                    ConfirmPass = "ValidPassword1", // Password confirmation must match
+                    Birthday = new DateTime(1980, 5, 20), // Must pass custom validation logic
+                    IsProfessor = true,
+                    Addr_Street = "123 Main St",
+                    Addr_City = "Springfield",
+                    Addr_State = "UT",
+                    Addr_Zip = "12345",
+                    Phone = "0123456789",
+                    ProfilePath = "/images/default_pfp.png"
+                };
+                _context.Users.Add(instructor);
+                await _context.SaveChangesAsync();
 
                 // Store the instructor's userId
                 int userId = instructor.Id;
@@ -42,8 +57,8 @@ namespace AsyncAcademyTest
                 var mockSession = new Mock<ISession>();
 
                 // Simulate the session returning the instructor's userId when "CurrentUserId" is accessed
-                byte[] userIdBytes = BitConverter.GetBytes(userId); // Store the int value as byte[] like session data would
-                if (BitConverter.IsLittleEndian) // Account for Endian reversal
+                byte[] userIdBytes = BitConverter.GetBytes(userId);
+                if (BitConverter.IsLittleEndian)
                 {
                     Array.Reverse(userIdBytes);
                 }
@@ -91,10 +106,13 @@ namespace AsyncAcademyTest
                 // Assert that the number of courses has increased by one
                 Assert.AreEqual(initialCourseCount + 1, finalCourseCount);
 
-                // Clean up by removing the newly created course
+                // Optional: Clean up by removing the newly created course
                 var createdCourse = _context.Course.FirstOrDefault(c => c.CourseNumber == "101A" && c.InstructorId == userId);
-                _context.Course.Remove(createdCourse);
-                await _context.SaveChangesAsync();
+                if (createdCourse != null)
+                {
+                    _context.Course.Remove(createdCourse);
+                    await _context.SaveChangesAsync();
+                }
             }
         }
     }
