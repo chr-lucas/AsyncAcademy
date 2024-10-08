@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AsyncAcademy.Models
@@ -13,6 +14,7 @@ namespace AsyncAcademy.Models
         public int UserId { get; set; } // Foreign key to link to User
 
         [Required]
+        [Precision(14, 2)]
         public decimal AmountPaid { get; set; }
 
         [Required]
