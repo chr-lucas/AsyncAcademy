@@ -24,7 +24,7 @@ namespace AsyncAcademy.Models
                     throw new ArgumentNullException("Null AsyncAcademyContext"); // DB does not have required tables
                 }
 
-                // Look for any courses, users, departments, enrollments, assignments.
+                // Look for any courses, users.
                 if (context.Course.Any() || context.Users.Any())
                 {
                     return;   // DB already has data
