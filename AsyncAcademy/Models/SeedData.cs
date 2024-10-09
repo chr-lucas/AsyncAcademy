@@ -352,6 +352,98 @@ namespace AsyncAcademy.Models
                     transaction.Commit();
                 }
 
+                // Add test submissions for testing grading chart.
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    context.Submissions.AddRange(
+                        new Submission
+                        {
+                            Id = 1,
+                            Content = "Some Text",
+                            AssignmentId = 77,
+                            UserId = 20,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 94
+                        },
+                        new Submission
+                        {
+                            Id = 2,
+                            Content = "Some Text",
+                            AssignmentId = 77,
+                            UserId = 21,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 90
+                        },
+                        new Submission
+                        {
+                            Id = 3,
+                            Content = "Some Text",
+                            AssignmentId = 77,
+                            UserId = 22,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 83
+                        },
+                        new Submission
+                        {
+                            Id = 4,
+                            Content = "Some Text",
+                            AssignmentId = 77,
+                            UserId = 23,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 72
+                        },
+                        new Submission
+                        {
+                            Id = 5,
+                            Content = "Some Text",
+                            AssignmentId = 77,
+                            UserId = 24,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 61
+                        },
+                        new Submission
+                        {
+                            Id = 6,
+                            Content = "Some Text",
+                            AssignmentId = 77,
+                            UserId = 25,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 99
+                        },
+                        new Submission
+                        {
+                            Id = 7,
+                            Content = "Some Text",
+                            AssignmentId = 77,
+                            UserId = 26,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 0
+                        },
+                        new Submission
+                        {
+                            Id = 8,
+                            Content = "Some Text",
+                            AssignmentId = 77,
+                            UserId = 27,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 30
+                        },
+                        new Submission
+                        {
+                            Id = 9,
+                            Content = "Some Text",
+                            AssignmentId = 77,
+                            UserId = 28,
+                            Timestamp = DateTime.Now
+                        });
+                    // Temporarily override DB controlled primary key
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Submissions ON;");
+                    context.SaveChanges();
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Submissions OFF");
+                    //
+                    transaction.Commit();
+                }
+
                 context.SaveChanges(); // Save all transactions to DB.
             }
         }

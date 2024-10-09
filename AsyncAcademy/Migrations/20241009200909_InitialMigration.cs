@@ -107,6 +107,7 @@ namespace AsyncAcademy.Migrations
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AssignmentId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
+                    PointsGraded = table.Column<int>(type: "int", nullable: true),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
