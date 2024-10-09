@@ -18,6 +18,10 @@ namespace AsyncAcademy.Models
         [Required]
         public int UserId { get; set; } // Foreign key to link to User
 
+        // Not required. Fresh submissions have null for this attribute
+        // A value here means the assignment has been graded
+        public int? PointsGraded { get; set; }
+
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime Timestamp { get; set; }
