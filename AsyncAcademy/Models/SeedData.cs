@@ -25,7 +25,7 @@ namespace AsyncAcademy.Models
                 }
 
                 // Look for any courses, users, departments, enrollments, assignments.
-                if (context.Course.Any() || context.Users.Any() || context.Department.Any() || context.Enrollments.Any() || context.Assignment.Any())
+                if (context.Course.Any() || context.Users.Any())
                 {
                     return;   // DB already has data
                 }
