@@ -10,21 +10,51 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawBarChart);
+        google.charts.setOnLoadCallback(drawPieChart);
 
-        function drawChart() {
+        function drawBarChart() {
 
             var data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
-                ['Work', 11],
-                ['Eat', 2],
-                ['Commute', 2],
-                ['Watch TV', 2],
-                ['Sleep', 7]
+                ['Letter Grade', 'Number of Students', { role: 'style' }],
+                ['A', 10, 'blue'],
+                ['B', 7, 'blue'],
+                ['C', 2, 'blue'],
+                ['D', 1, 'blue'],
+                ['F', 2, 'blue']//,
+                //['Not Submitted', 8,'blue']
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2]);
+
+            var options = {
+                legend: { position: 'none' }
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_values'));
+
+            chart.draw(view, options);
+        }
+
+        function drawPieChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Status', 'Submitted'],
+                ['Submitted', 22],
+                ['Not Submitted', 8]
             ]);
 
             var options = {
-                title: 'My Daily Activities'
+                legend: 'bottom',
+                pieSliceText: 'value'
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -34,6 +64,15 @@
     </script>
 </head>
 <body>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <table class="columns" style="width:100%">
+        <tr>
+            <th style="width:60%">Student Performance by Letter Grade</th>
+            <th>Submission Status</th>
+        </tr>
+        <tr>
+            <td><div id="columnchart_values" style="border: 1px solid #ccc;"></div></td>
+            <td><div id="piechart" style="border: 1px solid #ccc;"></div></td>
+        </tr>
+    </table>
 </body>
 </html>
