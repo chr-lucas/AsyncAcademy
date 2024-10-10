@@ -16,306 +16,130 @@ namespace AsyncAcademyTest
     [TestClass]
     public class UnitTestAssignments
     {
-        [TestMethod]
-        public async Task InstructorCanCreateTextAssignmentTest()
+        private DbContextOptions<AsyncAcademyContext> _dbContextOptions;
+        private Mock<HttpContext> _mockHttpContext;
+        private Mock<ISession> _mockSession;
+        private Mock<PageContext> _mockPageContext;
+
+        
+        [TestInitialize]
+        public async Task Setup()
         {
-            // Use InMemory database instead of a real SQL Server database
-            var options = new DbContextOptionsBuilder<AsyncAcademyContext>()
+            _dbContextOptions = new DbContextOptionsBuilder<AsyncAcademyContext>()
                 .UseInMemoryDatabase(databaseName: "AsyncAcademyTestDb")
                 .Options;
 
-            // Initialize the InMemory database context
-            using (var _context = new AsyncAcademyContext(options))
+            _mockHttpContext = new Mock<HttpContext>();
+            _mockSession = new Mock<ISession>();
+            _mockHttpContext.Setup(m => m.Session).Returns(_mockSession.Object);
+
+            _mockPageContext = new Mock<PageContext>();
+            _mockPageContext.Object.HttpContext = _mockHttpContext.Object;
+
+            using (var _context = new AsyncAcademyContext(_dbContextOptions))
             {
-                // Seed the in-memory database with a mock Course
-                var testCourse = new Course
-                {
-                    InstructorId = 1, // Mock InstructorId (e.g., the instructor's UserId)
-                    CourseNumber = "101A",
-                    Department = "CS",
-                    Name = "Introduction to Programming",
-                    Description = "An introductory course to programming with C#.",
-                    CreditHours = 3,
-                    StartTime = DateTime.Parse("09:00:00"),
-                    EndTime = DateTime.Parse("11:00:00"),
-                    Location = "Room 101",
-                    StudentCapacity = 30,
-                    StudentsEnrolled = 0,
-                    MeetingTimeInfo = "MWF 9:00AM - 11:00AM",
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddMonths(4)
-                };
-
-                _context.Course.Add(testCourse);
+                _context.Users.RemoveRange(_context.Users); // Clear existing data
                 await _context.SaveChangesAsync();
+            }
+        }
 
-                // Store the course Id
-                int testCourseId = testCourse.Id;
 
-                // Mock HttpContext and ISession
-                var mockHttpContext = new Mock<HttpContext>();
-                var mockSession = new Mock<ISession>();
+        private async Task<int> SeedCourse(AsyncAcademyContext context)
+        {
+            var testCourse = new Course
+            {
+                InstructorId = 1,
+                CourseNumber = "101A",
+                Department = "CS",
+                Name = "Introduction to Programming",
+                Description = "An introductory course to programming with C#.",
+                CreditHours = 3,
+                StartTime = DateTime.Parse("09:00:00"),
+                EndTime = DateTime.Parse("11:00:00"),
+                Location = "Room 101",
+                StudentCapacity = 30,
+                StudentsEnrolled = 0,
+                MeetingTimeInfo = "MWF 9:00AM - 11:00AM",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4)
+            };
 
-                var userId = 1; // Mock instructor's userId
+            context.Course.Add(testCourse);
+            await context.SaveChangesAsync();
+            return testCourse.Id;
+        }
 
-                // Convert the userId to a byte array for session mocking
-                byte[] userIdBytes = BitConverter.GetBytes(userId);
-                if (BitConverter.IsLittleEndian)
+        private CreateModel CreateAssignmentModel(AsyncAcademyContext context, int courseId, string assignmentType)
+        {
+            return new CreateModel(context)
+            {
+                PageContext = _mockPageContext.Object,
+                Assignment = new Assignment
                 {
-                    Array.Reverse(userIdBytes);
+                    Title = $"Test{assignmentType}",
+                    MaxPoints = 10,
+                    Description = "Test",
+                    Due = DateTime.Parse("2023-10-08 09:00:00"),
+                    Type = assignmentType,
+                    CourseId = courseId
                 }
-                byte[] userIdResult = userIdBytes;
+            };
+        }
 
-                // Mock TryGetValue for "CurrentUserId" to return the instructor's UserId
-                mockSession.Setup(s => s.TryGetValue("CurrentUserId", out userIdResult)).Returns(true);
+        private void MockSessionValues(int userId, int courseId)
+        {
+            byte[] userIdBytes = BitConverter.GetBytes(userId);
+            if (BitConverter.IsLittleEndian) Array.Reverse(userIdBytes);
+            _mockSession.Setup(s => s.TryGetValue("CurrentUserId", out userIdBytes)).Returns(true);
 
-                // Simulate session for courseId
-                byte[] courseIdBytes = BitConverter.GetBytes(testCourseId);
-                if (BitConverter.IsLittleEndian)
-                {
-                    Array.Reverse(courseIdBytes);
-                }
-                byte[] courseIdResult = courseIdBytes;
-                mockSession.Setup(s => s.TryGetValue("CourseId", out courseIdResult)).Returns(true);
+            byte[] courseIdBytes = BitConverter.GetBytes(courseId);
+            if (BitConverter.IsLittleEndian) Array.Reverse(courseIdBytes);
+            _mockSession.Setup(s => s.TryGetValue("CourseId", out courseIdBytes)).Returns(true);
+        }
 
-                // Assign the mocked session to the mocked HttpContext
-                mockHttpContext.Setup(c => c.Session).Returns(mockSession.Object);
+        private async Task VerifyAssignmentCreation(AsyncAcademyContext context, int courseId, string assignmentType)
+        {
+            int initialCount = context.Assignment.Count(a => a.CourseId == courseId);
 
-                // Create a mock PageContext
-                var mockPageContext = new Mock<PageContext>();
-                mockPageContext.Object.HttpContext = mockHttpContext.Object;
+            var pageModel = CreateAssignmentModel(context, courseId, assignmentType);
+            var result = await pageModel.OnPostAsync();
 
-                // Create the PageModel instance
-                var pageModel = new CreateModel(_context)
-                {
-                    PageContext = mockPageContext.Object,
-                    Assignment = new Assignment
-                    {
-                        Title = "TestText",
-                        MaxPoints = 10,
-                        Description = "Test",
-                        Due = DateTime.Parse("2023-10-08 09:00:00"),
-                        Type = "Text Entry",
-                        CourseId = testCourseId // Link to the mock course
-                    }
-                };
+            Assert.IsInstanceOfType(result, typeof(RedirectToPageResult), $"Expected a redirect after creating {assignmentType} assignment.");
+            int finalCount = context.Assignment.Count(a => a.CourseId == courseId);
 
-                // Count how many assignments the course has initially
-                int initialAssignmentCount = _context.Assignment.Count(a => a.CourseId == testCourseId);
+            Assert.AreEqual(initialCount + 1, finalCount, $"Assignment count should increase by one after creating {assignmentType} assignment.");
+        }
 
-                // Call OnPostAsync to simulate form submission
-                var result = await pageModel.OnPostAsync();
-
-                // Ensure the result is a RedirectToPageResult
-                Assert.IsInstanceOfType(result, typeof(RedirectToPageResult), "Expected a redirect result after creating an assignment.");
-
-                // Count how many assignments the course has after adding the assignment
-                int finalAssignmentCount = _context.Assignment.Count(a => a.CourseId == testCourseId);
-
-                // Assert that the number of assignments has increased by one
-                Assert.AreEqual(initialAssignmentCount + 1, finalAssignmentCount, "The assignment count should increase by one after creation.");
+        [TestMethod]
+        public async Task InstructorCanCreateTextAssignmentTest()
+        {
+            using (var context = new AsyncAcademyContext(_dbContextOptions))
+            {
+                int courseId = await SeedCourse(context);
+                MockSessionValues(1, courseId);
+                await VerifyAssignmentCreation(context, courseId, "Text Entry");
             }
         }
 
         [TestMethod]
         public async Task InstructorCanCreateFileAssignmentTest()
         {
-            // Use InMemory database instead of a real SQL Server database
-            var options = new DbContextOptionsBuilder<AsyncAcademyContext>()
-                .UseInMemoryDatabase(databaseName: "AsyncAcademyTestDb")
-                .Options;
-
-            // Initialize the InMemory database context
-            using (var _context = new AsyncAcademyContext(options))
+            using (var context = new AsyncAcademyContext(_dbContextOptions))
             {
-                // Seed the in-memory database with a mock Course
-                var testCourse = new Course
-                {
-                    InstructorId = 1, // Mock InstructorId (e.g., the instructor's UserId)
-                    CourseNumber = "101A",
-                    Department = "CS",
-                    Name = "Introduction to Programming",
-                    Description = "An introductory course to programming with C#.",
-                    CreditHours = 3,
-                    StartTime = DateTime.Parse("09:00:00"),
-                    EndTime = DateTime.Parse("11:00:00"),
-                    Location = "Room 101",
-                    StudentCapacity = 30,
-                    StudentsEnrolled = 0,
-                    MeetingTimeInfo = "MWF 9:00AM - 11:00AM",
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddMonths(4)
-                };
-
-                _context.Course.Add(testCourse);
-                await _context.SaveChangesAsync();
-
-                // Store the course Id
-                int testCourseId = testCourse.Id;
-
-                // Mock HttpContext and ISession
-                var mockHttpContext = new Mock<HttpContext>();
-                var mockSession = new Mock<ISession>();
-
-                var userId = 1; // Mock instructor's userId
-
-                // Convert the userId to a byte array for session mocking
-                byte[] userIdBytes = BitConverter.GetBytes(userId);
-                if (BitConverter.IsLittleEndian)
-                {
-                    Array.Reverse(userIdBytes);
-                }
-                byte[] userIdResult = userIdBytes;
-
-                // Mock TryGetValue for "CurrentUserId" to return the instructor's UserId
-                mockSession.Setup(s => s.TryGetValue("CurrentUserId", out userIdResult)).Returns(true);
-
-                // Simulate session for courseId
-                byte[] courseIdBytes = BitConverter.GetBytes(testCourseId);
-                if (BitConverter.IsLittleEndian)
-                {
-                    Array.Reverse(courseIdBytes);
-                }
-                byte[] courseIdResult = courseIdBytes;
-                mockSession.Setup(s => s.TryGetValue("CourseId", out courseIdResult)).Returns(true);
-
-                // Assign the mocked session to the mocked HttpContext
-                mockHttpContext.Setup(c => c.Session).Returns(mockSession.Object);
-
-                // Create a mock PageContext
-                var mockPageContext = new Mock<PageContext>();
-                mockPageContext.Object.HttpContext = mockHttpContext.Object;
-
-                // Create the PageModel instance
-                var pageModel = new CreateModel(_context)
-                {
-                    PageContext = mockPageContext.Object,
-                    Assignment = new Assignment
-                    {
-                        Title = "TestFile",
-                        MaxPoints = 10,
-                        Description = "Test",
-                        Due = DateTime.Parse("2023-10-08 09:00:00"),
-                        Type = "File Submission",
-                        CourseId = testCourseId // Link to the mock course
-                    }
-                };
-
-                // Count how many assignments the course has initially
-                int initialAssignmentCount = _context.Assignment.Count(a => a.CourseId == testCourseId);
-
-                // Call OnPostAsync to simulate form submission
-                var result = await pageModel.OnPostAsync();
-
-                // Ensure the result is a RedirectToPageResult
-                Assert.IsInstanceOfType(result, typeof(RedirectToPageResult), "Expected a redirect result after creating an assignment.");
-
-                // Count how many assignments the course has after adding the assignment
-                int finalAssignmentCount = _context.Assignment.Count(a => a.CourseId == testCourseId);
-
-                // Assert that the number of assignments has increased by one
-                Assert.AreEqual(initialAssignmentCount + 1, finalAssignmentCount, "The assignment count should increase by one after creation.");
+                int courseId = await SeedCourse(context);
+                MockSessionValues(1, courseId);
+                await VerifyAssignmentCreation(context, courseId, "File Submission");
             }
         }
 
         [TestMethod]
-        public async Task InstructorCanCreateURltAssignmentTest()
+        public async Task InstructorCanCreateURLAssignmentTest()
         {
-            // Use InMemory database instead of a real SQL Server database
-            var options = new DbContextOptionsBuilder<AsyncAcademyContext>()
-                .UseInMemoryDatabase(databaseName: "AsyncAcademyTestDb")
-                .Options;
-
-            // Initialize the InMemory database context
-            using (var _context = new AsyncAcademyContext(options))
+            using (var context = new AsyncAcademyContext(_dbContextOptions))
             {
-                // Seed the in-memory database with a mock Course
-                var testCourse = new Course
-                {
-                    InstructorId = 1, // Mock InstructorId (e.g., the instructor's UserId)
-                    CourseNumber = "101A",
-                    Department = "CS",
-                    Name = "Introduction to Programming",
-                    Description = "An introductory course to programming with C#.",
-                    CreditHours = 3,
-                    StartTime = DateTime.Parse("09:00:00"),
-                    EndTime = DateTime.Parse("11:00:00"),
-                    Location = "Room 101",
-                    StudentCapacity = 30,
-                    StudentsEnrolled = 0,
-                    MeetingTimeInfo = "MWF 9:00AM - 11:00AM",
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddMonths(4)
-                };
-
-                _context.Course.Add(testCourse);
-                await _context.SaveChangesAsync();
-
-                // Store the course Id
-                int testCourseId = testCourse.Id;
-
-                // Mock HttpContext and ISession
-                var mockHttpContext = new Mock<HttpContext>();
-                var mockSession = new Mock<ISession>();
-
-                var userId = 1; // Mock instructor's userId
-
-                // Convert the userId to a byte array for session mocking
-                byte[] userIdBytes = BitConverter.GetBytes(userId);
-                if (BitConverter.IsLittleEndian)
-                {
-                    Array.Reverse(userIdBytes);
-                }
-                byte[] userIdResult = userIdBytes;
-
-                // Mock TryGetValue for "CurrentUserId" to return the instructor's UserId
-                mockSession.Setup(s => s.TryGetValue("CurrentUserId", out userIdResult)).Returns(true);
-
-                // Simulate session for courseId
-                byte[] courseIdBytes = BitConverter.GetBytes(testCourseId);
-                if (BitConverter.IsLittleEndian)
-                {
-                    Array.Reverse(courseIdBytes);
-                }
-                byte[] courseIdResult = courseIdBytes;
-                mockSession.Setup(s => s.TryGetValue("CourseId", out courseIdResult)).Returns(true);
-
-                // Assign the mocked session to the mocked HttpContext
-                mockHttpContext.Setup(c => c.Session).Returns(mockSession.Object);
-
-                // Create a mock PageContext
-                var mockPageContext = new Mock<PageContext>();
-                mockPageContext.Object.HttpContext = mockHttpContext.Object;
-
-                // Create the PageModel instance
-                var pageModel = new CreateModel(_context)
-                {
-                    PageContext = mockPageContext.Object,
-                    Assignment = new Assignment
-                    {
-                        Title = "TestURL",
-                        MaxPoints = 10,
-                        Description = "Test",
-                        Due = DateTime.Parse("2023-10-08 09:00:00"),
-                        Type = "URL",
-                        CourseId = testCourseId // Link to the mock course
-                    }
-                };
-
-                // Count how many assignments the course has initially
-                int initialAssignmentCount = _context.Assignment.Count(a => a.CourseId == testCourseId);
-
-                // Call OnPostAsync to simulate form submission
-                var result = await pageModel.OnPostAsync();
-
-                // Ensure the result is a RedirectToPageResult
-                Assert.IsInstanceOfType(result, typeof(RedirectToPageResult), "Expected a redirect result after creating an assignment.");
-
-                // Count how many assignments the course has after adding the assignment
-                int finalAssignmentCount = _context.Assignment.Count(a => a.CourseId == testCourseId);
-
-                // Assert that the number of assignments has increased by one
-                Assert.AreEqual(initialAssignmentCount + 1, finalAssignmentCount, "The assignment count should increase by one after creation.");
+                int courseId = await SeedCourse(context);
+                MockSessionValues(1, courseId);
+                await VerifyAssignmentCreation(context, courseId, "URL");
             }
         }
     }
