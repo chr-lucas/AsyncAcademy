@@ -1,0 +1,27 @@
+﻿@page
+@model AsyncAcademy.Pages.Assignments.SubmitFileModel
+@{
+    ViewData["Title"] = "Submit Assignment";
+}
+
+<h1>Submit Assignment: @Model.Assignment.Title</h1>
+
+<form method="post">
+    <div class="form-group">
+
+        <label asp-for="Submission.Content">Submit file: <br /></label>
+        <input type="file" asp-for="Submission.Content" />
+        <span asp-validation-for="Submission.Content" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="Assignment.Id" />
+    <input type="hidden" asp-for="Assignment.Description" />
+    <input type="hidden" asp-for="Assignment.Type" />
+    <input type="hidden" asp-for="Assignment.Title" />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<a asp-page="./Index">Back to Assignments</a>
+
+
