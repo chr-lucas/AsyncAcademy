@@ -33,7 +33,9 @@ namespace AsyncAcademy.Pages
 
         public List<Course> EnrolledCourses { get; set; } = new List<Course>();
 
-        public int AmountOwed { get; set; } =  0;
+        public Decimal AmountOwed { get; set; } =  0;
+
+        public StudentPayment StudentPaymentRecord { get; set; } = default!;
 
         public AccountModel(AsyncAcademy.Data.AsyncAcademyContext context)
         {
@@ -61,10 +63,18 @@ namespace AsyncAcademy.Pages
                                      where Enrollments.UserId == currentUserID
                                      select Course).ToListAsync();
 
-            foreach(var course in EnrolledCourses)
-            {
-                AmountOwed += course.CreditHours * 100;
-            }
+            StudentPaymentRecord = await _context.StudentPayment.FirstOrDefaultAsync(s => s.UserId == currentUserID);
+
+            AmountOwed = await _context.StudentPayment
+                .Where(s => s.UserId == currentUserID)
+                .Select(s => s.Outstanding)
+                .FirstOrDefaultAsync();
+
+
+            //foreach (var course in EnrolledCourses)
+            //{
+            //    AmountOwed += course.CreditHours * 100;
+            //}
 
 
             return Page();

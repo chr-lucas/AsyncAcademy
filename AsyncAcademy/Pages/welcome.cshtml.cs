@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
+using Stripe;
 
 namespace AsyncAcademy.Pages
 {
@@ -73,16 +74,22 @@ namespace AsyncAcademy.Pages
         WelcomeText = $"Welcome, Professor {firstname} {lastname}";
         NavBarLink = "Course Pages/InstructorIndex";
         NavBarText = "Classes";
-    }
+        NavBarAccountTabLink = "";
+        NavBarAccountText = "";
+            }
     else
     {
         WelcomeText = $"Welcome, {firstname} {lastname}";
         NavBarLink = "Course Pages/StudentIndex";
         NavBarText = "Register";
-    }
+        NavBarAccountTabLink = "/Account";
+        NavBarAccountText = "Account";
+            }
 
-    // Get all enrolled courses for the current student
-    var Enrollments = await _context.Enrollments
+
+
+            // Get all enrolled courses for the current student
+            var Enrollments = await _context.Enrollments
         .Where(e => e.UserId == currentUserID)
         .ToListAsync();
     

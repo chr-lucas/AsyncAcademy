@@ -41,6 +41,46 @@ namespace AsyncAcademy.Pages.Course_Pages
             };
 
             _context.Enrollments.Add(enrollment);
+
+
+            // Get course details to calculate StudentPayment
+            var course = await _context.Course.FirstOrDefaultAsync(c => c.Id == courseId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            decimal courseCost = course.CreditHours * 100; // Assuming 100 USD per credit hour
+
+            //Check if student already has a StudentPayment record
+            var StudentPaymentnRecord = await _context.StudentPayment
+                .FirstOrDefaultAsync(t => t.UserId == currentUserID);
+
+            if (StudentPaymentnRecord != null)
+            {
+                // Update existing StudentPayment record
+                StudentPaymentnRecord.TotalOwed += courseCost;
+                StudentPaymentnRecord.Outstanding += courseCost;  // Add the new course cost to the outstanding amount
+                StudentPaymentnRecord.LastUpdated = DateTime.Now;
+                _context.StudentPayment.Update(StudentPaymentnRecord);
+            }
+            else
+            {
+                // Create new StudentPayment record
+                var newStudentPayment = new StudentPayment
+                {
+                    UserId = currentUserID.Value,
+                    TotalOwed = courseCost,
+                    Outstanding = courseCost,
+                    TotalPaid = 0, // Assuming no payment yet
+                    LastUpdated = DateTime.Now
+                };
+                _context.StudentPayment.Add(newStudentPayment);
+            }
+
+
+
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./StudentIndex");

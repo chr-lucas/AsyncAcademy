@@ -4,6 +4,7 @@ using AsyncAcademy.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncAcademy.Migrations
 {
     [DbContext(typeof(AsyncAcademyContext))]
-    partial class AsyncAcademyContextModelSnapshot : ModelSnapshot
+    [Migration("20241005231226_AddStudentPaymentTable")]
+    partial class AddStudentPaymentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,7 +194,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("StudentPaymentId");
 
-                    b.ToTable("StudentPayment");
+                    b.ToTable("StydentPayment");
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Submission", b =>

@@ -20,5 +20,6 @@ namespace AsyncAcademy.Data
         public DbSet<AsyncAcademy.Models.Course> Course { get; set; } = default!;
         public DbSet<AsyncAcademy.Models.Department> Department { get; set; } = default!;
         public DbSet<Submission> Submissions { get; set; } = default!;
+        public DbSet<StudentPayment> StudentPayment {  get; set; } = default!;
     }
 }

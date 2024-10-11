@@ -1,0 +1,27 @@
+﻿@page
+@model AsyncAcademy.Pages.PaymentSuccessModel
+
+@{
+    ViewData["Title"] = "PaymentSuccess";
+}
+
+<h1>PaymentSuccess</h1>
+
+<h4>StudentPayment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <h1>Payment successful!</h1>
+        <p>Thank you for your payment. You will be redirected to your Account shortly...</p>
+    </div>
+</div>
+
+<script>
+    setTimeout(function () {
+        window.location.href = '/Account';
+    }, 3000);  
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
