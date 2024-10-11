@@ -50,9 +50,9 @@
             </div>
             <div class="form-group">
                 <label>Are you a student or a professor?</label>
-                <select asp-for="accountType">
-                    <option value="student" selected>Student</option>
-                    <option value="professor">Professor</option>
+                <select asp-for="Account.IsProfessor">
+                    <option value="false" selected>Student</option>
+                    <option value="true">Professor</option>
                 </select>
             </div>
             <div class="form-group">

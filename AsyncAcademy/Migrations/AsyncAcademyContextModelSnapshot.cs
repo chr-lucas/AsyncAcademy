@@ -166,32 +166,27 @@ namespace AsyncAcademy.Migrations
                     b.ToTable("Enrollments");
                 });
 
-            modelBuilder.Entity("AsyncAcademy.Models.StudentPayment", b =>
+            modelBuilder.Entity("AsyncAcademy.Models.Payment", b =>
                 {
-                    b.Property<int>("StudentPaymentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentPaymentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("LastUpdated")
+                    b.Property<decimal>("AmountPaid")
+                        .HasPrecision(14, 2)
+                        .HasColumnType("decimal(14,2)");
+
+                    b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Outstanding")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalOwed")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalPaid")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("StudentPaymentId");
+                    b.HasKey("Id");
 
-                    b.ToTable("StudentPayment");
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Submission", b =>
@@ -208,6 +203,9 @@ namespace AsyncAcademy.Migrations
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PointsGraded")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");

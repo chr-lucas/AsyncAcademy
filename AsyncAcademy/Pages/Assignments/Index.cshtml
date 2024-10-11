@@ -62,7 +62,16 @@
                     }
                     @if (!Model.Account.IsProfessor) {
                     <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
-                    <a asp-page="./Submit" asp-route-id="@item.Id" class="btn btn-success">Submit</a>
+                        @if (item.Type == "File Submission")
+                        {
+                            <a asp-page="./SubmitFile" asp-route-id="@item.Id" class="btn btn-success">Submit</a>
+
+                        }
+                        @if (item.Type == "textentry" || item.Type == "Text Entry" || item.Type == "URL") { 
+                            <a asp-page="./Submit" asp-route-id="@item.Id" class="btn btn-success">Submit</a>
+                        }
+                        
+                        
                     }
             </td>
         </tr>

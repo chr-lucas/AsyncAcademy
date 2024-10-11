@@ -83,11 +83,6 @@ namespace AsyncAcademy.Pages.Assignments
                 return Page();
             }
 
-            // Ensure the CourseId is assigned to the new assignment
-            if (ViewData["CourseId"] != null)
-            {
-                Assignment.CourseId = (int)ViewData["CourseId"];
-            }
 
             // Add the assignment to the context and save
             _context.Assignment.Add(Assignment);
