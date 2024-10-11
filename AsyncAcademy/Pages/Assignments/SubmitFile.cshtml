@@ -3,14 +3,62 @@
 @{
     ViewData["Title"] = "Submit Assignment";
 }
-
+<div>
 <h1>Submit Assignment: @Model.Assignment.Title</h1>
+@if (Model.currentGrade == null)
+{
+    <h3 style="float:right">Grade: - / @Model.Assignment.MaxPoints</h3>
 
+}
+@if (Model.currentGrade != null && Model.currentGrade >= 0)
+{
+    <h3 style="float:right">Grade: @Model.currentGrade / @Model.Assignment.MaxPoints</h3>
+}
+
+@if (Model.previousSubmissions.Count >= 1)
+{
+    <h2 style="color:green">Submitted!</h2>
+}
+</div>
+<div>
 <form method="post" enctype="multipart/form-data">
     <input type="file" asp-for="FileSubmission" />
     <input type="submit" />
 </form>
 
+
 <a href="#" onclick="history.back()" style="color:blue">Back to List</a>
+</div>
+@if (Model.currentGrade != null && Model.currentGrade >= 0)
+{
+    <div>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {packages:['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+            var oldData = google.visualization.arrayToDataTable([
+            ['Assignment', 'Grade'],
+            ['@Model.Assignment.Title', @Model.averageGrade]
+            ]);
+
+            var newData = google.visualization.arrayToDataTable([
+            ['Assignment', 'Grade'],
+            ['@Model.Assignment.Title', @Model.currentGrade]
+            ]);
+
+            var colChartDiff = new google.visualization.ColumnChart(document.getElementById('colchart_diff'));
+
+            var options = { legend: { position: 'top' } };
 
 
+            var diffData = colChartDiff.computeDiff(oldData, newData);
+            colChartDiff.draw(diffData, options);
+
+            }
+        </script>
+
+        <span id='colchart_diff' style='width: 450px; height: 250px; display: inline-block'></span>
+
+    </div>
+}

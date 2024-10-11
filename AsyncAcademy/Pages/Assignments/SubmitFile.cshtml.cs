@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
 
+//Submit assignment page for File Submission assignments, student view
+//Code below written by Hanna Whitney unless notated otherwise
+
 namespace AsyncAcademy.Pages.Assignments
 {
     public class SubmitFileModel(AsyncAcademy.Data.AsyncAcademyContext context, IWebHostEnvironment environment) : PageModel
@@ -13,6 +16,11 @@ namespace AsyncAcademy.Pages.Assignments
 
         private readonly AsyncAcademyContext _context = context;
         private IWebHostEnvironment _environment = environment;
+        public List<Submission> previousSubmissions;
+        public int? currentGrade;
+        public int? minGrade;
+        public int? maxGrade;
+        public int? averageGrade;
 
         public User Account { get; set; }
 
@@ -24,11 +32,13 @@ namespace AsyncAcademy.Pages.Assignments
 
         public Assignment Assignment { get; set; }
 
-        public Submission Submission { get; set; }
+        public Submission Submission { get; set; } = new Submission();
+
 
         public IFormFile FileSubmission { get; set; }
 
         public string FileName { get; set; }
+
 
 
         public void OnGet(int id)
@@ -67,6 +77,45 @@ namespace AsyncAcademy.Pages.Assignments
                 NotFound();
             }
 
+            //gathers any previous submissions for the user
+            previousSubmissions = [];
+            var submittedAssignments = _context.Submissions.Where(a => a.UserId == currentUserID);
+            
+            //Gather grade
+            GetUserGrade(submittedAssignments);
+
+            //gather chart data
+            var allSubmissions = _context.Submissions.Where(a => a.AssignmentId == id);
+            minGrade = allSubmissions.Min(a => a.PointsGraded);
+            maxGrade = allSubmissions.Max(a => a.PointsGraded);
+            averageGrade = (int?)allSubmissions.Average(a => a.PointsGraded);
+
+        }
+
+        //gathers grades for submitted assignments
+        private void GetUserGrade(IQueryable<Submission> submittedAssignments)
+        {
+            //searches through user submissions for assignment being viewed
+            foreach (var s in submittedAssignments)
+            {
+                if (s.AssignmentId == Assignment.Id)
+                {
+                    previousSubmissions.Add(s);
+
+                    //checks if assignment has already been graded
+                    if (s.PointsGraded >= 0 && currentGrade == null)
+                    {
+                        //updates current grade
+                        currentGrade = s.PointsGraded;
+                        break;
+                    }
+                    if (s.PointsGraded >= 0 && currentGrade < s.PointsGraded)
+                    {
+                        currentGrade = s.PointsGraded;
+                        break;
+                    }
+                }
+            }
         }
 
         public async Task<IActionResult> OnPostAsync(int id)
@@ -87,8 +136,8 @@ namespace AsyncAcademy.Pages.Assignments
 
             Assignment = await _context.Assignment.FirstOrDefaultAsync(a => a.Id == id);
 
+
             //create new submission
-            Submission = new Submission();
             Submission.AssignmentId = id;
             Submission.UserId = (int)currentUserID;
             Submission.Timestamp = DateTime.Now;

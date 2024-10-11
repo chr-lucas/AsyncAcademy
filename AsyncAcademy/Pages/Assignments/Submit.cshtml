@@ -5,6 +5,20 @@
 }
 
 <h1>Submit Assignment: @Model.Assignment.Title</h1>
+@if (Model.currentGrade == null)
+{
+    <h3 style="float:right">Grade: - / @Model.Assignment.MaxPoints</h3>
+
+}
+@if (Model.currentGrade != null && Model.currentGrade >= 0)
+{
+    <h3 style="float:right">Grade: @Model.currentGrade / @Model.Assignment.MaxPoints</h3>
+}
+
+@if (Model.previousSubmissions.Count >= 1)
+{
+    <h2 style="color:green">Submitted!</h2>
+}
 
 <form method="post">
     @if (Model.Assignment.Type == "Text Entry" || Model.Assignment.Type == "textentry")
