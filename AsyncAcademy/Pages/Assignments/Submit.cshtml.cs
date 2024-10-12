@@ -11,6 +11,9 @@ namespace AsyncAcademy.Pages.Assignments
         private readonly AsyncAcademyContext _context;
         public List<Submission> previousSubmissions; //tracks previous submissions of given assignment - Hanna w
         public int? currentGrade; //tracks current grade of given assignment  - Hanna w
+        public int? minGrade; //tracks minimum grade for chart data - Hanna w
+        public int? maxGrade; //tracks max grade for chart data - Hanna w
+        public int? averageGrade; //tracks average grade for chart data - Hanna w
 
         public SubmitModel(AsyncAcademyContext context)
         {
@@ -67,9 +70,9 @@ namespace AsyncAcademy.Pages.Assignments
 
             //gather chart data - Hanna w
             var allSubmissions = _context.Submissions.Where(a => a.AssignmentId == id);
-            int? min = allSubmissions.Min(a => a.PointsGraded);
-            int? max = allSubmissions.Max(a => a.PointsGraded);
-            int? average = (int?)allSubmissions.Average(a => a.PointsGraded);
+            minGrade = allSubmissions.Min(a => a.PointsGraded);
+            maxGrade = allSubmissions.Max(a => a.PointsGraded);
+            averageGrade = (int?)allSubmissions.Average(a => a.PointsGraded);
 
             return Page();
         }

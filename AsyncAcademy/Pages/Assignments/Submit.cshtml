@@ -41,6 +41,39 @@
         <script>window.location.href = './SubmitFile'</script>
     }
 </form>
+
+@if (Model.currentGrade != null && Model.currentGrade >= 0)
+{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart', 'bar'] });
+        google.charts.setOnLoadCallback(drawMultSeries);
+
+        function drawMultSeries() {
+            var data = google.visualization.arrayToDataTable([
+                ['Assignment', 'Your score', 'Class Minimum', 'Class Average', 'Class Maximum'],
+                ['@Model.Assignment.Title', @Model.currentGrade, @Model.minGrade, @Model.averageGrade, @Model.maxGrade],
+
+            ]);
+
+            var options = {
+                title: '@Model.Assignment.Title Grade Analytics',
+                chartArea: { width: '50%' },
+                hAxis: {
+                    title: 'Scores',
+                    minValue: 0
+                },
+
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+
+    <div id="chart_div"></div>
+
+}
     
 
 <a asp-page="./Index">Back to Assignments</a>
