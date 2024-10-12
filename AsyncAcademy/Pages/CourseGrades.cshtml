@@ -1,0 +1,32 @@
+﻿@page
+@model AsyncAcademy.Pages.CourseGradesModel
+@{
+}
+
+<h1>Grades for @Model.Course.Department @Model.Course.CourseNumber</h1>
+@{
+    if (Model.OverallGrade == -1)
+    {
+        <h2>Overall grade: N/A</h2>
+    }
+    else 
+    {
+        <h2>Overall grade: @Model.OverallGrade%</h2>
+    }
+}
+<br/>
+@for (int i = 0; i < Model.Submissions.Count; i++)
+{
+    string gradestr;
+    var points = Model.Submissions.ElementAt(i).PointsGraded;
+    if (points == null)
+    {
+        gradestr = "N/A";
+    }
+    else
+    {
+        gradestr = points.ToString();
+    }
+    <h2>@Model.CorrespondingAssignments.ElementAt(i).Title: @gradestr</h2>
+    <br/>
+}
