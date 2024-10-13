@@ -12,7 +12,6 @@
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawBarChart);
         google.charts.setOnLoadCallback(drawPieChart);
-        google.charts.setOnLoadCallback(drawStudentResult);
 
         function drawBarChart() {
 
@@ -29,7 +28,9 @@
             var view = new google.visualization.DataView(data);
             view.setColumns([0, 1,
                 {
-                    calc: "stringify",
+                    calc: function (dt, row) {
+                        return (dt.getValue(row, 1) / @Model.numSub * 100).toFixed(1) + '%';
+                    },
                     sourceColumn: 1,
                     type: "string",
                     role: "annotation"
@@ -38,7 +39,9 @@
 
             var options = {
                 legend: { position: 'none' },
-                axisTitlesPosition : 'in',
+                vAxis: {
+                    title: 'Number of Students'
+                }
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_values'));
