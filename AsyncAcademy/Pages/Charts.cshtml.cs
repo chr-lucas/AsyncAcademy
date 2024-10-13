@@ -34,6 +34,7 @@ namespace AsyncAcademy.Pages
         public int numC = 0;
         public int numD = 0;
         public int numF = 0;
+        public int numUG = 0;
         public int numSub = 0;
         public int numNotSub = 2; // Simulated for testing since I can't look up a course
 
@@ -82,6 +83,10 @@ namespace AsyncAcademy.Pages
                         else if (s.PointsGraded >= 70) { numC++;}
                         else if (s.PointsGraded >= 60) { numD++;}
                         else if (s.PointsGraded < 60) { numF++;}
+                    }
+                    else
+                    {
+                        numUG++;
                     }
                 }
             }

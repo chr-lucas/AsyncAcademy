@@ -22,8 +22,8 @@
                 ['B', @Model.numB, 'CornflowerBlue'],
                 ['C', @Model.numC, 'CornflowerBlue'],
                 ['D', @Model.numD, 'CornflowerBlue'],
-                ['F', @Model.numF, 'CornflowerBlue']//,
-                //['Not Submitted', 8,'blue']
+                ['F', @Model.numF, 'CornflowerBlue'],
+                ['Not Yet Graded', @Model.numUG,'IndianRed']
             ]);
 
             var view = new google.visualization.DataView(data);
@@ -37,7 +37,8 @@
                 2]);
 
             var options = {
-                legend: { position: 'none' }
+                legend: { position: 'none' },
+                axisTitlesPosition : 'in',
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_values'));
