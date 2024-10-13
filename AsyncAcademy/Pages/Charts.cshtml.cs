@@ -2,6 +2,8 @@ using AsyncAcademy.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Linq.Expressions;
 
 namespace AsyncAcademy.Pages
 {
@@ -21,9 +23,19 @@ namespace AsyncAcademy.Pages
         public string NavBarText { get; set;}
 
         public User Account { get; set; }
+        public Assignment Assignment { get; set; } // Get via OnGet()
+        public Course Course { get; set; }
 
-
-
+        public List<Submission> Submissions = []; // temp store for DB querry
+        
+        // Counter variables for chart data
+        public int numA = 0;
+        public int numB = 0;
+        public int numC = 0;
+        public int numD = 0;
+        public int numF = 0;
+        public int numSub = 0;
+        public int numNotSub = 2; // Simulated for testing since I can't look up a course
 
         public void OnGet()
         {
@@ -49,8 +61,33 @@ namespace AsyncAcademy.Pages
                 NavBarText = "Register";
             }
 
+            // Get details about the current assignment
+            // currently hardcoded to test case, so this logic is not used
+            // Assignment = _context.Assignment.FirstOrDefault(a => a.Id == passedAssignmentId);
+            // Course = _context.Course.FirstOrDefault(c => c.Id == Assignment.CourseId);
 
-            //chart functionality will be added in later sprints
+
+            // Get details about submissions for the current assignment
+            // currently hardcoded to test case
+            foreach (Submission s in _context.Submissions)
+            {
+                if (s.AssignmentId == 77)
+                {
+                    numSub++; // Count number of submissions
+                    // Sort data by grade
+                    if (s.PointsGraded.HasValue) // Only counts graded submissions
+                    {
+                        if (s.PointsGraded >= 90) { numA++;}
+                        else if (s.PointsGraded >= 80) { numB++;}
+                        else if (s.PointsGraded >= 70) { numC++;}
+                        else if (s.PointsGraded >= 60) { numD++;}
+                        else if (s.PointsGraded < 60) { numF++;}
+                    }
+                }
+            }
+
+            // Calculate number of students without a submission for this assignment
+            //numNotSub = Course.StudentsEnrolled - numSub;
         }
     }
 }

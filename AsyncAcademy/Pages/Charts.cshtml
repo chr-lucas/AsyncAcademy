@@ -12,16 +12,17 @@
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawBarChart);
         google.charts.setOnLoadCallback(drawPieChart);
+        google.charts.setOnLoadCallback(drawStudentResult);
 
         function drawBarChart() {
 
             var data = google.visualization.arrayToDataTable([
                 ['Letter Grade', 'Number of Students', { role: 'style' }],
-                ['A', 10, 'blue'],
-                ['B', 7, 'blue'],
-                ['C', 2, 'blue'],
-                ['D', 1, 'blue'],
-                ['F', 2, 'blue']//,
+                ['A', @Model.numA, 'CornflowerBlue'],
+                ['B', @Model.numB, 'CornflowerBlue'],
+                ['C', @Model.numC, 'CornflowerBlue'],
+                ['D', @Model.numD, 'CornflowerBlue'],
+                ['F', @Model.numF, 'CornflowerBlue']//,
                 //['Not Submitted', 8,'blue']
             ]);
 
@@ -48,13 +49,14 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Status', 'Submitted'],
-                ['Submitted', 22],
-                ['Not Submitted', 8]
+                ['Submitted', @Model.numSub],
+                ['Not Submitted', @Model.numNotSub]
             ]);
 
             var options = {
                 legend: 'bottom',
-                pieSliceText: 'value'
+                pieSliceText: 'value',
+                colors: ['CornflowerBlue', 'IndianRed']
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -66,7 +68,7 @@
 <body>
     <table class="columns" style="width:100%">
         <tr>
-            <th style="width:60%">Student Performance by Letter Grade</th>
+            <th style="width:70%">Student Performance by Letter Grade</th>
             <th>Submission Status</th>
         </tr>
         <tr>
