@@ -12,7 +12,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h3>Student owes: <b> @Model.AmountOwed.ToString("C")</b> </h3>
+        <h3>Student owes: <b> @Model.StudentPaymentBalance.ToString("C")</b> </h3>
     </div>
     <div class="col-md-4">
         <h3>Enrolled Courses: </h3>
@@ -31,7 +31,8 @@
 
 <div class="row">
     <div class="col-md-6">
-        <button class="btn-primary" id="checkout-button" onclick="checkOutFunction( @Model.AmountOwed)">Pay</button>
+        <button class="btn-primary" id="checkout-button" onclick="checkOutFunction( @Model.StudentPaymentBalance)">Pay</button>
+        <button> <a asp-area="" asp-page="/PaymentSuccess">PaymentSuccess Page</a></button>
     </div>
     
 
@@ -60,6 +61,7 @@
                 return stripe.redirectToCheckout({ sessionId: session.id });
             })
             .then(function (result) {
+                console.log(result);
                 if (result.error) {
                     alert(result.error.message);
                 }

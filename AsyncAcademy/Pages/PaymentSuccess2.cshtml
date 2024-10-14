@@ -1,9 +1,12 @@
-﻿@page
-@model AsyncAcademy.Pages.PaymentSuccessModel
-@{
-}
+﻿@page 
+@model AsyncAcademy.Pages.PaymentSuccess2Model
 
-@* <h1>PaymentSuccess</h1>
+@* @{
+    ViewData["Title"] = "PaymentSuccess";
+    int? currentUserId = Model.UserId;
+}
+ *@
+<h1>PaymentSuccess2222222222</h1>
 
 <h4>StudentPayment</h4>
 <hr />
@@ -14,18 +17,13 @@
     </div>
 </div>
 
-<script>
+@* <script>
     setTimeout(function () {
         window.location.href = '/Account';
-    }, 3000);
+    }, 3000);  
 </script>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-} *@
-
-
-
-<h2> TEST</h2>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+ *@

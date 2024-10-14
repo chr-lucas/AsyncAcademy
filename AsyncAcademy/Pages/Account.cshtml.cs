@@ -33,9 +33,9 @@ namespace AsyncAcademy.Pages
 
         public List<Course> EnrolledCourses { get; set; } = new List<Course>();
 
-        public Decimal AmountOwed { get; set; } =  0;
+        public Decimal StudentPaymentBalance { get; set; } =  0;
 
-        public StudentPayment StudentPaymentRecord { get; set; } = default!;
+        public Payment PaymentRecord { get; set; } = default!;
 
         public AccountModel(AsyncAcademy.Data.AsyncAcademyContext context)
         {
@@ -63,18 +63,32 @@ namespace AsyncAcademy.Pages
                                      where Enrollments.UserId == currentUserID
                                      select Course).ToListAsync();
 
-            StudentPaymentRecord = await _context.StudentPayment.FirstOrDefaultAsync(s => s.UserId == currentUserID);
+            //Calculate the total amount for all courses:
+            decimal totalCourseCost = 0;
+            foreach(var course in EnrolledCourses)
+            {
+                totalCourseCost += course.CreditHours * 100;
+            }
 
-            AmountOwed = await _context.StudentPayment
-                .Where(s => s.UserId == currentUserID)
-                .Select(s => s.Outstanding)
-                .FirstOrDefaultAsync();
+            //Calculate the total payments made by the student:
+            var totalPaymentsMade = await _context.Payments.Where(p => p.UserId == currentUserID).SumAsync(p => p.AmountPaid);
 
+            //The balance owed is the total course cost minus the payments made by the student:
+            StudentPaymentBalance = totalCourseCost - totalPaymentsMade;
 
-            //foreach (var course in EnrolledCourses)
+            //PaymentRecord = await _context.Payments.FirstOrDefaultAsync(s => s.UserId == currentUserID);
+
+            //StudentPaymentBalance = await _context.Payments
+            //    .Where(s => s.UserId == currentUserID)
+            //    .Select(s => s.AmountPaid)
+            //    .FirstOrDefaultAsync();
+
+            //foreach(var course in EnrolledCourses)
             //{
-            //    AmountOwed += course.CreditHours * 100;
+            //    var amountDue = course.CreditHours * 100;
+            //    StudentPaymentBalance -= amountDue;
             //}
+
 
 
             return Page();

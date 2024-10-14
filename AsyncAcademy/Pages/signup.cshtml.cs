@@ -46,16 +46,14 @@ namespace AsyncAcademy.Pages
 
             if (!Account.IsProfessor)  // Only for students -> We will create an entry in StudenyPayment table
             {
-                var newStudentPayment = new StudentPayment
+                var newStudentPayment = new Payment
                 {
                     UserId = Account.Id,    
-                    TotalOwed = 0,          // No classes signed up yet 
-                    Outstanding = 0,        // No classes signed up yet 
-                    TotalPaid = 0,          // No payment made yet
-                    LastUpdated = DateTime.Now
+                    AmountPaid = 0,          // No classes signed up yet 
+                    Timestamp = DateTime.Now
                 };
 
-                _context.StudentPayment.Add(newStudentPayment);
+                _context.Payments.Add(newStudentPayment);
                 await _context.SaveChangesAsync();
             }
 

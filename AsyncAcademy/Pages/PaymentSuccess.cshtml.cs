@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,12 +32,12 @@ namespace AsyncAcademy.Pages
             //    return RedirectToPage("/Account/Login"); 
 
 
-                
+
             return Page();
         }
 
         [BindProperty]
-        public StudentPayment StudentPayment { get; set; } = default!;
+        public Payment StudentPayment { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -47,7 +47,7 @@ namespace AsyncAcademy.Pages
                 return Page();
             }
 
-            _context.StudentPayment.Add(StudentPayment);
+            _context.Payments.Add(StudentPayment);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
