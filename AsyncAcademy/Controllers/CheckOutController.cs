@@ -41,9 +41,9 @@ namespace AsyncAcademy.Controllers
                 },
             },
                 Mode = "payment",
-                //SuccessUrl = $"http://localhost:7082/PaymentSuccess?session_id={{CHECKOUT_SESSION_ID}}",  // Add session ID to the success URL
-                SuccessUrl = $"http://localhost:7082/PaymentSuccess",  
-                CancelUrl = "http://localhost:4242/PaymentCanceled",
+                SuccessUrl = "https://localhost:7082/PaymentSuccess?session_id={CHECKOUT_SESSION_ID}",  // Add session ID to the success URL
+                //SuccessUrl = "https://localhost:7082/PaymentSuccess",  
+                CancelUrl = "https://localhost:7082/PaymentCanceled",
                 ClientReferenceId = currentUserID.ToString()
             };
 
@@ -169,155 +169,169 @@ namespace AsyncAcademy.Controllers
 
 
     //API controller to handle successful payments and update the payment amount info in the db:
-    [Route("PaymentSuccess")]
-    public class PaymentSuccessController : Controller
-    {
-        private readonly AsyncAcademyContext _context;
-        public PaymentSuccessController(AsyncAcademyContext context)
-        {
-            _context = context;
-        }
-
-        [HttpPost]
-        public async void OnPaymentSuccess(int userId, decimal amountPaid)
-        {
-            var studentPaymentRecord = await _context.Payments.FirstOrDefaultAsync(s => s.UserId == userId);
-
-            if (studentPaymentRecord != null)
-            {
-                //We update the outstanding amount here:
-                studentPaymentRecord.AmountPaid -= amountPaid;
-                //Console.WriteLine("PaymentSuccess router was used");
-
-                //Time stamp when this payments happened:
-                studentPaymentRecord.Timestamp = DateTime.Now;
-
-                //Save all the changes to the db:
-                _context.Payments.Update(studentPaymentRecord);
-                await _context.SaveChangesAsync();
-            }
-
-            //return RedirectToAction("Account", "YourAccountPageController");
-
-            //return Redirect("PaymentSuccess");
-
-
-        }
-    }
-
-
     //[Route("PaymentSuccess")]
     //public class PaymentSuccessController : Controller
     //{
     //    private readonly AsyncAcademyContext _context;
-
     //    public PaymentSuccessController(AsyncAcademyContext context)
     //    {
     //        _context = context;
     //    }
 
-    //    [HttpGet]
-    //    public async Task<IActionResult> OnPaymentSuccess(string sessionId)
+    //    [HttpPost]
+    //    public async void OnPaymentSuccess(int userId, decimal amountPaid)
     //    {
-    //        // Fetch the Stripe session using the session ID
-    //        var service = new SessionService();
-    //        var session = await service.GetAsync(sessionId);
+    //        var studentPaymentRecord = await _context.Payments.FirstOrDefaultAsync(s => s.UserId == userId);
 
-    //        // Check that the session was completed successfully
-    //        if (session.PaymentStatus == "paid")
+    //        if (studentPaymentRecord != null)
     //        {
-    //            // Get the client reference ID (which is the userId)
-    //            var userId = int.Parse(session.ClientReferenceId);
+    //            //We update the outstanding amount here:
+    //            studentPaymentRecord.AmountPaid -= amountPaid;
+    //            //Console.WriteLine("PaymentSuccess router was used");
 
-    //            // Get the total amount paid (Stripe stores amounts in cents)
-    //            decimal amountPaid = (decimal)session.AmountTotal / 100m;
+    //            //Time stamp when this payments happened:
+    //            studentPaymentRecord.Timestamp = DateTime.Now;
 
-    //            // Find the user's payment record
-    //            var paymentRecord = await _context.Payments.FirstOrDefaultAsync(s => s.UserId == userId);
-
-    //            if (paymentRecord != null)
-    //            {
-    //                // Update existing payment record
-    //                paymentRecord.AmountPaid += amountPaid;
-    //                paymentRecord.Timestamp = DateTime.Now;
-
-    //                _context.Payments.Update(paymentRecord);
-    //                await _context.SaveChangesAsync();
-    //            }
-    //            else
-    //            {
-    //                // Create a new payment record if none exists
-    //                var newPayment = new Payment
-    //                {
-    //                    UserId = userId,
-    //                    AmountPaid = amountPaid,
-    //                    Timestamp = DateTime.Now
-    //                };
-    //                _context.Payments.Add(newPayment);
-    //                await _context.SaveChangesAsync();
-    //            }
+    //            //Save all the changes to the db:
+    //            _context.Payments.Update(studentPaymentRecord);
+    //            await _context.SaveChangesAsync();
     //        }
 
-    //        return RedirectToPage("/Account");
+    //        //return RedirectToAction("Account", "YourAccountPageController");
+
+    //        //return Redirect("PaymentSuccess");
+
+
     //    }
     //}
 
 
-
-
-    [Route("api/webhooks/stripe")]
-    [ApiController]
-    public class WebHookController : Controller
+    [Route("PaymentSuccess")]
+    public class PaymentSuccessController : Controller
     {
         private readonly AsyncAcademyContext _context;
 
-        public WebHookController(AsyncAcademyContext context)
+        public PaymentSuccessController(AsyncAcademyContext context)
         {
             _context = context;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> HandleStripeEvent()
+        [HttpGet]
+        public async Task<IActionResult> OnPaymentSuccess([FromQuery] string session_id)
         {
-            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            // Fetch the Stripe session using the session ID
+            var service = new SessionService();
+            System.Diagnostics.Debug.WriteLine(Request);
+            var session = await service.GetAsync(session_id);
 
-            try
+            // Check that the session was completed successfully
+            if (session.PaymentStatus == "paid")
             {
-                var stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], "whsec_6fdMyVUL25owPksvtY6vBNnaKxW9PXrd");//UPDATE THIS
-                Console.WriteLine("PaymentSuccess router was used");
+                // Get the client reference ID (which is the userId)
+                var userId = int.Parse(session.ClientReferenceId);
 
-                if (stripeEvent.Type == "checkout.session.completed")
+                // Get the total amount paid (Stripe stores amounts in cents)
+                decimal amountPaid = (decimal)session.AmountTotal / 100m;
+
+                // Find the user's payment record
+                var paymentRecord = await _context.Payments.FirstOrDefaultAsync(s => s.UserId == userId);
+
+                if (paymentRecord != null)
                 {
-                    var session = stripeEvent.Data.Object as Session;
+                    // Update existing payment record
+                    paymentRecord.AmountPaid += amountPaid;
+                    paymentRecord.Timestamp = DateTime.Now;
 
-                    //We retrieve payment details:
-                    var userId = session.ClientReferenceId;
-                    var amountPaid = session.AmountTotal / 100m; //Stripe stores amounts in cents, this converts it to dollars
-
-
-                    //Find the user in your database and update the Payments table
-                    var paymentRecord = await _context.Payments.FirstOrDefaultAsync(p => p.UserId == int.Parse(userId));
-
-                    if (paymentRecord != null)
-                    {
-                        // If amountPaid is null, set it to 0 as a default value
-                        paymentRecord.AmountPaid += amountPaid ?? 0m;
-                        paymentRecord.Timestamp = DateTime.Now;
-
-                        //We save the changes to the db:
-                        _context.Payments.Update(paymentRecord);
-                        await _context.SaveChangesAsync();
-                    }
+                    _context.Payments.Update(paymentRecord);
+                    await _context.SaveChangesAsync();
                 }
-
-                return Ok();
+                else
+                {
+                    // Create a new payment record if none exists
+                    var newPayment = new Payment
+                    {
+                        UserId = userId,
+                        AmountPaid = amountPaid,
+                        Timestamp = DateTime.Now
+                    };
+                    _context.Payments.Add(newPayment);
+                    await _context.SaveChangesAsync();
+                }
             }
 
-            catch (StripeException e)
-            {
-                return BadRequest();
-            }
+            return RedirectToPage("/Account");
         }
     }
+
+
+
+
+    //[Route("api/webhooks/stripe")]
+    //[ApiController]
+    //public class WebHookController : Controller
+    //{
+    //    private readonly AsyncAcademyContext _context;
+
+    //    public WebHookController(AsyncAcademyContext context)
+    //    {
+    //        _context = context;
+    //    }
+
+    //    [HttpPost]
+    //    public async Task<IActionResult> HandleStripeEvent()
+    //    {
+    //        var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+    //        Console.WriteLine("Received Stripe webhook payload: " + json);
+    //        var stripeSignature = Request.Headers["Stripe-Signature"];
+    //        var STRIPE_WEBHOOK_SECRET = "whsec_6fdMyVUL25owPksvtY6vBNnaKxW9PXrd";
+    //        Console.WriteLine("TESTING WEBHOOK!");
+
+    //        try
+    //        {
+    //            var stripeEvent = EventUtility.ConstructEvent(json, stripeSignature, STRIPE_WEBHOOK_SECRET);
+    //            Console.WriteLine("PaymentSuccess router was used");
+
+    //            if (stripeEvent.Type == "checkout.session.completed")
+    //            {
+    //                var session = stripeEvent.Data.Object as Session;
+    //                Console.WriteLine("TESTING WEBHOOK 1");
+
+    //                //We retrieve payment details:
+    //                var userId = int.Parse(session.ClientReferenceId);
+    //                var amountPaid = session.AmountTotal / 100m; //Stripe stores amounts in cents, this converts it to dollars
+
+
+    //                //Find the user in your database and update the Payments table
+    //                var paymentRecord = await _context.Payments.FirstOrDefaultAsync(p => p.UserId == userId);
+
+    //                if (paymentRecord != null)
+    //                {
+    //                    // If amountPaid is null, set it to 0 as a default value
+    //                    paymentRecord.AmountPaid += amountPaid ?? 0m;
+    //                    paymentRecord.Timestamp = DateTime.Now;
+
+    //                    //We save the changes to the db:
+    //                    _context.Payments.Update(paymentRecord);
+    //                    await _context.SaveChangesAsync();
+
+    //                    Console.WriteLine($"Payment record updated for user {userId}. Amount paid: {amountPaid}");
+    //                }
+
+    //                else
+    //                {
+    //                    Console.WriteLine($"No payment record found for user {userId}");
+    //                }
+    //            }
+
+    //            return Ok();
+    //        }
+
+    //        catch (StripeException e)
+    //        {
+    //            Console.WriteLine($"Stripe webhook error: {e.Message}");
+    //            return BadRequest(new { error = e.Message });
+    //        }
+    //    }
+    //}
 
 }

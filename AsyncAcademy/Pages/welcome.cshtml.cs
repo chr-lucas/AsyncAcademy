@@ -116,15 +116,17 @@ namespace AsyncAcademy.Pages
                 .ToListAsync();
 
             // Check for dropped courses
-           // var droppedCourses = await _context.DroppedCourses  //we don't currently have a DroppedCourses in the database 
-             //   .Where(d => d.UserId == userId)
-               // .ToListAsync();
+            // var droppedCourses = await _context.DroppedCourses  //we don't currently have a DroppedCourses in the database 
+            //   .Where(d => d.UserId == userId)
+            // .ToListAsync();
 
             //if (droppedCourses.Any())
             //{
-                // Run queries related to dropped courses
-                // For example, log the drop event or update user data
+            // Run queries related to dropped courses
+            // For example, log the drop event or update user data
             //}
+
+            return Page();
         }
     }
 }
