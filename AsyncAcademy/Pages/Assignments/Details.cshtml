@@ -47,7 +47,7 @@
             @for (int i = 0; i < Model.Submissions.Count; i++)
             {
                 var submission = Model.Submissions.ElementAt(i);
-                string assignmentname = Model.CorrespondingAssignment.ElementAt(i).Title;
+                string assignmentname = Model.Usernames.ElementAt(i) + " - " + Model.CorrespondingAssignment.ElementAt(i).Title;
                 string url = "SubmissionDetails?id="+submission.Id.ToString();
                 <a href="@url">
                     @assignmentname

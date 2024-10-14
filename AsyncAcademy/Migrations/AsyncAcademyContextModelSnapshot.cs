@@ -54,7 +54,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Assignment");
+                    b.ToTable("Assignment", (string)null);
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Course", b =>
@@ -121,7 +121,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Course");
+                    b.ToTable("Course", (string)null);
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Department", b =>
@@ -144,7 +144,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Department");
+                    b.ToTable("Department", (string)null);
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Enrollment", b =>
@@ -163,7 +163,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Enrollments");
+                    b.ToTable("Enrollments", (string)null);
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Payment", b =>
@@ -186,7 +186,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Submission", b =>
@@ -215,7 +215,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Submissions");
+                    b.ToTable("Submissions", (string)null);
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.User", b =>
@@ -282,7 +282,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 #pragma warning restore 612, 618
         }
