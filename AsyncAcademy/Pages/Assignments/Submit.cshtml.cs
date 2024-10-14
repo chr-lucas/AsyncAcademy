@@ -9,6 +9,11 @@ namespace AsyncAcademy.Pages.Assignments
     public class SubmitModel : PageModel
     {
         private readonly AsyncAcademyContext _context;
+        public List<Submission> previousSubmissions; //tracks previous submissions of given assignment - Hanna w
+        public int? currentGrade; //tracks current grade of given assignment  - Hanna w
+        public int? minGrade; //tracks minimum grade for chart data - Hanna w
+        public int? maxGrade; //tracks max grade for chart data - Hanna w
+        public int? averageGrade; //tracks average grade for chart data - Hanna w
 
         public SubmitModel(AsyncAcademyContext context)
         {
@@ -23,11 +28,51 @@ namespace AsyncAcademy.Pages.Assignments
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
+
             Assignment = await _context.Assignment.FirstOrDefaultAsync(a => a.Id == id);
             if (Assignment == null)
             {
                 return NotFound();
             }
+
+            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+
+            if (currentUserID == null)
+            {
+                NotFound();
+            }
+
+            //gathers any previous submissions for the user - Hanna w
+            previousSubmissions = [];
+            var submittedAssignments = _context.Submissions.Where(a => a.UserId == currentUserID);
+
+            //searches through user submissions for assignment being viewed - Hanna w
+            foreach (var s in submittedAssignments)
+            {
+                if (s.AssignmentId == Assignment.Id)
+                {
+                    previousSubmissions.Add(s);
+
+                    //checks if assignment has already been graded - Hanna w
+                    if (s.PointsGraded >= 0 && currentGrade == null)
+                    {
+                        //updates current grade - Hanna w
+                        currentGrade = s.PointsGraded;
+                        break;
+                    }
+                    if (s.PointsGraded >= 0 && currentGrade < s.PointsGraded)
+                    {
+                        currentGrade = s.PointsGraded;
+                        break;
+                    }
+                }
+            }
+
+            //gather chart data - Hanna w
+            var allSubmissions = _context.Submissions.Where(a => a.AssignmentId == id);
+            minGrade = allSubmissions.Min(a => a.PointsGraded);
+            maxGrade = allSubmissions.Max(a => a.PointsGraded);
+            averageGrade = (int?)allSubmissions.Average(a => a.PointsGraded);
 
             return Page();
         }

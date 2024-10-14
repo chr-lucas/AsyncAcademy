@@ -5,6 +5,20 @@
 }
 
 <h1>Submit Assignment: @Model.Assignment.Title</h1>
+@if (Model.currentGrade == null)
+{
+    <h3 style="float:right">Grade: - / @Model.Assignment.MaxPoints</h3>
+
+}
+@if (Model.currentGrade != null && Model.currentGrade >= 0)
+{
+    <h3 style="float:right">Grade: @Model.currentGrade / @Model.Assignment.MaxPoints</h3>
+}
+
+@if (Model.previousSubmissions.Count >= 1)
+{
+    <h2 style="color:green">Submitted!</h2>
+}
 
 <form method="post">
     @if (Model.Assignment.Type == "Text Entry" || Model.Assignment.Type == "textentry")
@@ -27,6 +41,39 @@
         <script>window.location.href = './SubmitFile'</script>
     }
 </form>
+
+@if (Model.currentGrade != null && Model.currentGrade >= 0)
+{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart', 'bar'] });
+        google.charts.setOnLoadCallback(drawMultSeries);
+
+        function drawMultSeries() {
+            var data = google.visualization.arrayToDataTable([
+                ['Assignment', 'Your score', 'Class Minimum', 'Class Average', 'Class Maximum'],
+                ['@Model.Assignment.Title', @Model.currentGrade, @Model.minGrade, @Model.averageGrade, @Model.maxGrade],
+
+            ]);
+
+            var options = {
+                title: '@Model.Assignment.Title Grade Analytics',
+                chartArea: { width: '50%' },
+                hAxis: {
+                    title: 'Scores',
+                    minValue: 0
+                },
+
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+
+    <div id="chart_div"></div>
+
+}
     
 
 <a asp-page="./Index">Back to Assignments</a>

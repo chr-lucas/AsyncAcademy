@@ -28,6 +28,10 @@ namespace AsyncAcademy.Pages.Assignments
 
         public Course Course { get; set; }
 
+        public List<Submission> Submissions = new List<Submission>();
+
+        public List<Assignment> CorrespondingAssignment = new List<Assignment>();
+
         [ViewData]
         public string NavBarLink { get; set; }
 
@@ -46,6 +50,12 @@ namespace AsyncAcademy.Pages.Assignments
             }
 
             Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
+
+            // Pull all submissions for account
+            Submissions = _context.Submissions.Where(a => a.UserId == currentUserID).ToList();
+            foreach (var submission in Submissions) {
+                CorrespondingAssignment.Add(_context.Assignment.First(a => a.Id == submission.AssignmentId));
+            }
 
             if (Account == null)
             {

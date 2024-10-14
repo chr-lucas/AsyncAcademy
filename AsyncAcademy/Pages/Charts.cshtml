@@ -17,18 +17,20 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Letter Grade', 'Number of Students', { role: 'style' }],
-                ['A', 10, 'blue'],
-                ['B', 7, 'blue'],
-                ['C', 2, 'blue'],
-                ['D', 1, 'blue'],
-                ['F', 2, 'blue']//,
-                //['Not Submitted', 8,'blue']
+                ['A', @Model.numA, 'CornflowerBlue'],
+                ['B', @Model.numB, 'CornflowerBlue'],
+                ['C', @Model.numC, 'CornflowerBlue'],
+                ['D', @Model.numD, 'CornflowerBlue'],
+                ['F', @Model.numF, 'CornflowerBlue'],
+                ['Not Yet Graded', @Model.numUG,'IndianRed']
             ]);
 
             var view = new google.visualization.DataView(data);
             view.setColumns([0, 1,
                 {
-                    calc: "stringify",
+                    calc: function (dt, row) {
+                        return (dt.getValue(row, 1) / @Model.numSub * 100).toFixed(1) + '%';
+                    },
                     sourceColumn: 1,
                     type: "string",
                     role: "annotation"
@@ -36,7 +38,10 @@
                 2]);
 
             var options = {
-                legend: { position: 'none' }
+                legend: { position: 'none' },
+                vAxis: {
+                    title: 'Number of Students'
+                }
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_values'));
@@ -48,13 +53,14 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Status', 'Submitted'],
-                ['Submitted', 22],
-                ['Not Submitted', 8]
+                ['Submitted', @Model.numSub],
+                ['Not Submitted', @Model.numNotSub]
             ]);
 
             var options = {
                 legend: 'bottom',
-                pieSliceText: 'value'
+                pieSliceText: 'value',
+                colors: ['CornflowerBlue', 'IndianRed']
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -66,7 +72,7 @@
 <body>
     <table class="columns" style="width:100%">
         <tr>
-            <th style="width:60%">Student Performance by Letter Grade</th>
+            <th style="width:70%">Student Performance by Letter Grade</th>
             <th>Submission Status</th>
         </tr>
         <tr>
