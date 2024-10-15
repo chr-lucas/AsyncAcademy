@@ -18,6 +18,8 @@ namespace AsyncAcademy.Pages
             _context = context;
         }
 
+        public bool isProfessor = false;
+
         public Course Course { get; set; }
 
         [ViewData]
@@ -60,6 +62,7 @@ namespace AsyncAcademy.Pages
 
              if (Account.IsProfessor) 
             {
+                isProfessor = true;
                 //WelcomeText = $"Welcome, Professor {firstname} {lastname}";
                 // Set ViewData variables for instructors
                 NavBarLink = "Course Pages/InstructorIndex"; // Set NavBarLink directly

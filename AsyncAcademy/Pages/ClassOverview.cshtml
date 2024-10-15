@@ -17,7 +17,12 @@
         <ul>
             <!--edited by Hanna W to change page asp-page address -->
             <li><a asp-page="/Assignments/Index" asp-route-courseId="@Model.Course.Id">Assignments</a></li>
-            <li><a asp-page="CourseGrades" asp-route-courseId="@Model.Course.Id">Grades</a></li>
+            @{
+                if (!Model.isProfessor)
+                {
+                    <li><a asp-page="CourseGrades" asp-route-courseId="@Model.Course.Id">Grades</a></li>
+                }
+            }
             
         </ul>
     </div>
