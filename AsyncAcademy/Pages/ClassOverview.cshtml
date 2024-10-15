@@ -20,6 +20,8 @@
             @{
                 if (!Model.isProfessor)
                 {
+                    // We might decide to actually do something with the grades section for the instructor view
+                    // But for now it has no functionality for instructors, so we might as well hide it
                     <li><a asp-page="CourseGrades" asp-route-courseId="@Model.Course.Id">Grades</a></li>
                 }
             }

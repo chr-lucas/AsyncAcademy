@@ -22,6 +22,8 @@ namespace AsyncAcademy.Pages
 
         public int OverallGrade = 0;
 
+        public int OverallMaximumPoints = 0;
+
         public async Task<IActionResult> OnGetAsync(int courseId) {
             Course = await _context.Course.FirstOrDefaultAsync(c => c.Id == courseId);
             int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
@@ -29,22 +31,24 @@ namespace AsyncAcademy.Pages
             foreach (var submission in Submissions) {
                 CorrespondingAssignments.Add(await _context.Assignment.FirstOrDefaultAsync(a => a.Id == submission.AssignmentId));
             }
-            int i = 0;
-            foreach (var submission in Submissions) {
+            for (int i = 0; i < Submissions.Count; i++) {
+                Submission submission = Submissions[i];
+                Assignment assignment = CorrespondingAssignments[i];
                 if (submission.PointsGraded == null)
                 {
                     continue;
                 }
                 OverallGrade += (int)submission.PointsGraded;
-                i++;
+                OverallMaximumPoints += (int)assignment.MaxPoints;
             }
-            if (i == 0)
+            if (OverallMaximumPoints == 0)
             {
                 OverallGrade = -1;
             }
             else
             {
-                OverallGrade /= i;
+                OverallGrade /= OverallMaximumPoints;
+                OverallGrade *= 100;
             }
 
             return Page();
