@@ -2,10 +2,23 @@
 @model AsyncAcademy.Pages.Assignments.SubmissionDetailsModel
 @{
 }
-
-<h1>Submission for @Model.Assignment.Title</h1>
-<br/>
-<h2>Submitted at @Model.Submission.Timestamp</h2>
-<br/>
-@Model.Submission.Content
-
+<h1>Submission for @Model.Assignment.Title<br /></h1>
+<h4>Submitted by @Model.Student.FirstName @Model.Student.LastName at @Model.Submission.Timestamp</h4>
+<p>Answer:<br />@Model.Submission.Content</p>
+<div class="col-md-2">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <label asp-for="@Model.Submission.PointsGraded" class="control-label">Grade:&nbsp;</label><br />
+        <div class="form-group" style="display:flex; flex-direction: row;">
+            <input asp-for="@Model.Submission.PointsGraded" class="form-control"/>
+            <span>&nbsp;/&nbsp;@Model.Assignment.MaxPoints&nbsp;</span>
+            <input type="submit" value="Submit" class="btn btn-primary"/>
+            <span asp-validation-for="Submission.PointsGraded" class="text-danger" clear="both"></span>
+            <input type="hidden" name="Submission.Id" value="@Model.Submission.Id" />
+            <input type="hidden" name="Submission.AssignmentId" value="@Model.Submission.AssignmentId" />
+            <input type="hidden" name="Submission.Content" value="@Model.Submission.Content" />
+            <input type="hidden" name="Submission.UserId" value="@Model.Submission.UserId" />
+            <input type="hidden" name="Submission.Timestamp" value="@Model.Submission.Timestamp" />
+        </div>
+    </form>
+</div>
