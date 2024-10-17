@@ -8,42 +8,49 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using Stripe;
+using Stripe.Checkout;
 
 namespace AsyncAcademy.Pages
 {
     public class PaymentSuccess2Model : PageModel
     {
-        //private readonly AsyncAcademy.Data.AsyncAcademyContext _context;
+        public string receiptLink { get; set; } = default!;
 
-        //public PaymentSuccessModel(AsyncAcademy.Data.AsyncAcademyContext context)
-        //{
-        //    _context = context;
-        //}
+        private readonly AsyncAcademyContext _context;
 
-        //public decimal AmountPaid { get; set; }
-        //public int? UserId { get; set; }
-
-
-        public void OnGet()
+        public PaymentSuccess2Model(AsyncAcademyContext context)
         {
-
+            _context = context;
         }
 
-        //[BindProperty]
-        //public Payment Payment { get; set; } = default!;
+        public string ReceiptUrl { get; set; }
 
-        //// For more information, see https://aka.ms/RazorPagesCRUD.
-        //public async Task<IActionResult> OnPostAsync()
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Page();
-        //    }
+        public async Task<IActionResult> OnGetAsync([FromQuery] string session_id)
+        {
+            // Fetch the Stripe session using the session ID
+            var service = new SessionService();
+            var session = await service.GetAsync(session_id);
 
-        //    _context.Payments.Add(Payment);
-        //    await _context.SaveChangesAsync();
 
-        //    return RedirectToPage("/Account");
-        //}
+            // check if session exists and has a PaymentIntentId
+            if (session.PaymentIntentId != null)
+            {
+                // Retrieve the PaymentIntent using PaymentIntentId
+                var paymentIntentService = new PaymentIntentService();
+                var paymentIntent = await paymentIntentService.GetAsync(session.PaymentIntentId);
+
+                var chargeId = paymentIntent.LatestChargeId;
+
+                var chargeService = new ChargeService();
+                var chargeObject = await chargeService.GetAsync(chargeId);
+                receiptLink = chargeObject.ReceiptUrl;
+
+
+            }
+
+            return Page(); 
+        }
     }
 }
