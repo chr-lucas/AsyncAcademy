@@ -68,6 +68,18 @@
             chart.draw(data, options);
         }
     </script>
+    <style>
+        button {
+            font: bold 14px Arial;
+            text-decoration: none;
+            background-color: #EEEEEE;
+            color: #333333;
+            border-top: 1px solid #CCCCCC;
+            border-right: 1px solid #333333;
+            border-bottom: 1px solid #333333;
+            border-left: 1px solid #CCCCCC;
+        }
+    </style>
 </head>
     <body>
         <h1>@Model.Assignment.Title Details</h1>
@@ -118,19 +130,17 @@
                     Submissions 
                 </dt>
                 <dd class="col-sm-10">
-                    @for (int i = 0; i < Model.Submissions.Count; i++)
-                    {
-                        var submission = Model.Submissions.ElementAt(i);
-                        string assignmentname = Model.Names.ElementAt(i) + " - " + Model.CorrespondingAssignment.ElementAt(i).Title;
-                        string url = "SubmissionDetails?id="+submission.Id.ToString();
-                        <a href="@url">
-                            @assignmentname
-                        @submission.Timestamp
-                        </a>
-                        <p></p>
-
-                    }
-                    <!--Will need to add logic for pulling submissions during future sprints-->
+                @for (int i = 0; i < Model.Submissions.Count; i++)
+                {
+                    var submission = Model.Submissions.ElementAt(i);
+                    string assignmentname = Model.Names.ElementAt(i) + " - Submitted at " + @submission.Timestamp;
+                    string url = "SubmissionDetails?id="+submission.Id.ToString();
+                    var grade = Model.Grades.ElementAt(i);
+                    <div>
+                        &emsp;<button onclick="window.location.href='@url'" width="400px">@Model.GetGradeStatus(grade)</button>&emsp;&emsp;@assignmentname
+                        <hr style="width:70%;text-align:left;border:1px solid grey;" />
+                    </div>
+                }
                 </dd>
             </dl>
         </div>

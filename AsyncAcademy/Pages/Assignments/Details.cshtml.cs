@@ -33,6 +33,7 @@ namespace AsyncAcademy.Pages.Assignments
         public List<Assignment> CorrespondingAssignment = new List<Assignment>();
 
         public List<String> Names = new List<String>();
+        public List<int?> Grades = new List<int?>(); 
 
         // Counter variables for chart data
         public int numA = 0;
@@ -73,6 +74,7 @@ namespace AsyncAcademy.Pages.Assignments
                 CorrespondingAssignment.Add(_context.Assignment.First(a => a.Id == submission.AssignmentId));
                 User user = _context.Users.First(a => a.Id == submission.UserId);
                 Names.Add(user.LastName + "," + user.FirstName);
+                Grades.Add(submission.PointsGraded);
             }
 
             if (Account == null)
@@ -140,6 +142,15 @@ namespace AsyncAcademy.Pages.Assignments
             numNotSub = Course.StudentsEnrolled - numSub;
 
             return Page();
+        }
+
+        public string GetGradeStatus(int? grade)
+        {
+            var gradeStatus = "";
+            if (grade == null) gradeStatus = "-/" + Assignment.MaxPoints.ToString();
+            else gradeStatus = grade.ToString() + "/" + Assignment.MaxPoints.ToString();
+
+            return gradeStatus;
         }
     }
 }
