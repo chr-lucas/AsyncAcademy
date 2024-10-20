@@ -20,26 +20,44 @@ namespace AsyncAcademy.Pages.Assignments
             _context = context;
         }
 
+        [ViewData]
+        public string NavBarLink { get; set; }
+
+        [ViewData]
+        public string NavBarText { get; set; }
+
+        public User? Account { get; set; }
+
         [BindProperty]
         public Assignment Assignment { get; set; } = default!;
 
         [BindProperty]
         public Submission Submission { get; set; } = new Submission();
 
+        public string BtnStatus = string.Empty;
+        public string inputReadOnly = "";
+
         public async Task<IActionResult> OnGetAsync(int id)
         {
+            //assigns user - Assisted by Chris L.
+            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+
+            if (currentUserID == null)
+            {
+                return NotFound();
+            }
+
+            Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
+
+            if (Account == null)
+            {
+                return NotFound();
+            }
 
             Assignment = await _context.Assignment.FirstOrDefaultAsync(a => a.Id == id);
             if (Assignment == null)
             {
                 return NotFound();
-            }
-
-            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
-
-            if (currentUserID == null)
-            {
-                NotFound();
             }
 
             //gathers any previous submissions for the user - Hanna w
@@ -52,6 +70,12 @@ namespace AsyncAcademy.Pages.Assignments
                 if (s.AssignmentId == Assignment.Id)
                 {
                     previousSubmissions.Add(s);
+
+                    // Populate previous answer in content field
+                    // Make answer uneditable
+                    Submission.Content = s.Content;
+                    inputReadOnly = "readonly";
+                    BtnStatus = "hidden";
 
                     //checks if assignment has already been graded - Hanna w
                     if (s.PointsGraded >= 0 && currentGrade == null)
@@ -73,6 +97,19 @@ namespace AsyncAcademy.Pages.Assignments
             minGrade = allSubmissions.Min(a => a.PointsGraded);
             maxGrade = allSubmissions.Max(a => a.PointsGraded);
             averageGrade = (int?)allSubmissions.Average(a => a.PointsGraded);
+
+            //sets navbar
+            if (Account.IsProfessor)
+            {
+
+                NavBarLink = "Course Pages/InstructorIndex";
+                NavBarText = "Classes";
+            }
+            else
+            {
+                NavBarLink = "Course Pages/StudentIndex";
+                NavBarText = "Register";
+            }
 
             return Page();
         }

@@ -74,7 +74,7 @@ namespace AsyncAcademy.Pages.Course_Pages
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./InstructorIndex");
         }
 
         private async Task SetNavBarPropertiesAsync()

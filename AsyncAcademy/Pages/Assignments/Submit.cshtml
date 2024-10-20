@@ -25,7 +25,7 @@
     {
         <div class="form-group">
             <label asp-for="Submission.Content"></label>
-            <textarea asp-for="Submission.Content" class="form-control" rows="5"></textarea>
+            <textarea asp-for="Submission.Content" class="form-control" rows="5" readonly="@Model.inputReadOnly"></textarea>
             <span asp-validation-for="Submission.Content" class="text-danger"></span>
         </div>
 
@@ -34,7 +34,7 @@
         <input type="hidden" asp-for="Assignment.Type" />
         <input type="hidden" asp-for="Assignment.Title" />
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" @Model.BtnStatus>Submit</button>
     } 
     @if (Model.Assignment.Type == "File Submission")
     {

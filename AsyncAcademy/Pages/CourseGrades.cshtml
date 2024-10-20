@@ -3,6 +3,45 @@
 @{
 }
 
+@* Adding chart functionality - Hanna W*@
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+            google.charts.load('current', { packages: ['corechart', 'bar'] });
+            google.charts.setOnLoadCallback(drawMultSeries);
+
+            function drawMultSeries() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Class Standing', 'Your score', 'Class Minimum', 'Class Average', 'Class Maximum'],
+            ['@Model.Course.Name', @Model.OverallGrade, @Model.bottomStudentScore, @Model.averageStudentScore, @Model.topStudentScore],
+                    
+                ]);
+
+                var options = {
+                    title: '@Model.Course.Name Grade Analytics',
+                    annotations: {
+                        textStyle: {
+                            fontSize: 12,
+                            bold: true
+                        },
+                        alwaysOutside: true,
+                    },
+                    chartArea: { width: '50%' },
+                    hAxis: {
+                        title: 'Scores',
+                        minValue: 0,
+                        maxValue: @Model.OverallMaximumPoints,
+                        logScale: false,
+                    },
+                    
+                };
+
+                var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
+    </script> 
+
+
+<div>
 <h1>Grades for @Model.Course.Department @Model.Course.CourseNumber</h1>
 @{
     if (Model.OverallGrade == -1)
@@ -11,10 +50,15 @@
     }
     else 
     {
-        <h2>Overall grade: @Model.OverallGrade%</h2>
+        <h2 style="float: right;">Overall grade: @Model.OverallGrade%</h2>
     }
 }
+</div>
 <br/>
+<br />
+
+
+<div>
 @for (int i = 0; i < Model.Submissions.Count; i++)
 {
     string gradestr;
@@ -27,6 +71,13 @@
     {
         gradestr = points.ToString();
     }
+    <div>
     <h2>@Model.CorrespondingAssignments.ElementAt(i).Title: @gradestr</h2>
-    <br/>
+    </div>
 }
+</div>
+
+@*  Display chart on page - Hanna W *@
+<div id="chart_div"></div>
+
+<a asp-page="/Assignments/Index" asp-route-courseId="@Model.Course.Id">Back to Assignments</a>

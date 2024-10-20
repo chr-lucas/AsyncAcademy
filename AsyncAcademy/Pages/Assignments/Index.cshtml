@@ -61,7 +61,7 @@
 
                     }
                     @if (!Model.Account.IsProfessor) {
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                        <!--<a asp-page="./Details" asp-route-id="@item.Id">Details</a>-->
                         @if (item.Type == "File Submission")
                         {
                             <a asp-page="./SubmitFile" asp-route-id="@item.Id" class="btn btn-success">Submit</a>
