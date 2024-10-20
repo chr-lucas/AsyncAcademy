@@ -5,66 +5,152 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>@Model.Assignment.Title Details</h1>
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawBarChart);
+        google.charts.setOnLoadCallback(drawPieChart);
 
-<div>
-    <hr>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Assignment.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Assignment.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment.MaxPoints)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Assignment.MaxPoints)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment.Due)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Assignment.Due)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment.Type)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Assignment.Type)
-        </dd>
-        <dt class="col-sm-2">
-            Submissions 
-        </dt>
-        <dd class="col-sm-10">
-            @for (int i = 0; i < Model.Submissions.Count; i++)
+        function drawBarChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Letter Grade', 'Number of Students', { role: 'style' }],
+                ['A', @Model.numA, 'CornflowerBlue'],
+                ['B', @Model.numB, 'CornflowerBlue'],
+                ['C', @Model.numC, 'CornflowerBlue'],
+                ['D', @Model.numD, 'CornflowerBlue'],
+                ['F', @Model.numF, 'CornflowerBlue'],
+                ['Not Yet Graded', @Model.numUG, 'IndianRed']
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: function (dt, row) {
+                        return (dt.getValue(row, 1) / @Model.numSub * 100).toFixed(1) + '%';
+                    },
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2]);
+
+            var options = {
+                legend: { position: 'none' },
+                vAxis: {
+                    title: 'Number of Students'
+                }
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_values'));
+
+            chart.draw(view, options);
+        }
+
+        function drawPieChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Status', 'Submitted'],
+                ['Submitted', @Model.numSub],
+                ['Not Submitted', @Model.numNotSub]
+            ]);
+
+            var options = {
+                legend: 'bottom',
+                pieSliceText: 'value',
+                colors: ['CornflowerBlue', 'IndianRed']
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    <style>
+        button {
+            font: bold 14px Arial;
+            text-decoration: none;
+            background-color: #EEEEEE;
+            color: #333333;
+            border-top: 1px solid #CCCCCC;
+            border-right: 1px solid #333333;
+            border-bottom: 1px solid #333333;
+            border-left: 1px solid #CCCCCC;
+        }
+    </style>
+</head>
+    <body>
+        <h1>@Model.Assignment.Title Details</h1>
+        <table class="columns" style="width:100%">
+            <tr>
+                <th style="width:70%">Student Performance by Letter Grade</th>
+                <th>Submission Status</th>
+            </tr>
+            <tr>
+                <td><div id="columnchart_values" style="border: 1px solid #ccc;"></div></td>
+                <td><div id="piechart" style="border: 1px solid #ccc;"></div></td>
+            </tr>
+        </table>
+        <div>
+            <hr>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Assignment.Title)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Assignment.Title)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Assignment.Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Assignment.Description)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Assignment.MaxPoints)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Assignment.MaxPoints)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Assignment.Due)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Assignment.Due)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Assignment.Type)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Assignment.Type)
+                </dd>
+                <dt class="col-sm-2">
+                    Submissions 
+                </dt>
+                <dd class="col-sm-10">
+                @for (int i = 0; i < Model.Submissions.Count; i++)
+                {
+                    var submission = Model.Submissions.ElementAt(i);
+                    string assignmentname = Model.Names.ElementAt(i) + " - Submitted at " + @submission.Timestamp;
+                    string url = "SubmissionDetails?id="+submission.Id.ToString();
+                    var grade = Model.Grades.ElementAt(i);
+                    <div>
+                        &emsp;<button onclick="window.location.href='@url'" width="400px">@Model.GetGradeStatus(grade)</button>&emsp;&emsp;@assignmentname
+                        <hr style="width:70%;text-align:left;border:1px solid grey;" />
+                    </div>
+                }
+                </dd>
+            </dl>
+        </div>
+        <div>
+             @if (Model.Account.IsProfessor)
             {
-                var submission = Model.Submissions.ElementAt(i);
-                string assignmentname = Model.CorrespondingAssignment.ElementAt(i).Title;
-                string url = "SubmissionDetails?id="+submission.Id.ToString();
-                <a href="@url">
-                    @assignmentname
-                @submission.Timestamp
-                </a>
-                <p></p>
-
+                <a asp-page="./Edit" asp-route-id="@Model.Assignment.Id">Edit</a>
+                <a asp-page="./Delete" asp-route-id="@Model.Assignment.Id">Delete</a>
             }
-            <!--Will need to add logic for pulling submissions during future sprints-->
-        </dd>
-    </dl>
-</div>
-<div>
-     @if (Model.Account.IsProfessor)
-    {
-        <a asp-page="./Edit" asp-route-id="@Model.Assignment.Id">Edit</a>
-        <a asp-page="./Delete" asp-route-id="@Model.Assignment.Id">Delete</a>
-    }
-    <a asp-page="/Assignments/Index" asp-route-courseId="@Model.Course.Id">Back to List</a>
-</div>
+            <a asp-page="/Assignments/Index" asp-route-courseId="@Model.Course.Id">Back to List</a>
+        </div>
+    </body>
+</html>

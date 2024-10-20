@@ -5,7 +5,50 @@
 }
 
 <!-- All Kevins code. If you change code, please comment -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> <!--Added JS for student performance graph : Sebastian-->
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawBarChart);
+    google.charts.setOnLoadCallback(drawPieChart);
 
+    function drawBarChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Letter Grade', 'Number of Students', { role: 'style' }],
+            ['A', @Model.numA, 'CornflowerBlue'],
+            ['B', @Model.numB, 'CornflowerBlue'],
+            ['C', @Model.numC, 'CornflowerBlue'],
+            ['D', @Model.numD, 'CornflowerBlue'],
+            ['F', @Model.numF, 'CornflowerBlue'],
+            ['Not Yet Graded', @Model.numUG, 'IndianRed']
+        ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+            {
+                calc: function (dt, row) {
+                    return (dt.getValue(row, 1) / @Model.numSub * 100).toFixed(1) + '%';
+                },
+                sourceColumn: 1,
+                type: "string",
+                role: "annotation"
+            },
+            2]);
+
+        var options = {
+            legend: { position: 'none' },
+            vAxis: {
+                title: 'Number of Students'
+            }
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_values'));
+
+        chart.draw(view, options);
+    }
+</script>
+
+<!-- All Kevins code. If you change code, please comment -->
 <div class="class-overview">
     <h1>@Model.Course.Name</h1>
     <h2>@Model.Course.Department @Model.Course.CourseNumber</h2>
@@ -17,11 +60,27 @@
         <ul>
             <!--edited by Hanna W to change page asp-page address -->
             <li><a asp-page="/Assignments/Index" asp-route-courseId="@Model.Course.Id">Assignments</a></li>
-            <li><a asp-page="CourseGrades" asp-route-courseId="@Model.Course.Id">Grades</a></li>
+            @{
+                if (!Model.isProfessor)
+                {
+                    // We might decide to actually do something with the grades section for the instructor view
+                    // But for now it has no functionality for instructors, so we might as well hide it
+                    <li><a asp-page="CourseGrades" asp-route-courseId="@Model.Course.Id">Grades</a></li>
+                }
+            }
             
         </ul>
     </div>
 </div>
+
+@{
+    if (Model.isProfessor)
+    {
+        <tr> <!--Embedded graph : Sebastian-->
+            <td><div id="columnchart_values" style="border: 1px solid #ccc;"></div></td>
+        </tr>
+    }
+ }
 
 <style>
     .class-overview {

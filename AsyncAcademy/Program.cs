@@ -26,6 +26,7 @@ builder.Services.AddSession(options =>
 StripeConfiguration.ApiKey = "sk_test_51Q2OkdLffhLXA6EXPrfKh0VcjFq9OydxjlpNAE9tAFVygmAWLSrmKYjjwo2HliwAIicTtxat7XS5OLqAEMw1Ooce00JpCHPLkh";  // Secret key
 
 
+
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // The Last Part
 
 var app = builder.Build();
