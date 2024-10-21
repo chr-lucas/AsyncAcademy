@@ -16,7 +16,8 @@ using Moq; // Moq is used for mocking objects in the unit tests
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AsyncAcademy.Pages.Assignments; // Razor Page for creating assignments
+using AsyncAcademy.Pages.Assignments;
+using AsyncAcademy.Pages.Course_Pages; // Razor Page for creating assignments
 
 
 namespace AsyncAcademyTest
@@ -56,5 +57,147 @@ namespace AsyncAcademyTest
                 await _context.SaveChangesAsync();
             }
         }
+
+
+
+
+
+        //Helper method to seed the db:
+        private async Task<int> SeedCourse(AsyncAcademyContext context)
+        {
+            var testCourse = new Course
+            {
+                InstructorId = 1, // Assuming instructor ID 1
+                CourseNumber = "101A",
+                Department = "CS", // Computer Science department
+                Name = "Introduction to Programming", // Course details
+                Description = "An introductory course to programming with C#.",
+                CreditHours = 3,
+                StartTime = DateTime.Parse("09:00:00"),
+                EndTime = DateTime.Parse("11:00:00"),
+                Location = "Room 101",
+                StudentCapacity = 30, // Maximum number of students allowed
+                StudentsEnrolled = 0,
+                MeetingTimeInfo = "MWF 9:00AM - 11:00AM", // Class schedule
+                StartDate = DateTime.Now, // Current date
+                EndDate = DateTime.Now.AddMonths(4) // Course ends in 4 months
+            };
+
+
+
+            //Add the course and the student to the db and save it:
+            context.Course.Add(testCourse);
+            await context.SaveChangesAsync();
+
+            return testCourse.Id;
+
+        }
+
+
+        //Helper method to seed the student that wil enroll in the above course:
+        private async Task<int> SeedStudent(AsyncAcademyContext context)
+        {
+            var testStudent = new User
+            {
+                Id = 1,
+                Username = "testUser",
+                FirstName = "testUser",
+                LastName = "tester",
+                Mail = "test@gmail.com",
+                Pass = "Password",
+                ConfirmPass = "Password",
+                Birthday = new DateTime(1980, 5, 20),
+                IsProfessor = false,
+                Addr_City = "Test City",
+                Addr_State = "Test State",
+                Addr_Zip = "12345",
+                Addr_Street = "123 Test St",
+                Phone = "123-456-7890"
+
+            };
+
+            context.Users.Add(testStudent);
+            await context.SaveChangesAsync();
+
+            return testStudent.Id;
+
+        }
+
+
+        private EnrollModel CreateTestEnrollment(AsyncAcademyContext context, User testStudent)
+        {
+            return new EnrollModel(context)
+            {
+                PageContext = _mockPageContext.Object,
+
+                //We create the new enrollment:
+
+            };
+        }
+
+        private EnrollModel CreateTestEnrollment(AsyncAcademyContext context, int courseId, int userId)
+        {
+            // Return the EnrollModel with the mock PageContext
+            return new EnrollModel(context)
+            {
+                PageContext = _mockPageContext.Object
+            };
+        }
+
+        // Helper method to simulate session variables (like User ID and Course ID)
+        private void MockSessionValues(int userId, int courseId)
+        {
+            // Simulate storing the user ID in the session
+            byte[] userIdBytes = BitConverter.GetBytes(userId);
+            if (BitConverter.IsLittleEndian) Array.Reverse(userIdBytes); // Handle endianness
+            _mockSession.Setup(s => s.TryGetValue("CurrentUserId", out userIdBytes)).Returns(true); // Mock session value
+
+            // Simulate storing the course ID in the session (if needed)
+            byte[] courseIdBytes = BitConverter.GetBytes(courseId);
+            if (BitConverter.IsLittleEndian) Array.Reverse(courseIdBytes);
+            _mockSession.Setup(s => s.TryGetValue("CourseId", out courseIdBytes)).Returns(true);
+        }
+
+
+
+        //Method to verify that student was successfully enrolled in the course:
+        private async Task VerifyEnrollment(AsyncAcademyContext context)
+        {
+
+        }
+
+        private async Task VerifyEnrollment(AsyncAcademyContext context, int userId, int courseId)
+        {
+            var enrollment = await context.Enrollments
+                .FirstOrDefaultAsync(e => e.UserId == userId && e.CourseId == courseId);
+
+            Assert.IsNotNull(enrollment, "Enrollment should exist after successful enrollment.");
+            Assert.AreEqual(userId, enrollment.UserId, "The user ID should match the enrolled student's ID.");
+            Assert.AreEqual(courseId, enrollment.CourseId, "The course ID should match the enrolled course.");
+        }
+
+
+        [TestMethod]
+        public async Task StudentCanEnrollInCourseTest()
+        {
+            using (var context = new AsyncAcademyContext(_dbContextOptions))
+            {
+                //We create a course and a student thtough our seed method:
+                int courseId = await SeedCourse(context);
+                int studentId = await SeedStudent(context);
+
+                // Step 2: Mock the session values for the current student
+                MockSessionValues(studentId, courseId);
+
+                //We create the enrollment model and simulate the enrollment process:
+                var pageModel = CreateTestEnrollment(context, courseId, studentId);
+                var result = await pageModel.OnPostAsync(courseId);//Here's where the actuall enrollment happens
+
+                //Verify that the rnollment was successful:
+                Assert.IsInstanceOfType(result, typeof(RedirectToPageResult), "Enrollment should redirect on success");
+                await VerifyEnrollment(context, studentId, courseId);
+            }
+        }
+
     }
 }
