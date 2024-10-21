@@ -26,12 +26,21 @@
 <br />
 <br />
 
-<div>
-<form method="post" enctype="multipart/form-data">
-    <input type="file" asp-for="FileSubmission" />
-    <input type="submit" />
-</form>
-</div>
+@if(!Model.fileSubmitted)
+{
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" asp-for="FileSubmission" />
+            <input type="submit" />
+        </form>
+    </div>
+}
+else
+{
+    <div>
+        <a href="\submissions\@Model.previousSubmission.Content" download>@Model.previousSubmission.Content</a>
+    </div>
+}
 
 <br />
 <br />
@@ -69,5 +78,6 @@
 
 }
 
-<a href="#" onclick="history.back()" style="color:blue">Back to List</a>
+<a href="/Assignments?courseId=@Model.Assignment.CourseId">Back to Assignments</a>
+
 

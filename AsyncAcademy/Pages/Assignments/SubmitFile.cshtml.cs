@@ -39,6 +39,9 @@ namespace AsyncAcademy.Pages.Assignments
 
         public string FileName { get; set; }
 
+        public bool fileSubmitted = false;
+        public Submission previousSubmission;
+
 
 
         public void OnGet(int id)
@@ -114,6 +117,10 @@ namespace AsyncAcademy.Pages.Assignments
                         currentGrade = s.PointsGraded;
                         break;
                     }
+
+                    // Set flag to show previous submission on page
+                    fileSubmitted = true;
+                    previousSubmission = s;
                 }
             }
         }
@@ -164,7 +171,7 @@ namespace AsyncAcademy.Pages.Assignments
             _context.Submissions.Add(Submission);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Assignments/Details", new { id = id });
+            return RedirectToPage("/Assignments/SubmitFile", new { id = Assignment.Id });
 
         }
 

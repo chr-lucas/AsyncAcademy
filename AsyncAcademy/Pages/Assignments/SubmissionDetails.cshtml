@@ -4,7 +4,21 @@
 }
 <h1>Submission for @Model.Assignment.Title<br /></h1>
 <h4>Submitted by @Model.Student.FirstName @Model.Student.LastName at @Model.Submission.Timestamp</h4>
-<p>Answer:<br />@Model.Submission.Content</p>
+<p>
+    Answer:<br />
+    @if (Model.Assignment.Type == "Text Entry" || Model.Assignment.Type == "textentry")
+    {
+        <div>
+            @Model.Submission.Content
+        </div>
+    }
+    @if (Model.Assignment.Type == "File Submission")
+    {
+        <div>
+            <a href="\submissions\@Model.Submission.Content" download>@Model.Submission.Content</a>
+        </div>
+    }
+    </p>
 <div class="col-md-2">
     <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
