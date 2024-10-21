@@ -15,7 +15,7 @@
     @if (Model.Assignment.Type == "File Submission")
     {
         <div>
-            <a href="\submissions\@Model.Submission.Content" download>@Model.Submission.Content</a>
+            <a href="~/@Model.submissionFilePath" download>Download Submission</a>
         </div>
     }
     </p>
