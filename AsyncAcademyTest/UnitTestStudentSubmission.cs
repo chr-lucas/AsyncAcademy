@@ -49,6 +49,26 @@ namespace AsyncAcademyTest
 
         private async Task<int> SeedAssignment(AsyncAcademyContext context)
         {
+            var testUser = new User
+            {
+                Id = 1,
+                Username = "Test",
+                FirstName = "Test",
+                LastName = "Test",
+                Mail = "test@test.com",
+                Pass = "1234ABCD",
+                ConfirmPass = "1234ABCD",
+                IsProfessor = true,
+                Addr_Street = null,
+                Addr_City = null,
+                Addr_State = null,
+                Addr_Zip = null,
+                Phone = null
+            };
+
+            context.Users.Add(testUser);
+            await context.SaveChangesAsync();
+
             var testAssignment = new Assignment
             {
                 CourseId = 1,
