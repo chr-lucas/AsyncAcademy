@@ -34,8 +34,7 @@ namespace AsyncAcademy.Pages.Assignments
         [BindProperty]
         public Submission Submission { get; set; } = new Submission();
 
-        public string BtnStatus = string.Empty;
-        public string inputReadOnly = "";
+        public bool inputReadOnly = false;
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -70,12 +69,12 @@ namespace AsyncAcademy.Pages.Assignments
                 if (s.AssignmentId == Assignment.Id)
                 {
                     previousSubmissions.Add(s);
-
+                    
                     // Populate previous answer in content field
-                    // Make answer uneditable
+                    // Make answer uneditable and hide submit button
                     Submission.Content = s.Content;
-                    inputReadOnly = "readonly";
-                    BtnStatus = "hidden";
+                    inputReadOnly = true;
+
 
                     //checks if assignment has already been graded - Hanna w
                     if (s.PointsGraded >= 0 && currentGrade == null)
@@ -132,7 +131,9 @@ namespace AsyncAcademy.Pages.Assignments
             _context.Submissions.Add(Submission);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Assignments/Details", new { id = Assignment.Id });
+            var courseID = Assignment.CourseId;
+
+            return RedirectToPage("/Assignments/Submit", new { id = Assignment.Id });
         }
     }
 }

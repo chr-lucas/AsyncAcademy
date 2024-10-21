@@ -25,8 +25,18 @@
     {
         <div class="form-group">
             <label asp-for="Submission.Content"></label>
-            <textarea asp-for="Submission.Content" class="form-control" rows="5" readonly="@Model.inputReadOnly"></textarea>
-            <span asp-validation-for="Submission.Content" class="text-danger"></span>
+            @if(Model.inputReadOnly)
+            {
+                <textarea asp-for="Submission.Content" class="form-control" rows="5" readonly></textarea>
+                <span asp-validation-for="Submission.Content" class="text-danger"></span>
+                <button type="submit" class="btn btn-primary" hidden>Submit</button>
+            }
+            else
+            {
+                <textarea asp-for="Submission.Content" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Submission.Content" class="text-danger"></span>
+                <button type="submit" class="btn btn-primary">Submit</button>    
+            }
         </div>
 
         <input type="hidden" asp-for="Assignment.Id" />
@@ -34,7 +44,6 @@
         <input type="hidden" asp-for="Assignment.Type" />
         <input type="hidden" asp-for="Assignment.Title" />
 
-        <button type="button" class="btn btn-primary" @Model.BtnStatus>Submit</button>
     } 
     @if (Model.Assignment.Type == "File Submission")
     {
@@ -75,5 +84,4 @@
 
 }
     
-
-<a asp-page="/Assignments/Index" asp-route-courseId="@Model.Assignment.CourseId">Back to Assignments</a>
+<a href="/Assignments?courseId=@Model.Assignment.CourseId">Back to Assignments</a>

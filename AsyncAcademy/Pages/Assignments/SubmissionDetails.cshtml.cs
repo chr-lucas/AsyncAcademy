@@ -20,6 +20,7 @@ namespace AsyncAcademy.Pages.Assignments
       
         public Assignment Assignment { get; set; }
         public User Student { get; set; }
+        public string submissionFilePath;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -33,6 +34,7 @@ namespace AsyncAcademy.Pages.Assignments
 
             Student = await _context.Users.FirstOrDefaultAsync(u => (u.Id == Submission.UserId));
             Assignment = await _context.Assignment.FirstOrDefaultAsync(a => a.Id == Submission.AssignmentId);
+            submissionFilePath = "." + Submission.Content.ToString();
 
             return Page();
         }

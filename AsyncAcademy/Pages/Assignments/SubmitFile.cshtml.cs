@@ -39,6 +39,10 @@ namespace AsyncAcademy.Pages.Assignments
 
         public string FileName { get; set; }
 
+        public bool fileSubmitted = false;
+        public Submission previousSubmission;
+        public string prevSubFilePath;
+
 
 
         public void OnGet(int id)
@@ -114,6 +118,11 @@ namespace AsyncAcademy.Pages.Assignments
                         currentGrade = s.PointsGraded;
                         break;
                     }
+
+                    // Set flag to show previous submission on page
+                    fileSubmitted = true;
+                    previousSubmission = s;
+                    prevSubFilePath = "." + s.Content.ToString();
                 }
             }
         }
@@ -156,15 +165,17 @@ namespace AsyncAcademy.Pages.Assignments
                     await FileSubmission.CopyToAsync(fileStream);
                 }
 
-                //save file path as submission content
-                Submission.Content = filePath;
+                //save dbPath as submission content
+                // This is the relative file path from the webroot
+                // To access elsewhere, preceed database query with ~
+                Submission.Content = dbPath;
             }
 
             //Add new submission to database
             _context.Submissions.Add(Submission);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Assignments/Details", new { id = id });
+            return RedirectToPage("/Assignments/SubmitFile", new { id = Assignment.Id });
 
         }
 
