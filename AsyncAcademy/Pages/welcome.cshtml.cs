@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json; // Make sure to include this for JSON serialization
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
-using Stripe;
 
 namespace AsyncAcademy.Pages
 {
@@ -58,73 +58,78 @@ namespace AsyncAcademy.Pages
                 return NotFound();
             }
 
-            Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
-
-            if (Account == null)
+            // Check if user data is already in session
+            if (HttpContext.Session.TryGetValue("UserAccount", out var accountData) &&
+                HttpContext.Session.TryGetValue("EnrolledCourses", out var coursesData) &&
+                HttpContext.Session.TryGetValue("ToDoList", out var todoData))
             {
-                return NotFound();
+                // Deserialize the data from session
+                Account = JsonSerializer.Deserialize<User>(accountData);
+                EnrolledCourses = JsonSerializer.Deserialize<List<Course>>(coursesData);
+                ToDoList = JsonSerializer.Deserialize<List<ToDoItem>>(todoData);
             }
+            else
+            {
+                // If not in session, query the database
+                Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
 
-    var firstname = Account.FirstName;
-    var lastname = Account.LastName;
-    if (Account.IsProfessor) 
-    {
-        WelcomeText = $"Welcome, Professor {firstname} {lastname}";
-        NavBarLink = "Course Pages/InstructorIndex";
-        NavBarText = "Classes";
-        NavBarAccountTabLink = "";
-        NavBarAccountText = "";
-            }
-    else
-    {
-        WelcomeText = $"Welcome, {firstname} {lastname}";
-        NavBarLink = "Course Pages/StudentIndex";
-        NavBarText = "Register";
-        NavBarAccountTabLink = "/Account";
-        NavBarAccountText = "Account";
-            }
-
-
-
-            // Get all enrolled courses for the current student
-            var Enrollments = await _context.Enrollments
-        .Where(e => e.UserId == currentUserID)
-        .ToListAsync();
-    
-    // Get list of course IDs that the student is enrolled in
-    var enrolledCourseIds = Enrollments.Select(e => e.CourseId).ToList();
-
-            EnrolledCourses = await _context.Course
-                .Where(c => enrolledCourseIds.Contains(c.Id))
-                .ToListAsync();
-
-            // Get the upcoming assignments, filtering by the student's enrolled courses and excluding past due assignments
-            DateTime now = DateTime.Now; // Or use DateTime.UtcNow for consistency
-            ToDoList = await _context.Assignment
-                .Where(a => a.Due > now && enrolledCourseIds.Contains(a.CourseId)) // Filter by enrolled courses
-                .OrderBy(a => a.Due)
-                .Take(5)
-                .Select(a => new ToDoItem
+                if (Account == null)
                 {
-                    Course = _context.Course
-                        .Where(c => c.Id == a.CourseId)
-                        .Select(c => c.Department + " " + c.CourseNumber)
-                        .FirstOrDefault(),
-                    Assignment = a.Title,
-                    DueDate = a.Due
-                })
-                .ToListAsync();
+                    return NotFound();
+                }
 
-            // Check for dropped courses
-            // var droppedCourses = await _context.DroppedCourses  //we don't currently have a DroppedCourses in the database 
-            //   .Where(d => d.UserId == userId)
-            // .ToListAsync();
+                var firstname = Account.FirstName;
+                var lastname = Account.LastName;
+                if (Account.IsProfessor)
+                {
+                    WelcomeText = $"Welcome, Professor {firstname} {lastname}";
+                    NavBarLink = "Course Pages/InstructorIndex";
+                    NavBarText = "Classes";
+                    NavBarAccountTabLink = "";
+                    NavBarAccountText = "";
+                }
+                else
+                {
+                    WelcomeText = $"Welcome, {firstname} {lastname}";
+                    NavBarLink = "Course Pages/StudentIndex";
+                    NavBarText = "Register";
+                    NavBarAccountTabLink = "/Account";
+                    NavBarAccountText = "Account";
+                }
 
-            //if (droppedCourses.Any())
-            //{
-            // Run queries related to dropped courses
-            // For example, log the drop event or update user data
-            //}
+                // Get all enrolled courses for the current student
+                var Enrollments = await _context.Enrollments
+                    .Where(e => e.UserId == currentUserID)
+                    .ToListAsync();
+
+                var enrolledCourseIds = Enrollments.Select(e => e.CourseId).ToList();
+
+                EnrolledCourses = await _context.Course
+                    .Where(c => enrolledCourseIds.Contains(c.Id))
+                    .ToListAsync();
+
+                // Get the upcoming assignments
+                DateTime now = DateTime.Now; // Or use DateTime.UtcNow for consistency
+                ToDoList = await _context.Assignment
+                    .Where(a => a.Due > now && enrolledCourseIds.Contains(a.CourseId))
+                    .OrderBy(a => a.Due)
+                    .Take(5)
+                    .Select(a => new ToDoItem
+                    {
+                        Course = _context.Course
+                            .Where(c => c.Id == a.CourseId)
+                            .Select(c => c.Department + " " + c.CourseNumber)
+                            .FirstOrDefault(),
+                        Assignment = a.Title,
+                        DueDate = a.Due
+                    })
+                    .ToListAsync();
+
+                // Store the data in session
+                HttpContext.Session.SetString("UserAccount", JsonSerializer.Serialize(Account));
+                HttpContext.Session.SetString("EnrolledCourses", JsonSerializer.Serialize(EnrolledCourses));
+                HttpContext.Session.SetString("ToDoList", JsonSerializer.Serialize(ToDoList));
+            }
 
             return Page();
         }
