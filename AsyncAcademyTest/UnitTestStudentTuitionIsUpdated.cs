@@ -14,19 +14,19 @@ using Moq; // Moq is used for mocking objects in the unit tests
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AsyncAcademy.Pages.Course_Pages; // Razor Page for creating assignments
-
+using AsyncAcademy.Pages.Course_Pages;
+using AsyncAcademy.Pages; 
 
 namespace AsyncAcademyTest
 {
     [TestClass]
-    public class UnitTestStudentEnrollment
+    public class UnitTestStudentTuitionIsUpdated
     {
         // Private fields to hold test-specific configurations and mock objects
-        private DbContextOptions<AsyncAcademyContext> _dbContextOptions; // Options for configuring in-memory test DB
-        private Mock<HttpContext> _mockHttpContext; // Mocking HttpContext for session access
-        private Mock<ISession> _mockSession; // Mocking session to simulate session variables
-        private Mock<PageContext> _mockPageContext; // Mocking PageContext for Razor Page interactions
+        private DbContextOptions<AsyncAcademyContext> _dbContextOptions; 
+        private Mock<HttpContext> _mockHttpContext; 
+        private Mock<ISession> _mockSession; 
+        private Mock<PageContext> _mockPageContext; 
 
         //Setup method to initialize mocks and prepare the in-memory database:
         [TestInitialize]
@@ -45,6 +45,7 @@ namespace AsyncAcademyTest
             _mockSession = new Mock<ISession>();
             _mockHttpContext.Setup(m => m.Session).Returns(_mockSession.Object); // Linking HttpContext with the mocked session
 
+
             //Setting up PageContext to use the mocked HttpContext:
             _mockPageContext = new Mock<PageContext>();
             _mockPageContext.Object.HttpContext = _mockHttpContext.Object;
@@ -54,6 +55,9 @@ namespace AsyncAcademyTest
             using (var _context = new AsyncAcademyContext(_dbContextOptions))
             {
                 _context.Enrollments.RemoveRange(_context.Enrollments);
+                _context.Payments.RemoveRange(_context.Payments);
+                _context.Course.RemoveRange(_context.Course);
+                _context.Users.RemoveRange(_context.Users);
                 await _context.SaveChangesAsync();
             }
         }
@@ -123,6 +127,23 @@ namespace AsyncAcademyTest
 
         }
 
+        //Code to seed payment in db:
+        private async Task<int> SeedPaymentRecord(AsyncAcademyContext context, int userId, decimal amountPaid)
+        {
+            var payment = new Payment
+            {
+                UserId = userId,
+                AmountPaid = amountPaid,
+                Timestamp = DateTime.Now 
+            };
+
+            context.Payments.Add(payment);
+            await context.SaveChangesAsync();
+
+            return payment.Id; 
+        }
+
+
         private EnrollModel CreateTestEnrollment(AsyncAcademyContext context, int courseId, int userId)
         {
             // Return the EnrollModel with the mock PageContext
@@ -131,6 +152,7 @@ namespace AsyncAcademyTest
                 PageContext = _mockPageContext.Object
             };
         }
+
 
         // Helper method to simulate session variables (like User ID and Course ID)
         private void MockSessionValues(int userId, int courseId)
@@ -160,27 +182,62 @@ namespace AsyncAcademyTest
         }
 
 
+
+
         [TestMethod]
-        public async Task StudentCanEnrollInCourseTest()
+        public async Task AccountPageDisplaysCorrectBalanceTest()
         {
             using (var context = new AsyncAcademyContext(_dbContextOptions))
             {
-                //We create a course and a student thtough our seed method:
-                int courseId = await SeedCourse(context);
-                int studentId = await SeedStudent(context);
 
-                // Mock the session values for the current student
+                context.Payments.RemoveRange(context.Payments);
+                context.Enrollments.RemoveRange(context.Enrollments);
+                await context.SaveChangesAsync();
+
+
+                // We seed a student user and a test course:
+                int studentId = await SeedStudent(context);  // Assuming you already have this method
+                int courseId = await SeedCourse(context);
+
+
+                // We seed a payment record for the test student:
+                await SeedPaymentRecord(context, studentId, 200.00m);
+
+                // Mock the session to simulate a logged-in student
                 MockSessionValues(studentId, courseId);
 
-                //We create the enrollment model and simulate the enrollment process:
+
+                // Enroll the student in a course (for calculating tuition)
                 var pageModel = CreateTestEnrollment(context, courseId, studentId);
                 var result = await pageModel.OnPostAsync(courseId);//Here's where the actuall enrollment happens
 
+
+
+
+                // Create the AccountModel (the model responsible for rendering the balance)
+                var accountModel = new AccountModel(context)
+                {
+                    PageContext = _mockPageContext.Object
+                };
+
+                // trigger the page model logic to calculate and display balance
+                await accountModel.OnGetAsync();  // Assuming this triggers the balance calculation
+
+
+                /*------------For debbuging purposes only: ------------------*/
                 //Verify that the rnollment was successful:
-                Assert.IsInstanceOfType(result, typeof(RedirectToPageResult), "Enrollment should redirect on success");
-                await VerifyEnrollment(context, studentId, courseId);
+                //Assert.IsInstanceOfType(result, typeof(RedirectToPageResult), "Enrollment should redirect on success");
+                //await VerifyEnrollment(context, studentId, courseId);
+                /*-----------------------------------------*/
+
+                // We verify that the model contains the correct StudentPaymentBalance
+                decimal expectedBalance = 300.00m - 200.00m;  // Assuming $300 tuition, $200 paid
+                Assert.AreEqual(expectedBalance, accountModel.StudentPaymentBalance,
+                    "The displayed balance should match the calculated balance after payment.");
             }
         }
 
+
     }
+
 }

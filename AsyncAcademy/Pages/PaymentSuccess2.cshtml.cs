@@ -16,6 +16,28 @@ namespace AsyncAcademy.Pages
 {
     public class PaymentSuccess2Model : PageModel
     {
+        [ViewData]
+        public string NavBarLink { get; set; } = "Course Pages/StudentIndex";
+
+        [ViewData]
+        public string NavBarText { get; set; } = "Register";
+
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
+        [BindProperty]
+        public Enrollment Enrollment { get; set; } = default!;
+
+        public List<Course> EnrolledCourses { get; set; } = new List<Course>();
+
+        public Decimal StudentPaymentBalance { get; set; } = 0;
+
+        public Payment PaymentRecord { get; set; } = default!;
+
+
         public string receiptLink { get; set; } = default!;
 
         private readonly AsyncAcademyContext _context;
