@@ -122,5 +122,5 @@ a:hover {
 }
 
 a.nav-link:hover {
-    color: white !important; /* Apply hover effect to .nav-link */
+    color: black !important; /* Apply hover effect to .nav-link */
 }
