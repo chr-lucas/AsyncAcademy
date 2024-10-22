@@ -264,3 +264,46 @@ def testUpdateProfile(): # Make sure student can update profile info
         return False, e, explanation
 
 
+# Test the logout functionality for both student and instructor
+def testLogOut():
+    explanation = ""
+    try:
+        # Log in as student
+        driver.get(WEBSITE_URL)
+        username_field = find_element(By.NAME, "Account.Username")
+        password_field = find_element(By.NAME, "Account.Pass")
+        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        time.sleep(1)
+        username_field.send_keys("studenttest")
+        password_field.send_keys("Pass1234")
+        login_button.click()
+        time.sleep(5)
+        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+
+        # Log out as student
+        logout_button = find_element(By.XPATH, "/html/body/header/nav/div/div/ul/li[4]/a")
+        logout_button.click()
+        time.sleep(5)
+        assert driver.current_url == WEBSITE_URL
+
+        # Log in as instructor
+        driver.get(WEBSITE_URL)
+        username_field = find_element(By.NAME, "Account.Username")
+        password_field = find_element(By.NAME, "Account.Pass")
+        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        time.sleep(1)
+        username_field.send_keys("instructortest")
+        password_field.send_keys("Pass1234")
+        login_button.click()
+        time.sleep(5)
+        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+
+        # Log out as instructor
+        logout_button = find_element(By.XPATH, "/html/body/header/nav/div/div/ul/li[4]/a")
+        logout_button.click()
+        time.sleep(5)
+        assert driver.current_url == WEBSITE_URL
+
+        return True, None, ""
+    except Exception as e:
+        return False, e, explanation
