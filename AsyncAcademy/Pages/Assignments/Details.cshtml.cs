@@ -44,6 +44,7 @@ namespace AsyncAcademy.Pages.Assignments
         public int numUG = 0;
         public int numSub = 0;
         public int numNotSub = 0;
+        public int maxPoints = 0;
 
         [ViewData]
         public string NavBarLink { get; set; }
@@ -108,6 +109,7 @@ namespace AsyncAcademy.Pages.Assignments
             else
             {
                 Assignment = assignment;
+                maxPoints = Assignment.MaxPoints;
             }
 
             //assigns course - Assisted by Kevin B.
@@ -126,11 +128,12 @@ namespace AsyncAcademy.Pages.Assignments
                 // Sort data by grade
                 if (s.PointsGraded.HasValue) // Only counts graded submissions
                 {
-                    if (s.PointsGraded >= 90) { numA++; }
-                    else if (s.PointsGraded >= 80) { numB++; }
-                    else if (s.PointsGraded >= 70) { numC++; }
-                    else if (s.PointsGraded >= 60) { numD++; }
-                    else if (s.PointsGraded < 60) { numF++; }
+                    double gradePercent = (double)s.PointsGraded / maxPoints;
+                    if (gradePercent >= .90) { numA++; }
+                    else if (gradePercent >= .80) { numB++; }
+                    else if (gradePercent >= .70) { numC++; }
+                    else if (gradePercent >= .60) { numD++; }
+                    else if (gradePercent < .60) { numF++; }
                 }
                 else
                 {
