@@ -32,12 +32,15 @@ namespace AsyncAcademyTest
         [TestInitialize]
         public async Task SetUp()
         {
-            //We configure an in-memory database for testing:
+            // Generate a unique database name using a GUID
+            string uniqueDbName = "AsyncAcademyTestDb_" + Guid.NewGuid().ToString();
+
+            // Configure an in-memory database for this specific test
             _dbContextOptions = new DbContextOptionsBuilder<AsyncAcademyContext>()
-                .UseInMemoryDatabase(databaseName: "AsyncAcademyTestDb")
+                .UseInMemoryDatabase(databaseName: uniqueDbName) // Specific database name for this test
                 .Options;
-            
-            
+
+
             _mockHttpContext = new Mock<HttpContext>();
             _mockSession = new Mock<ISession>();
             _mockHttpContext.Setup(m => m.Session).Returns(_mockSession.Object); // Linking HttpContext with the mocked session
