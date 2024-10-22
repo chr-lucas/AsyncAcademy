@@ -12,4 +12,5 @@ def runTest(test, name):
 runTest(testLogIn, "Logging In")
 runTest(testAccountCreation, "Account Creation")
 runTest(testGraphVisibility, "Graph Visibility for Student/Instructor Views")
+runTest(testUpdateProfile, "Profile update functionality")
 

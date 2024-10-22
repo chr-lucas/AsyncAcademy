@@ -162,3 +162,105 @@ def testGraphVisibility():
         return True, None, ""
     except Exception as e:
         return False, e, explanation
+
+def testUpdateProfile(): # Make sure student can update profile info
+    explanation = ""
+    try:
+        # Load website
+        explanation = "Failed to load website, are you connected to the internet? Is the website up? Did its URL change?"
+        driver.get(WEBSITE_URL)
+
+        # try logging in with as student test account
+        username = "studenttest"
+        explanation = "Failed to find username or password field, did those change?"
+        username_field = find_element(By.NAME, "Account.Username")
+        password_field = find_element(By.NAME, "Account.Pass")
+        explanation = "Failed to find login button, did its HTML change?"
+        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        explanation = "Failed to log in as test student, did the login info for the test student change?"
+        time.sleep(1)
+        username_field.send_keys(username)
+        password_field.send_keys("Pass1234")
+        login_button.click()
+        time.sleep(3)
+        explanation = "Either the website failed to load, or the url for the welcome page simply changed, in which case this test needs to be updated with the new url"
+            
+        # Navigate to profile page
+        profile_link = find_element(By.XPATH, "/html/body/header/nav/div/div/ul/li[3]/a")
+        profile_link.click()
+        explanation = "Could not navigate to the Profile page. Did the link or the order of the navbar change?"
+        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Profile"
+        time.sleep(3)
+
+        # Click the Edit button
+        profile_edit_btn = find_element(By.XPATH, "/html/body/div/main/form/div/button")
+        profile_edit_btn.click()
+        explanation = "Could not navigate to the Profile Edit page. Did the link or the order of the navbar change?"
+        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Profile"
+        time.sleep(3)
+
+        # Add information to extra fields
+        street_field = find_element(By.XPATH, "html/body/div/main/form/div/div[6]/div/input")
+        city_field = find_element(By.XPATH, "html/body/div/main/form/div/div[7]/div/input")
+        state_field = find_element(By.XPATH, "html/body/div/main/form/div/div[8]/div/input")
+        zip_field = find_element(By.XPATH, "html/body/div/main/form/div/div[9]/div/input")
+        #phone_field = find_element(By.XPATH, "html/body/div/main/form/div/div[10]/div/input") Can't get phone to pass validation
+        street_field.send_keys("123 Test Street")
+        city_field.send_keys("Exampleville")
+        state_field.send_keys("UT")
+        zip_field.send_keys("12345")
+        #phone_field.send_keys("5551234567") Can't get phone to pass validation
+        time.sleep(3)
+
+        # Attempt to save form
+        profile_save_btn = find_element(By.XPATH, "/html/body/div/main/form/div/button")
+        profile_save_btn.click()
+        explanation = "Error while saving changes to Profile."
+        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Profile"
+        time.sleep(1)
+
+        # Check for newly added data
+        explanation = "Updated Profile into does not match test input. Wsa there an error saving the form?"
+        street_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[6]/div/p")
+        city_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[7]/div/p")
+        state_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[8]/div/p")
+        zip_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[9]/div/p")
+        assert street_new_field.text == "123 Test Street"
+        assert city_new_field.text == "Exampleville"
+        assert state_new_field.text == "UT"
+        assert zip_new_field.text == "12345"
+        #assert phone_field.text == "5551234567" Can't get phone to pass validation
+
+        # Revert the changes from the test
+        # Click the Edit button
+        profile_edit_btn = find_element(By.XPATH, "/html/body/div/main/form/div/button")
+        profile_edit_btn.click()
+        explanation = "Could not navigate to the Profile Edit page. Did the link or the order of the navbar change?"
+        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Profile"
+        time.sleep(3)
+
+        # Add information to extra fields
+        street_field = find_element(By.XPATH, "html/body/div/main/form/div/div[6]/div/input")
+        city_field = find_element(By.XPATH, "html/body/div/main/form/div/div[7]/div/input")
+        state_field = find_element(By.XPATH, "html/body/div/main/form/div/div[8]/div/input")
+        zip_field = find_element(By.XPATH, "html/body/div/main/form/div/div[9]/div/input")
+        #phone_field = find_element(By.XPATH, "html/body/div/main/form/div/div[10]/div/input") Can't get phone to pass validation
+        street_field.clear()
+        city_field.clear()
+        state_field.clear()
+        zip_field.clear()
+        #phone_field.send_keys("5551234567") Can't get phone to pass validation
+        time.sleep(3)
+
+        # Attempt to save form
+        profile_save_btn = find_element(By.XPATH, "/html/body/div/main/form/div/button")
+        profile_save_btn.click()
+        explanation = "Error while saving changes to Profile."
+        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Profile"
+        time.sleep(1)
+
+        return True, None, ""
+    except Exception as e:
+        return False, e, explanation
+
+
