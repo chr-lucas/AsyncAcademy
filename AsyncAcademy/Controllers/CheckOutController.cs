@@ -33,6 +33,8 @@ namespace AsyncAcademy.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateCheckoutSession()
         {
+            string testDomain = "https://localhost:7082";
+            string asyncDomain = "https://asyncacademy20241005173644.azurewebsites.net/";
             var currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
             var body = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
             var parsedBody = JObject.Parse(body);
@@ -57,9 +59,8 @@ namespace AsyncAcademy.Controllers
                 },
             },
                 Mode = "payment",
-                SuccessUrl = "https://localhost:7082/PaymentSuccess?session_id={CHECKOUT_SESSION_ID}",  // Add session ID to the success URL
-                //SuccessUrl = "https://localhost:7082/PaymentSuccess",  
-                CancelUrl = "https://localhost:7082/PaymentCanceled",
+                SuccessUrl = asyncDomain + "/PaymentSuccess?session_id={CHECKOUT_SESSION_ID}",  // Add session ID to the success URL 
+                CancelUrl = asyncDomain + "/PaymentCanceled",
                 ClientReferenceId = currentUserID.ToString()
             };
 
