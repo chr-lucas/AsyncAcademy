@@ -11,12 +11,24 @@ using System.Security.Principal;
 
 namespace AsyncAcademy.Pages
 {
-    public class ProfileModel(AsyncAcademy.Data.AsyncAcademyContext context) : PageModel
+    public class ProfileModel(AsyncAcademy.Data.AsyncAcademyContext context, IWebHostEnvironment environment) : PageModel
     {
+        private const int TwoMegaBytes = 2 * 1024 * 1024;
         private AsyncAcademy.Data.AsyncAcademyContext _context = context;
+        private IWebHostEnvironment _environment = environment;
+        public string profilePath;
+        public string[] _extensions = { ".jpg", ".png" };
+
         public string accountType = "Student";
         public DateTime birthday;
         public bool isEditable = false;
+        public bool changeImage = false;
+
+
+        [BindProperty]
+        public IFormFile myFile { get; set; }
+
+        public string myFileName { get; set; }
 
 
         [BindProperty]
@@ -124,6 +136,7 @@ namespace AsyncAcademy.Pages
                     // Reload the entity from the database to ensure data is up-to-date
                     await _context.Entry(Account).ReloadAsync();
                     isEditable = false;
+
                     return RedirectToPage();
                 }
                 else
@@ -137,6 +150,34 @@ namespace AsyncAcademy.Pages
                         }
                     }
                 }
+            }
+
+            // Handle image upload
+            if (myFile != null && myFile.Length > 0)
+            {
+                var extension = Path.GetExtension(myFile.FileName);
+                if (!_extensions.Contains(extension.ToLower()))
+                {
+                    ModelState.AddModelError("ImageError", "File must be a PNG or JPEG.");
+                    return Page();
+                }
+                if (myFile.Length > TwoMegaBytes)
+                {
+                    ModelState.AddModelError("ImageError", "Image too large. Upload a file less than 2MB in size.");
+                    return Page();
+                }
+
+                myFileName = Account.Id.ToString() + "_" + myFile.FileName;
+                string dbPath = "/images/" + myFileName;
+                string filePath = Path.Combine(_environment.WebRootPath, dbPath);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await myFile.CopyToAsync(fileStream);
+                }
+
+                Account.ProfilePath = dbPath;
+                await _context.SaveChangesAsync();
             }
 
             return Page();

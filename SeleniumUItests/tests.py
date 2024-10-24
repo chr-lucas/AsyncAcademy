@@ -307,3 +307,45 @@ def testLogOut():
         return True, None, ""
     except Exception as e:
         return False, e, explanation
+
+
+
+
+
+def testCourseRegistration():
+    explanation=""
+    try:
+        # Load website
+        explanation = "Failed to load website, are you connected to the internet? Is the website up? Did its URL change?"
+        driver.get(WEBSITE_URL)
+
+        # Log in as student
+        driver.get(WEBSITE_URL)
+        username_field = find_element(By.NAME, "Account.Username")
+        password_field = find_element(By.NAME, "Account.Pass")
+        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        time.sleep(1)
+        username_field.send_keys("studenttest")
+        password_field.send_keys("Pass1234")
+        login_button.click()
+        time.sleep(5)
+        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+
+
+        #Navigate to Register page:
+        register_link = find_element(By.XPATH, "/html/body/header/nav/div/div/ul/li[5]/a")
+        register_link.click();
+        explanation = "Unable to navigate to Register page"
+        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Course%20Pages/StudentIndex"
+        time.sleep(3);
+
+
+        #Enroll in a course:
+        enroll_button = find_element(By.XPATH, "/html/body/main/table[2]/tbody/tr[1]/td[14]/form/button")
+        enroll_button.click();
+        explanation = "Could not enroll in course"
+        time.sleep(3);
+
+        return True, None, ""
+    except Exception as e:
+        return False, e, explanation

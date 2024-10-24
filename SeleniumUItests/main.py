@@ -13,4 +13,5 @@ runTest(testLogIn, "Logging In")
 runTest(testAccountCreation, "Account Creation")
 runTest(testGraphVisibility, "Graph Visibility for Student/Instructor Views")
 runTest(testUpdateProfile, "Profile update functionality")
+runTest(testCourseRegistration, "Course registration functionality")
 

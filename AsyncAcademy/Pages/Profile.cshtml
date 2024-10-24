@@ -8,13 +8,27 @@
 <h2>@ViewData["Title"]</h2>
 
 
+
+
 <form method="post">
     <div class="profile-container">
 
 
 @if(!isEditable)
 {
+            <div class="image-container">
+                <h3>Current Profile Image</h3>
+                <div id="profile image">
+                    <img src=@Model.Account.ProfilePath>
+                </div>
+            </div>
 
+            <style>
+                img {
+                    border-radius: 50%;
+                    margin-bottom: 10px;
+                }
+            </style>
 
             
 
@@ -111,7 +125,24 @@
 
 else
 {
+            <div class="image-container">
+                <h3>Current Profile Image</h3>
+                <div id="profile image">
+                    <img src=@Model.Account.ProfilePath>
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    <input type="file" asp-for="myFile" />
+                    <input type="submit" />
+                </form>
+                <span class="text-danger">@Html.ValidationMessage("ImageError")</span>
+            </div>
 
+            <style>
+                img {
+                    border-radius: 50%;
+                    margin-bottom: 10px;
+                }
+            </style>
 
 
 
