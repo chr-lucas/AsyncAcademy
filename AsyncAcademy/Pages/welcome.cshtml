@@ -40,7 +40,15 @@
                     <div class="card todo-card">
                         <div class="card-body">
                             <p>@item.Course</p>
-                            <p>@item.Assignment</p>
+                            @if (item.SubmissionType == "File Submission")
+                            {
+                                <a asp-page="/Assignments/SubmitFile" asp-route-id="@item.AssignmentID" class="btn btn-success">@item.Assignment</a>
+
+                            }
+                            @if (item.SubmissionType == "textentry" || item.SubmissionType == "Text Entry" || item.SubmissionType == "URL")
+                            {
+                                <a asp-page="/Assignments/Submit" asp-route-id="@item.AssignmentID" class="btn btn-success">@item.Assignment</a>
+                            }
                             <p>@item.DueDate.ToString("MMMM dd, yyyy h:mm tt")</p>
                         </div>
                     </div>

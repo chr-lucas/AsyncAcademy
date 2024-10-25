@@ -16,6 +16,8 @@ namespace AsyncAcademy.Pages
         public string Course { get; set; }
         public string Assignment { get; set; }
         public DateTime DueDate { get; set; }
+        public int AssignmentID { get; set; } // Added for to-do list clickability - Hanna W
+        public string SubmissionType { get; set; } //Added for to-do list clickability - Hanna W
     }
 
     public class WelcomeModel : PageModel
@@ -108,10 +110,12 @@ namespace AsyncAcademy.Pages
                     .Where(c => enrolledCourseIds.Contains(c.Id))
                     .ToListAsync();
 
+                var submissions = await _context.Submissions.Where(a => a.UserId == currentUserID).Select(a => a.AssignmentId).ToListAsync(); //Used to exclude todo list items with submissions - Hanna W
+
                 // Get the upcoming assignments
                 DateTime now = DateTime.Now; // Or use DateTime.UtcNow for consistency
                 ToDoList = await _context.Assignment
-                    .Where(a => a.Due > now && enrolledCourseIds.Contains(a.CourseId))
+                    .Where(a => a.Due > now && enrolledCourseIds.Contains(a.CourseId) && !submissions.Contains(a.Id)) //changed to exclude todo list items with submissions - Hanna W
                     .OrderBy(a => a.Due)
                     .Take(5)
                     .Select(a => new ToDoItem
@@ -121,7 +125,9 @@ namespace AsyncAcademy.Pages
                             .Select(c => c.Department + " " + c.CourseNumber)
                             .FirstOrDefault(),
                         Assignment = a.Title,
-                        DueDate = a.Due
+                        DueDate = a.Due,
+                        AssignmentID = a.Id,
+                        SubmissionType = a.Type
                     })
                     .ToListAsync();
 
