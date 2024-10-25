@@ -26,9 +26,9 @@ namespace AsyncAcademy.Pages
 
 
         [BindProperty]
-        public IFormFile myFile { get; set; }
+        public IFormFile? myFile { get; set; }
 
-        public string myFileName { get; set; }
+        public string? myFileName { get; set; }
 
 
         [BindProperty]
@@ -80,6 +80,8 @@ namespace AsyncAcademy.Pages
                 NavBarAccountText = "Account";
             }
 
+            profilePath = Account.ProfilePath;
+
             return Page();
         }
 
@@ -122,7 +124,13 @@ namespace AsyncAcademy.Pages
                 // Check if the model state is valid
                 if (!ModelState.IsValid)
                 {
-                    // Redisplay the form with validation errors
+                    foreach (var modelState in ModelState.Values)
+                    {
+                        foreach (var error in modelState.Errors)
+                        {
+                            Debug.WriteLine("ModelState Error: " + error.ErrorMessage);
+                        }
+                    }
                     isEditable = true; // Keep the form in edit mode
                     return Page();
                 }
@@ -137,7 +145,7 @@ namespace AsyncAcademy.Pages
                     await _context.Entry(Account).ReloadAsync();
                     isEditable = false;
 
-                    return RedirectToPage();
+                    //return RedirectToPage();
                 }
                 else
                 {
@@ -150,35 +158,38 @@ namespace AsyncAcademy.Pages
                         }
                     }
                 }
+
+                //Handle image upload
+                if (myFile != null && myFile.Length > 0)
+                {
+                    Debug.WriteLine("handling files??");
+                    var extension = Path.GetExtension(myFile.FileName);
+                    if (!_extensions.Contains(extension.ToLower()))
+                    {
+                        ModelState.AddModelError("ImageError", "File must be a PNG or JPEG.");
+                        //return Page();
+                    }
+                    if (myFile.Length > TwoMegaBytes)
+                    {
+                        ModelState.AddModelError("ImageError", "Image too large. Upload a file less than 2MB in size.");
+                        return Page();
+                    }
+
+                    myFileName = Account.Id.ToString() + "_" + myFile.FileName;
+                    string dbPath = "/images/" + myFileName;
+                    string filePath = _environment.WebRootPath + dbPath;
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await myFile.CopyToAsync(fileStream);
+                    }
+
+                    Account.ProfilePath = dbPath;
+                    await _context.SaveChangesAsync();
+                }
             }
 
-            // Handle image upload
-            if (myFile != null && myFile.Length > 0)
-            {
-                var extension = Path.GetExtension(myFile.FileName);
-                if (!_extensions.Contains(extension.ToLower()))
-                {
-                    ModelState.AddModelError("ImageError", "File must be a PNG or JPEG.");
-                    return Page();
-                }
-                if (myFile.Length > TwoMegaBytes)
-                {
-                    ModelState.AddModelError("ImageError", "Image too large. Upload a file less than 2MB in size.");
-                    return Page();
-                }
 
-                myFileName = Account.Id.ToString() + "_" + myFile.FileName;
-                string dbPath = "/images/" + myFileName;
-                string filePath = Path.Combine(_environment.WebRootPath, dbPath);
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await myFile.CopyToAsync(fileStream);
-                }
-
-                Account.ProfilePath = dbPath;
-                await _context.SaveChangesAsync();
-            }
 
             return Page();
         }
