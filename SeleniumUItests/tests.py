@@ -200,10 +200,10 @@ def testUpdateProfile(): # Make sure student can update profile info
         time.sleep(3)
 
         # Add information to extra fields
-        street_field = find_element(By.XPATH, "html/body/div/main/form/div/div[6]/div/input")
-        city_field = find_element(By.XPATH, "html/body/div/main/form/div/div[7]/div/input")
-        state_field = find_element(By.XPATH, "html/body/div/main/form/div/div[8]/div/input")
-        zip_field = find_element(By.XPATH, "html/body/div/main/form/div/div[9]/div/input")
+        street_field = find_element(By.XPATH, "html/body/div/main/form/div/div[7]/div/input")
+        city_field = find_element(By.XPATH, "html/body/div/main/form/div/div[8]/div/input")
+        state_field = find_element(By.XPATH, "html/body/div/main/form/div/div[9]/div/input")
+        zip_field = find_element(By.XPATH, "html/body/div/main/form/div/div[10]/div/input")
         #phone_field = find_element(By.XPATH, "html/body/div/main/form/div/div[10]/div/input") Can't get phone to pass validation
         street_field.send_keys("123 Test Street")
         city_field.send_keys("Exampleville")
@@ -221,10 +221,10 @@ def testUpdateProfile(): # Make sure student can update profile info
 
         # Check for newly added data
         explanation = "Updated Profile into does not match test input. Wsa there an error saving the form?"
-        street_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[6]/div/p")
-        city_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[7]/div/p")
-        state_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[8]/div/p")
-        zip_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[9]/div/p")
+        street_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[7]/div/p")
+        city_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[8]/div/p")
+        state_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[9]/div/p")
+        zip_new_field = find_element(By.XPATH, "html/body/div/main/form/div/div[10]/div/p")
         assert street_new_field.text == "123 Test Street"
         assert city_new_field.text == "Exampleville"
         assert state_new_field.text == "UT"
@@ -240,10 +240,10 @@ def testUpdateProfile(): # Make sure student can update profile info
         time.sleep(3)
 
         # Add information to extra fields
-        street_field = find_element(By.XPATH, "html/body/div/main/form/div/div[6]/div/input")
-        city_field = find_element(By.XPATH, "html/body/div/main/form/div/div[7]/div/input")
-        state_field = find_element(By.XPATH, "html/body/div/main/form/div/div[8]/div/input")
-        zip_field = find_element(By.XPATH, "html/body/div/main/form/div/div[9]/div/input")
+        street_field = find_element(By.XPATH, "html/body/div/main/form/div/div[7]/div/input")
+        city_field = find_element(By.XPATH, "html/body/div/main/form/div/div[8]/div/input")
+        state_field = find_element(By.XPATH, "html/body/div/main/form/div/div[9]/div/input")
+        zip_field = find_element(By.XPATH, "html/body/div/main/form/div/div[10]/div/input")
         #phone_field = find_element(By.XPATH, "html/body/div/main/form/div/div[10]/div/input") Can't get phone to pass validation
         street_field.clear()
         city_field.clear()
