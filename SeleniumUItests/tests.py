@@ -349,3 +349,36 @@ def testCourseRegistration():
         return True, None, ""
     except Exception as e:
         return False, e, explanation
+
+
+def testViewToDoList():
+    explanation=""
+    try:
+         # Load website
+        explanation = "Failed to load website, are you connected to the internet? Is the website up? Did its URL change?"
+        driver.get(WEBSITE_URL)
+
+         # Log in as student
+        driver.get(WEBSITE_URL)
+        username_field = find_element(By.NAME, "Account.Username")
+        password_field = find_element(By.NAME, "Account.Pass")
+        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        time.sleep(1)
+        username_field.send_keys("studenttest")
+        password_field.send_keys("Pass1234")
+        login_button.click()
+        time.sleep(5)
+        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+
+        #Find to do list
+        try:
+            find_element(By.XPATH, "/html/body/div[1]/main/div/div[2]/div/h2")
+            pass
+        except:
+            raise Exception("To-do list not found")
+            explanation = "To-do list not found"
+
+        
+        return True, None, ""
+    except Exception as e:
+        return False, e, explanation
