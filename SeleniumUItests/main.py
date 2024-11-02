@@ -15,4 +15,5 @@ runTest(testGraphVisibility, "Graph Visibility for Student/Instructor Views")
 runTest(testUpdateProfile, "Profile update functionality")
 runTest(testCourseRegistration, "Course registration functionality")
 runTest(testViewToDoList, "To do list visibility")
+runTest(testAssignmentCreation, "Assingment Creation")
 
