@@ -16,18 +16,24 @@
         var data = google.visualization.arrayToDataTable([
             ['Letter Grade', 'Number of Students', { role: 'style' }],
             ['A', @Model.numA, 'CornflowerBlue'],
+            ['A-', @Model.numA, 'CornflowerBlue'],
+            ['B+', @Model.numA, 'CornflowerBlue'],
             ['B', @Model.numB, 'CornflowerBlue'],
+            ['B-', @Model.numA, 'CornflowerBlue'],
+            ['C+', @Model.numC, 'CornflowerBlue'],
             ['C', @Model.numC, 'CornflowerBlue'],
+            ['C-', @Model.numC, 'CornflowerBlue'],
+            ['D+', @Model.numD, 'CornflowerBlue'],
             ['D', @Model.numD, 'CornflowerBlue'],
-            ['F', @Model.numF, 'CornflowerBlue'],
-            ['Not Yet Graded', @Model.numUG, 'IndianRed']
+            ['D-', @Model.numD, 'CornflowerBlue'],
+            ['E', @Model.numE, 'CornflowerBlue']
         ]);
 
         var view = new google.visualization.DataView(data);
         view.setColumns([0, 1,
             {
                 calc: function (dt, row) {
-                    return (dt.getValue(row, 1) / @Model.numSub * 100).toFixed(1) + '%';
+                    return (dt.getValue(row, 1) / @Model.Course.StudentsEnrolled * 100).toFixed(1) + '%';
                 },
                 sourceColumn: 1,
                 type: "string",

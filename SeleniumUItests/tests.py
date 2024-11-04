@@ -358,3 +358,105 @@ def testCourseRegistration():
         return True, None, ""
     except Exception as e:
         return False, e, explanation
+
+
+def testViewToDoList():
+    explanation=""
+    try:
+         # Load website
+        explanation = "Failed to load website, are you connected to the internet? Is the website up? Did its URL change?"
+        driver.get(WEBSITE_URL)
+
+         # Log in as student
+        driver.get(WEBSITE_URL)
+        username_field = find_element(By.NAME, "Account.Username")
+        password_field = find_element(By.NAME, "Account.Pass")
+        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        time.sleep(1)
+        username_field.send_keys("studenttest")
+        password_field.send_keys("Pass1234")
+        login_button.click()
+        time.sleep(5)
+        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+
+        #Find to do list
+        try:
+            find_element(By.XPATH, "/html/body/div[1]/main/div/div[2]/div/h2")
+            pass
+        except:
+            raise Exception("To-do list not found")
+            explanation = "To-do list not found"
+
+        
+        return True, None, ""
+    except Exception as e:
+        return False, e, explanation
+        
+
+def testAssignmentCreation():
+    explanation = ""
+    try:
+        # Step 1: Log in as instructor
+        explanation = "Failed to load website, are you connected to the internet? Is the website up? Did its URL change?"
+        driver.get(WEBSITE_URL)
+        
+        username_field = find_element(By.NAME, "Account.Username")
+        password_field = find_element(By.NAME, "Account.Pass")
+        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        
+        time.sleep(1)
+        username_field.send_keys("instructortest")
+        password_field.send_keys("Pass1234")
+        login_button.click()
+        time.sleep(5)
+        
+        # Step 2: Navigate to CS 3550 class
+        explanation = "Failed to navigate to the CS 3550 class."
+        cs3550_link = find_element(By.LINK_TEXT, "CS 3550")
+        cs3550_link.click()
+        time.sleep(5)
+
+        # Step 3: Click "Create New" to access the assignment form
+        explanation = "Failed to find or click the 'Create New' button."
+        create_new_button = find_element(By.LINK_TEXT, "Create New")
+        create_new_button.click()
+        time.sleep(5)
+
+        # Step 4: Fill out the assignment form
+        explanation = "Failed to find assignment form fields."
+        title_field = find_element(By.NAME, "Title")
+        description_field = find_element(By.NAME, "Description")
+        max_points_field = find_element(By.NAME, "MaxPoints")
+        due_date_field = find_element(By.NAME, "Due")  # Ensure this matches the name in the form
+        
+        title_field.send_keys("Sample Assignment Title")
+        description_field.send_keys("This is a sample assignment description.")
+        max_points_field.send_keys("100")
+        due_date_field.send_keys("2024-12-31")  # Use an appropriate date format as required
+        
+        # Step 5: Submit the assignment
+        explanation = "Failed to find or click the 'Create' button."
+        create_button = find_element(By.XPATH, "//button[text()='Create']")  # Locate the Create button
+        create_button.click()
+        time.sleep(5)
+
+        # Step 6: Verify the assignment was created successfully
+        explanation = "Failed to verify that the assignment was created successfully."
+        
+        # Check if the assignment appears in the table of assignments
+        assignments_table = find_element(By.TAG_NAME, "table")  # Find the assignments table
+        rows = assignments_table.find_elements(By.TAG_NAME, "tr")  # Get all rows in the table
+        
+        # Extract titles from the table and check for our new assignment
+        assignment_titles = []
+        for row in rows[1:]:  # Skip the header row
+            columns = row.find_elements(By.TAG_NAME, "td")
+            if columns:  # Ensure there are columns
+                title = columns[0].text  # The first column contains the title
+                assignment_titles.append(title)
+
+        assert "Sample Assignment Title" in assignment_titles, "The new assignment was not found in the assignments list."
+
+        return True, None, ""
+    except Exception as e:
+        return False, e, explanation

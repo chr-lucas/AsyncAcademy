@@ -20,13 +20,17 @@ namespace AsyncAcademy.Pages
 
         // Counter variables for chart data
         public int numA = 0;
+        public int numAm = 0;
+        public int numBp = 0;
         public int numB = 0;
+        public int numBm = 0;
+        public int numCp = 0;
         public int numC = 0;
+        public int numCm = 0;
+        public int numDp = 0;
         public int numD = 0;
-        public int numF = 0;
-        public int numUG = 0;
-        public int numSub = 0;
-        public int numNotSub = 0;
+        public int numDm = 0;
+        public int numE = 0;
 
         public bool isProfessor = false;
 
@@ -139,13 +143,18 @@ namespace AsyncAcademy.Pages
             }
 
             foreach (float? grade in AverageGrades) {
-                numSub += 1;
-                if (grade >= 90) { numA++; }
-                else if (grade >= 80) { numB++; }
-                else if (grade >= 70) { numC++; }
-                else if (grade >= 60) { numD++; }
-                else if (grade >= 0) { numF++; }
-                else if (grade < 0) { numUG++; }
+                if (grade >= 94) { numA++; }
+                else if (grade >= 90) { numAm++; }
+                else if (grade >= 87) { numBp++; }
+                else if (grade >= 84) { numB++; }
+                else if (grade >= 80) { numBm++; }
+                else if (grade >= 77) { numCp++; }
+                else if (grade >= 74) { numC++; }
+                else if (grade >= 70) { numCm++; }
+                else if (grade >= 67) { numDp++; }
+                else if (grade >= 64) { numD++; }
+                else if (grade >= 60) { numDm++; }
+                else if (grade < 60) { numE++; }
             }
 
             return Page();
