@@ -7,7 +7,7 @@ import random
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-WEBSITE_URL = "https://asyncacademy20241005173644.azurewebsites.net/"
+WEBSITE_URL = "https://asyncacademy20241104160444.azurewebsites.net/"
 driver = webdriver.Edge()
 #errors = [NoSuchElementException, ElementNotInteractableException]
 #wait = WebDriverWait(driver, 10, poll_frequency=0.5, ignored_exceptions=errors)
@@ -50,7 +50,7 @@ def testLogIn(): # Make sure logging in with test users works
             login_button.click()
             time.sleep(5)
             explanation = "Either the website failed to load, or the url for the welcome page simply changed, in which case this test needs to be updated with the new url"
-            assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+            assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/welcome"
             driver.get(WEBSITE_URL)
             time.sleep(5)
         return True, None, ""
@@ -91,7 +91,7 @@ def testAccountCreation():
         submit_button.click()
         time.sleep(5)
         explanation = "Got unexpected URL"
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/welcome"
         explanation = "Was unable to find or interact with element at login page"
         driver.get(WEBSITE_URL)
         username_field = find_element(By.NAME, "Account.Username")
@@ -102,7 +102,7 @@ def testAccountCreation():
         login_button.click()
         time.sleep(5)
         explanation = "Got unexpected URL"
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/welcome"
         return True, None, ""
     except Exception as e:
         return False, e, explanation
@@ -121,7 +121,7 @@ def testGraphVisibility():
         password_field.send_keys("Pass1234")
         login_button.click()
         time.sleep(5)
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/welcome"
         explanation = "Unable to locate CS 3550 link"
         cs3550_link = find_element(By.LINK_TEXT, "CS 3550")
         explanation = "Unable to interact with CS 3550 link"
@@ -131,7 +131,7 @@ def testGraphVisibility():
         cs3550_link.click()
         time.sleep(5)
         explanation = "Failed to enter CS 3550 class card, got unexpected URL"
-        assert "https://asyncacademy20241005173644.azurewebsites.net/ClassOverview?" in driver.current_url
+        assert "https://asyncacademy20241104160444.azurewebsites.net/ClassOverview?" in driver.current_url
         try:
             find_element(By.XPATH, "/html/body/div/main/div[2]", 1)
             raise Exception("Found graph when it shouldn't have been there")
@@ -148,7 +148,7 @@ def testGraphVisibility():
         password_field.send_keys("Pass1234")
         login_button.click()
         time.sleep(5)
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/welcome"
         explanation = "Unable to locate CS 3550 link"
         cs3550_link = find_element(By.LINK_TEXT, "CS 3550")
         explanation = "Unable to interact with CS 3550 link"
@@ -158,7 +158,7 @@ def testGraphVisibility():
         cs3550_link.click()
         time.sleep(5)
         explanation = "Got unexpected URL"
-        #assert "https://asyncacademy20241005173644.azurewebsites.net/ClassOverview?" in driver.current_url
+        #assert "https://asyncacademy20241104160444.azurewebsites.net/ClassOverview?" in driver.current_url
         explanation = "Failed to find graph"
         find_element(By.XPATH, "/html/body/div/main/div[2]", 5)
         return True, None, ""
@@ -191,14 +191,14 @@ def testUpdateProfile(): # Make sure student can update profile info
         profile_link = find_element(By.XPATH, "/html/body/header/nav/div/div/ul/li[3]/a")
         profile_link.click()
         explanation = "Could not navigate to the Profile page. Did the link or the order of the navbar change?"
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Profile"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/Profile"
         time.sleep(3)
 
         # Click the Edit button
         profile_edit_btn = find_element(By.XPATH, "/html/body/div/main/form/div/button")
         profile_edit_btn.click()
         explanation = "Could not navigate to the Profile Edit page. Did the link or the order of the navbar change?"
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Profile"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/Profile"
         time.sleep(3)
 
         # Add information to extra fields
@@ -218,7 +218,7 @@ def testUpdateProfile(): # Make sure student can update profile info
         profile_save_btn = find_element(By.XPATH, "/html/body/div/main/form/div/button")
         profile_save_btn.click()
         explanation = "Error while saving changes to Profile."
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Profile"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/Profile"
         time.sleep(1)
 
         # Check for newly added data
@@ -238,7 +238,7 @@ def testUpdateProfile(): # Make sure student can update profile info
         profile_edit_btn = find_element(By.XPATH, "/html/body/div/main/form/div/button")
         profile_edit_btn.click()
         explanation = "Could not navigate to the Profile Edit page. Did the link or the order of the navbar change?"
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Profile"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/Profile"
         time.sleep(3)
 
         # Add information to extra fields
@@ -258,7 +258,7 @@ def testUpdateProfile(): # Make sure student can update profile info
         profile_save_btn = find_element(By.XPATH, "/html/body/div/main/form/div/button")
         profile_save_btn.click()
         explanation = "Error while saving changes to Profile."
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Profile"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/Profile"
         time.sleep(1)
 
         return True, None, ""
@@ -280,7 +280,7 @@ def testLogOut():
         password_field.send_keys("Pass1234")
         login_button.click()
         time.sleep(5)
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/welcome"
 
         # Log out as student
         logout_button = find_element(By.XPATH, "/html/body/header/nav/div/div/ul/li[4]/a")
@@ -298,7 +298,7 @@ def testLogOut():
         password_field.send_keys("Pass1234")
         login_button.click()
         time.sleep(5)
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/welcome"
 
         # Log out as instructor
         logout_button = find_element(By.XPATH, "/html/body/header/nav/div/div/ul/li[4]/a")
@@ -330,7 +330,7 @@ def testCourseRegistration():
         password_field.send_keys("Pass1234")
         login_button.click()
         time.sleep(5)
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/welcome"
 
         # Navigate to Register page
         explanation = "Unable to navigate to Register page"
@@ -341,19 +341,23 @@ def testCourseRegistration():
 
         # Ensure the page has navigated to the Register page
         WebDriverWait(driver, 10).until(
-            EC.url_to_be("https://asyncacademy20241005173644.azurewebsites.net/Course%20Pages/StudentIndex")
+            EC.url_to_be("https://asyncacademy20241104160444.azurewebsites.net/Course%20Pages/StudentIndex")
         )
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Course%20Pages/StudentIndex"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/Course%20Pages/StudentIndex"
         time.sleep(3)
 
-        # Enroll in a course
-        explanation = "Unable to find the Enroll button"
-        enroll_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//table[@id='available-courses']/tbody/tr[1]/td/form/button[@id='7']"))
-        )  # Wait until the Enroll button is clickable
-        enroll_button.click()
-        explanation = "Could not enroll in course"
-        time.sleep(3)
+        # Wait for the table to be fully loaded
+ 
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.ID, "available-courses")) )
+ 
+        # Select the enroll button by class or ID 
+        enroll_button = WebDriverWait(driver, 10).until( EC.element_to_be_clickable((By.XPATH, "//table[@id='available-courses']//button[contains(@class, 'btn-primary')]")) ) 
+
+        # Scroll the enroll button into view 
+        driver.execute_script("arguments[0].scrollIntoView();", enroll_button) 
+
+        # Click the button 
+        enroll_button.click()  
 
         return True, None, ""
     except Exception as e:
@@ -377,7 +381,7 @@ def testViewToDoList():
         password_field.send_keys("Pass1234")
         login_button.click()
         time.sleep(5)
-        assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
+        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/welcome"
 
         #Find to do list
         try:
