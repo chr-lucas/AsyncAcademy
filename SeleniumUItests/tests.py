@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
 import time
 import random
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 WEBSITE_URL = "https://asyncacademy20241005173644.azurewebsites.net/"
 driver = webdriver.Edge()
@@ -313,14 +315,13 @@ def testLogOut():
 
 
 def testCourseRegistration():
-    explanation=""
+    explanation = ""
     try:
         # Load website
         explanation = "Failed to load website, are you connected to the internet? Is the website up? Did its URL change?"
         driver.get(WEBSITE_URL)
 
         # Log in as student
-        driver.get(WEBSITE_URL)
         username_field = find_element(By.NAME, "Account.Username")
         password_field = find_element(By.NAME, "Account.Pass")
         login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
@@ -331,20 +332,28 @@ def testCourseRegistration():
         time.sleep(5)
         assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/welcome"
 
-
-        #Navigate to Register page:
-        register_link = find_element(By.XPATH, "/html/body/header/nav/div/div/ul/li[5]/a")
-        register_link.click();
+        # Navigate to Register page
         explanation = "Unable to navigate to Register page"
+        register_link = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, "/html/body/header/nav/div/div/ul/li[4]/a"))
+        )  # Wait until the Register link is clickable
+        register_link.click()
+
+        # Ensure the page has navigated to the Register page
+        WebDriverWait(driver, 10).until(
+            EC.url_to_be("https://asyncacademy20241005173644.azurewebsites.net/Course%20Pages/StudentIndex")
+        )
         assert driver.current_url == "https://asyncacademy20241005173644.azurewebsites.net/Course%20Pages/StudentIndex"
-        time.sleep(3);
+        time.sleep(3)
 
-
-        #Enroll in a course:
-        enroll_button = find_element(By.XPATH, "/html/body/main/table[2]/tbody/tr[1]/td[14]/form/button")
-        enroll_button.click();
+        # Enroll in a course
+        explanation = "Unable to find the Enroll button"
+        enroll_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, "//table[@id='available-courses']/tbody/tr[1]/td/form/button[@id='7']"))
+        )  # Wait until the Enroll button is clickable
+        enroll_button.click()
         explanation = "Could not enroll in course"
-        time.sleep(3);
+        time.sleep(3)
 
         return True, None, ""
     except Exception as e:

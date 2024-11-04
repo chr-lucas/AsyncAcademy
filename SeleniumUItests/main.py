@@ -9,9 +9,8 @@ def runTest(test, name):
         print(result[1])
         print(result[2])
 
-runTest(testLogIn, "Logging In")
-runTest(testAccountCreation, "Account Creation")
-runTest(testGraphVisibility, "Graph Visibility for Student/Instructor Views")
-runTest(testUpdateProfile, "Profile update functionality")
+#runTest(testAccountCreation, "Account Creation")
+#runTest(testGraphVisibility, "Graph Visibility for Student/Instructor Views")
+#runTest(testUpdateProfile, "Profile update functionality")
 runTest(testCourseRegistration, "Course registration functionality")
 

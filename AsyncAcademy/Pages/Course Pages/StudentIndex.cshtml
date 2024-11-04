@@ -51,7 +51,7 @@
 
 <h1>Courses Available</h1>
 
-<table class="table">
+<table id="available-courses" class="table">
     <thead>
         <tr>
             <th>@Html.DisplayNameFor(model => model.AvailableCourses[0].CourseNumber)</th>
@@ -89,7 +89,7 @@
                 <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
                 <td>
                     <form method="post" asp-page="./Enroll" asp-route-courseId="@item.Id">
-                        <button type="submit" class="btn btn-primary">Enroll</button>
+                        <button id="@item.Id" type="submit" class="btn btn-primary">Enroll</button>
                     </form>
                 </td>
             </tr>
