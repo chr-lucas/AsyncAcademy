@@ -31,10 +31,10 @@ namespace AsyncAcademy.Pages
         public string WelcomeText { get; set; }
 
         [ViewData]
-        public string NavBarLink { get; set; }
-
+        public string NavBarLink { get; set; } = "Course Pages/StudentIndex";
+        
         [ViewData]
-        public string NavBarText { get; set; }
+        public string NavBarText { get; set; } = "Register";
 
         [ViewData]
         public string NavBarAccountTabLink { get; set; } = "/Account";
