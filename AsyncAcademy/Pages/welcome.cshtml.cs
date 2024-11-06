@@ -32,7 +32,7 @@ namespace AsyncAcademy.Pages
 
         [ViewData]
         public string NavBarLink { get; set; }
-        
+
         [ViewData]
         public string NavBarText { get; set; }
 
@@ -140,4 +140,4 @@ namespace AsyncAcademy.Pages
             return Page();
         }
     }
-}
+} 
