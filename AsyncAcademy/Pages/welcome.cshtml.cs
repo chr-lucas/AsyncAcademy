@@ -22,7 +22,7 @@ namespace AsyncAcademy.Pages
 
     public class WelcomeModel : PageModel
     {
-        private readonly AsyncAcademy.Data.AsyncAcademyContext _context;
+        private readonly AsyncAcademyContext _context;
 
         [BindProperty]
         public User? Account { get; set; }
@@ -46,7 +46,7 @@ namespace AsyncAcademy.Pages
 
         public List<ToDoItem> ToDoList { get; set; } = new List<ToDoItem>();
 
-        public WelcomeModel(AsyncAcademy.Data.AsyncAcademyContext context)
+        public WelcomeModel(AsyncAcademyContext context)
         {
             _context = context;
         }
@@ -69,6 +69,27 @@ namespace AsyncAcademy.Pages
                 Account = JsonSerializer.Deserialize<User>(accountData);
                 EnrolledCourses = JsonSerializer.Deserialize<List<Course>>(coursesData);
                 ToDoList = JsonSerializer.Deserialize<List<ToDoItem>>(todoData);
+
+                // Set ViewData properties here
+                var firstname = Account.FirstName;
+                var lastname = Account.LastName;
+
+                if (Account.IsProfessor)
+                {
+                    WelcomeText = $"Welcome, Professor {firstname} {lastname}";
+                    NavBarLink = "Course Pages/InstructorIndex";
+                    NavBarText = "Classes";
+                    NavBarAccountTabLink = "";
+                    NavBarAccountText = "";
+                }
+                else
+                {
+                    WelcomeText = $"Welcome, {firstname} {lastname}";
+                    NavBarLink = "Course Pages/StudentIndex";
+                    NavBarText = "Register";
+                    NavBarAccountTabLink = "/Account";
+                    NavBarAccountText = "Account";
+                }
             }
             else
             {
@@ -82,7 +103,7 @@ namespace AsyncAcademy.Pages
 
                 var firstname = Account.FirstName;
                 var lastname = Account.LastName;
-                
+
                 if (Account.IsProfessor)
                 {
                     WelcomeText = $"Welcome, Professor {firstname} {lastname}";
