@@ -52,6 +52,21 @@ namespace AsyncAcademy.Pages
                 return NotFound(); // Or redirect to a login page
             }
 
+
+            //set navbar
+            var Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
+
+            if (Account.IsProfessor)
+            {
+                NavBarLink = "Course Pages/InstructorIndex";
+                NavBarText = "Classes";
+            }
+            else
+            {
+                NavBarLink = "Course Pages/StudentIndex";
+                NavBarText = "Register";
+            }
+
             // Load the enrollment details for the current user
             Enrollment = await _context.Enrollments
                                        .FirstOrDefaultAsync(e => e.UserId == currentUserID);

@@ -69,6 +69,24 @@ namespace AsyncAcademy.Pages
                 Account = JsonSerializer.Deserialize<User>(accountData);
                 EnrolledCourses = JsonSerializer.Deserialize<List<Course>>(coursesData);
                 ToDoList = JsonSerializer.Deserialize<List<ToDoItem>>(todoData);
+
+                //set navbar
+                if (Account.IsProfessor)
+                {
+                    WelcomeText = $"Welcome, Professor {Account.FirstName} {Account.LastName}";
+                    NavBarLink = "Course Pages/InstructorIndex";
+                    NavBarText = "Classes";
+                    NavBarAccountTabLink = "";
+                    NavBarAccountText = "";
+                }
+                else
+                {
+                    WelcomeText = $"Welcome, {Account.FirstName} {Account.LastName}";
+                    NavBarLink = "Course Pages/StudentIndex";
+                    NavBarText = "Register";
+                    NavBarAccountTabLink = "/Account";
+                    NavBarAccountText = "Account";
+                }
             }
             else
             {
@@ -82,6 +100,8 @@ namespace AsyncAcademy.Pages
 
                 var firstname = Account.FirstName;
                 var lastname = Account.LastName;
+
+                //set navbar
                 if (Account.IsProfessor)
                 {
                     WelcomeText = $"Welcome, Professor {firstname} {lastname}";

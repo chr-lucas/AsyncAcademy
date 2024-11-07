@@ -3,12 +3,23 @@
 @{
     ViewData["Title"] = "Welcome";
 }
+<head>
+        <link rel="stylesheet" href="css/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+<div class="text-center">
+    <h1 class="welcome">@ViewData["WelcomeText"]</h1>
+</div>
+<br />
+<br />
 
 <div class="row">
     <div class="col-md-8">
-        <div class="text-center">
-            <h1 class="display-4">@ViewData["WelcomeText"]</h1>
-        </div>
+        
 
         @for (int i = 0; i < Model.EnrolledCourses.Count; i++)
         {
@@ -58,28 +69,58 @@
     </div>
 
 </div>
+</body>
+
 
 <style>
     .todo-list {
         margin-top: 20px;
         background-color: white;
         color: black;
+        border: solid 1px #ccc; /* lighter gray */
+        border-radius: 1.5em;
+        padding: 10px;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+        font-family: 'Ubuntu', sans-serif;
     }
 
     .todo-card {
         margin-bottom: 10px;
         padding: 10px;
         border: solid 1px #ccc; /* lighter gray */
-        border-radius: 5px;
+        border-radius: 1.5em;
         color: black;
         background-color: #f9f9f9; /* light gray */
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+        font-family: 'Ubuntu', sans-serif;
     }
 
     div.class-cards {
         border: solid 3px #ccc;  /* lighter gray */
-        border-radius: 5px;
+        border-radius: 1.5em;
         margin-bottom: 10px;
         padding: 10px;
         background-color: white;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    body {
+        background-color: #dcdedc;
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    .welcome {
+        padding-top: 40px;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: bold;
+        color: #585095;
+    }
+
+    .btn-success{
+        background: #8db289;
+    }
+    a {
+        color: #8db289;
     }
 </style>
