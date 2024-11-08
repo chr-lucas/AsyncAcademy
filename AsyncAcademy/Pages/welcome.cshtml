@@ -26,13 +26,12 @@
             var e = Model.EnrolledCourses[i];
     
             <div class="class-cards">
-                <h1><a asp-page="/ClassOverview" asp-route-courseId="@e.Id">@e.Department @e.CourseNumber</a></h1>
-                <br>
-                @e.Name
-                <br>
-                @e.MeetingTimeInfo
-                <br>
-                @e.Location
+                <h1 style="text-align: center"><a asp-page="/ClassOverview" asp-route-courseId="@e.Id" style="text-align: center">@e.Department @e.CourseNumber</a></h1>
+                <br />
+                <p style="text-align: left">@e.Name</p>
+                <br />
+                <p style="text-align: right">@e.MeetingTimeInfo</p>
+                <p style="text-align: right">@e.Location</p>
             </div>
         }
     </div>
