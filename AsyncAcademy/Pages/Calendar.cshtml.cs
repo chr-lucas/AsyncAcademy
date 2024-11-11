@@ -34,7 +34,7 @@ namespace AsyncAcademy.Pages
         public List<CalendarEvent> CalendarEvents = [];
         public List<Assignment> UpcomingAssignments = [];
         public List<Course> InstructorSections = [];
-        public List<string> colorWheel = ["#FFDD57", "#EAD4FF", "#FFC9C5", "#BFF2D1", "#C4D6F5"];
+        public List<string> colorWheel = ["#FFDD57", "#EAD4FF", "#FFC9C5", "#BFF2D1", "#C4D6F5", "#ff57fa", "#ffd157", "#57ffc0"];
         public int colorIndex = 0;
 
 
