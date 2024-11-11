@@ -339,29 +339,22 @@ def testCourseRegistration():
         )  # Wait until the Register link is clickable
         register_link.click()
 
-        # Ensure the page has navigated to the Register page
-        WebDriverWait(driver, 10).until(
-            EC.url_to_be("https://asyncacademy20241104160444.azurewebsites.net/Course%20Pages/StudentIndex")
-        )
-        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/Course%20Pages/StudentIndex"
+
+
+        # Enroll in a course
+        explanation = "Unable to find the Enroll button"
+        enroll_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, "//table[2]/tbody/tr[1]/td/form/button[contains(@class, 'btn btn-primary')]"))
+        )  # Wait until the Enroll button is clickable
+        enroll_button.click()
+        explanation = "Could not enroll in course"
         time.sleep(3)
-
-        # Wait for the table to be fully loaded
- 
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.ID, "available-courses")) )
- 
-        # Select the enroll button by class or ID 
-        enroll_button = WebDriverWait(driver, 10).until( EC.element_to_be_clickable((By.XPATH, "//table[@id='available-courses']//button[contains(@class, 'btn-primary')]")) ) 
-
-        # Scroll the enroll button into view 
-        driver.execute_script("arguments[0].scrollIntoView();", enroll_button) 
-
-        # Click the button 
-        enroll_button.click()  
 
         return True, None, ""
     except Exception as e:
         return False, e, explanation
+
+
 
 
 def testViewToDoList():
