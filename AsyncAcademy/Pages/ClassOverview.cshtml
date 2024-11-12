@@ -4,6 +4,15 @@
     ViewData["Title"] = "Class Overview";
 }
 
+@* Styling edits: Hanna W*@
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+</head>
+
+
 <!-- All Kevins code. If you change code, please comment -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> <!--Added JS for student performance graph : Sebastian-->
 <script type="text/javascript">
@@ -54,6 +63,7 @@
     }
 </script>
 
+<body>
 <!-- All Kevins code. If you change code, please comment -->
 <div class="class-overview">
     <h1>@Model.Course.Name</h1>
@@ -87,13 +97,16 @@
         </tr>
     }
  }
+</body>
 
 <style>
     .class-overview {
         border: solid 3px #ddd;
-        border-radius: 5px;
+        border-radius: 1.5em;
         padding: 20px;
         margin-bottom: 20px;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+        background: #FFFFFF
     }
 
     .menu {
@@ -107,5 +120,10 @@
 
     .menu li {
         margin-bottom: 10px;
+    }
+
+    body {
+        background-color: #dcdedc;
+        font-family: 'Ubuntu', sans-serif;
     }
 </style>
