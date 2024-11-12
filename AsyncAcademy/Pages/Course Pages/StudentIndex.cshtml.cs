@@ -85,5 +85,43 @@ namespace AsyncAcademy.Pages.Course_Pages
 
             return Page();
         }
+
+        public async Task<IActionResult> OnPostAsync(int courseId)
+        {
+
+            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+
+            if (currentUserID == null)
+            {
+                return NotFound();
+            }
+            var enrollmentToDelete = await _context.Enrollments.    
+                FirstOrDefaultAsync(enrollment => enrollment.CourseId == courseId && enrollment.UserId == currentUserID);
+
+            // Check if the enrollment exists
+            if (enrollmentToDelete != null)
+            {
+                // Remove the enrollment record
+                _context.Enrollments.Remove(enrollmentToDelete);
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+            }
+
+            // Fetch courses the user is enrolled in
+            var enrolledCoursesQuery = from enrollment in _context.Enrollments
+                                       join course in _context.Course
+                                       on enrollment.CourseId equals course.Id
+                                       where enrollment.UserId == currentUserID
+                                       select course;
+
+
+
+            return RedirectToPage(); // Refresh the page to show updated lists
+
+        }
     }
+
+
+
 }
