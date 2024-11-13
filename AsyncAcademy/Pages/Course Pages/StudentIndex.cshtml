@@ -52,6 +52,11 @@
                 <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
                 <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
                 <td><a asp-page="./Details" asp-route-id="@item.Id">Details</a></td>
+                <td>
+                    <form method="post" asp-route-courseId="@item.Id">
+                        <button type="submit" class="btn btn-warning">Withdraw</button>
+                    </form>
+                    
             </tr>
         }
     </tbody>

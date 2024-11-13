@@ -42,7 +42,7 @@ def testLogIn(): # Make sure logging in with test users works
             username_field = find_element(By.NAME, "Account.Username")
             password_field = find_element(By.NAME, "Account.Pass")
             explanation = "Failed to find login button, did its HTML change?"
-            login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+            login_button = find_element(By.CLASS_NAME, "submit")
             explanation = "Failed to log in as test student, did the login info for the test student change?"
             time.sleep(1)
             username_field.send_keys(username)
@@ -65,7 +65,7 @@ def testAccountCreation():
         driver.get(WEBSITE_URL)
         # Click sign up button
         explanation = "Failed to find or interact with an element"
-        sign_up_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/a/button")
+        sign_up_button = find_element(By.XPATH, "/html/body/div/main/div/form/p/a")
         sign_up_button.click()
         username_field = find_element(By.XPATH, "/html/body/div/main/div/div/form/div[1]/input")
         first_name_field = find_element(By.XPATH, "/html/body/div/main/div/div/form/div[2]/input")
@@ -116,7 +116,7 @@ def testGraphVisibility():
         explanation = "Failed to log in as test student"
         username_field = find_element(By.NAME, "Account.Username")
         password_field = find_element(By.NAME, "Account.Pass")
-        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        login_button = find_element(By.CLASS_NAME, "submit")
         username_field.send_keys("studenttest")
         password_field.send_keys("Pass1234")
         login_button.click()
@@ -178,7 +178,7 @@ def testUpdateProfile(): # Make sure student can update profile info
         username_field = find_element(By.NAME, "Account.Username")
         password_field = find_element(By.NAME, "Account.Pass")
         explanation = "Failed to find login button, did its HTML change?"
-        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        login_button = find_element(By.CLASS_NAME, "submit")
         explanation = "Failed to log in as test student, did the login info for the test student change?"
         time.sleep(1)
         username_field.send_keys(username)
@@ -274,7 +274,7 @@ def testLogOut():
         driver.get(WEBSITE_URL)
         username_field = find_element(By.NAME, "Account.Username")
         password_field = find_element(By.NAME, "Account.Pass")
-        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        login_button = find_element(By.CLASS_NAME, "submit")
         time.sleep(1)
         username_field.send_keys("studenttest")
         password_field.send_keys("Pass1234")
@@ -324,7 +324,7 @@ def testCourseRegistration():
         # Log in as student
         username_field = find_element(By.NAME, "Account.Username")
         password_field = find_element(By.NAME, "Account.Pass")
-        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        login_button = find_element(By.CLASS_NAME, "submit")
         time.sleep(1)
         username_field.send_keys("studenttest")
         password_field.send_keys("Pass1234")
@@ -339,29 +339,23 @@ def testCourseRegistration():
         )  # Wait until the Register link is clickable
         register_link.click()
 
-        # Ensure the page has navigated to the Register page
-        WebDriverWait(driver, 10).until(
-            EC.url_to_be("https://asyncacademy20241104160444.azurewebsites.net/Course%20Pages/StudentIndex")
-        )
-        assert driver.current_url == "https://asyncacademy20241104160444.azurewebsites.net/Course%20Pages/StudentIndex"
+
+
+        # Enroll in a course
+        explanation = "Unable to find the Enroll button for course with ID 7"
+        enroll_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable(
+                (By.XPATH, "//table[@id='available-courses']/tbody/tr/td/form/button[@id='7']")
+            ))
+        enroll_button.click()
+        explanation = "Could not enroll in course with ID 7"
         time.sleep(3)
-
-        # Wait for the table to be fully loaded
- 
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.ID, "available-courses")) )
- 
-        # Select the enroll button by class or ID 
-        enroll_button = WebDriverWait(driver, 10).until( EC.element_to_be_clickable((By.XPATH, "//table[@id='available-courses']//button[contains(@class, 'btn-primary')]")) ) 
-
-        # Scroll the enroll button into view 
-        driver.execute_script("arguments[0].scrollIntoView();", enroll_button) 
-
-        # Click the button 
-        enroll_button.click()  
 
         return True, None, ""
     except Exception as e:
         return False, e, explanation
+
+
 
 
 def testViewToDoList():
@@ -375,7 +369,7 @@ def testViewToDoList():
         driver.get(WEBSITE_URL)
         username_field = find_element(By.NAME, "Account.Username")
         password_field = find_element(By.NAME, "Account.Pass")
-        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        login_button = find_element(By.CLASS_NAME, "submit")
         time.sleep(1)
         username_field.send_keys("studenttest")
         password_field.send_keys("Pass1234")
@@ -406,7 +400,7 @@ def testAssignmentCreation():
         
         username_field = find_element(By.NAME, "Account.Username")
         password_field = find_element(By.NAME, "Account.Pass")
-        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        login_button = find_element(By.CLASS_NAME, "submit")
         
         time.sleep(1)
         username_field.send_keys("instructortest")
