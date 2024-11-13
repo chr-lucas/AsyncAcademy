@@ -4,7 +4,14 @@
 @{
     ViewData["Title"] = "Assignments";
 }
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+</head>
 
+<body>
 <h1>Assignments</h1>
 
 <p>
@@ -13,6 +20,7 @@
         <a asp-page="/Assignments/Create" asp-route-courseId="@Model.Course.Id">Create New</a>
     }
 </p>
+<div class="assignment-container">
 <table class="table">
     <thead>
         <tr>
@@ -78,3 +86,22 @@
 }
     </tbody>
 </table>
+ </div>
+ </body>
+
+ <style>
+    body {
+        background-color: #dcdedc;
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    .assignment-container {
+        border: solid 3px #ccc; /* lighter gray */
+        border-radius: 1.5em;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: white;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+        font-family: 'Ubuntu', sans-serif;
+    }
+ </style>

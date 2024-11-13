@@ -4,9 +4,17 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+</head>
 
+<body>
 <h1>Edit</h1>
 
+<div class="assignment-container">
 <h4>Assignment</h4>
 <hr />
 <div class="row">
@@ -54,6 +62,24 @@
 <div>
     <a href="#" onclick="history.back()" style="color:blue">Back to List</a>
 </div>
+    </div>
+</body>
+
+<style>
+    body {
+        background-color: #dcdedc;
+        font-family: 'Ubuntu', sans-serif;
+    }
+    .assignment-container {
+        border: solid 3px #ccc; /* lighter gray */
+        border-radius: 1.5em;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: white;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+        font-family: 'Ubuntu', sans-serif;
+    }
+</style>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

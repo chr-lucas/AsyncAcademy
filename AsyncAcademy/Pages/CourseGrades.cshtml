@@ -47,7 +47,7 @@
 </head>
 
 <body>
-<div>
+<div class="grades-container">
     <h1>Grades for @Model.Course.Department @Model.Course.CourseNumber</h1>
     @{
         if (Model.OverallGrade == -1)
@@ -61,7 +61,7 @@
             </h2>
         }
     }
-</div>
+
 
 <br/>
 <br/>
@@ -89,11 +89,21 @@
 <div id="chart_div"></div>
 
 <a asp-page="/Assignments/Index" asp-route-courseId="@Model.Course.Id">Back to Assignments</a>
+    </div>
 </body>
 
  <style>
     body {
         background-color: #dcdedc;
+        font-family: 'Ubuntu', sans-serif;
+    }
+    .grades-container {
+        border: solid 3px #ccc; /* lighter gray */
+        border-radius: 1.5em;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: white;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
         font-family: 'Ubuntu', sans-serif;
     }
  </style>
