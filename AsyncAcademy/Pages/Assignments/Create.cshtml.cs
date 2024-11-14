@@ -31,6 +31,12 @@ namespace AsyncAcademy.Pages.Assignments
         [ViewData]
         public string NavBarText { get; set; }
 
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
         [BindProperty]
         public Assignment Assignment { get; set; }
 
@@ -56,11 +62,15 @@ namespace AsyncAcademy.Pages.Assignments
             {
                 NavBarLink = "Course Pages/InstructorIndex";
                 NavBarText = "Classes";
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
             }
             else
             {
                 NavBarLink = "Course Pages/StudentIndex";
                 NavBarText = "Register";
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
 
             // Ensure courseId is passed in URL

@@ -52,6 +52,12 @@ namespace AsyncAcademy.Pages.Assignments
         [ViewData]
         public string NavBarText { get; set; }
 
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
 
@@ -88,12 +94,16 @@ namespace AsyncAcademy.Pages.Assignments
             {
                 
                 NavBarLink = "Course Pages/InstructorIndex";
-                NavBarText = "Classes"; 
+                NavBarText = "Classes";
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
             }
             else
             {
                 NavBarLink = "Course Pages/StudentIndex"; 
                 NavBarText = "Register";
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
 
             if (id == null)

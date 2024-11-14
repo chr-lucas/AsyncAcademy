@@ -25,10 +25,16 @@ namespace AsyncAcademy.Pages.Assignments
         public Course Course { get; set; }
 
         [ViewData]
-        public string NavBarLink { get; set; } // Removed default initialization
+        public string NavBarLink { get; set; } 
 
         [ViewData]
-        public string NavBarText { get; set; } // Removed default initialization
+        public string NavBarText { get; set; }
+
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
 
         public User Account { get; set; }
 
@@ -64,11 +70,15 @@ namespace AsyncAcademy.Pages.Assignments
             {
                 NavBarLink = "Course Pages/InstructorIndex";
                 NavBarText = "Classes";
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
             }
             else
             {
                 NavBarLink = "Course Pages/StudentIndex"; 
-                NavBarText = "Register"; 
+                NavBarText = "Register";
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
 
             //Displays the assignments related to the course the user is viewing

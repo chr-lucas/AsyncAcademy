@@ -60,12 +60,16 @@ namespace AsyncAcademy.Pages.Course_Pages
                 // Set ViewData variables for instructors
                 NavBarLink = "Course Pages/InstructorIndex"; // Set NavBarLink directly
                 NavBarText = "Classes"; // Set NavBarText directly
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
             }
             else
             {
                 //WelcomeText = $"Welcome, {firstname} {lastname}";
                 NavBarLink = "Course Pages/StudentIndex"; // Set NavBarLink for non-professors
                 NavBarText = "Register"; // Set NavBarText for non-professors
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
 
             // Fetch courses the user is enrolled in

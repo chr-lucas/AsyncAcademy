@@ -16,6 +16,18 @@ namespace AsyncAcademy.Pages
             _context = context;
         }
 
+        [ViewData]
+        public string NavBarLink { get; set; } = "Course Pages/StudentIndex";
+
+        [ViewData]
+        public string NavBarText { get; set; } = "Register";
+
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
         public List<Submission> Submissions = new List<Submission>();
         public List<Assignment> CorrespondingAssignments = new List<Assignment>();
 
@@ -38,6 +50,23 @@ namespace AsyncAcademy.Pages
         {
             Course = await _context.Course.FirstOrDefaultAsync(c => c.Id == courseId);
             int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+
+            var Account = _context.Users.FirstOrDefault(u => u.Id == currentUserID);
+
+            if (Account.IsProfessor)
+            {
+                NavBarLink = "Course Pages/InstructorIndex";
+                NavBarText = "Classes";
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
+            }
+            else
+            {
+                NavBarLink = "Course Pages/StudentIndex";
+                NavBarText = "Register";
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
+            }
 
             Submissions = _context.Submissions.Where(a => a.UserId == currentUserID).ToList();
 

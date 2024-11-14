@@ -16,6 +16,18 @@ namespace AsyncAcademy.Pages.Course_Pages
             _context = context;
         }
 
+        [ViewData]
+        public string NavBarLink { get; set; } // Navigation link
+
+        [ViewData]
+        public string NavBarText { get; set; } // Navigation text
+
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
         public async Task<IActionResult> OnPostAsync(int courseId)
         {
             int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
@@ -23,6 +35,28 @@ namespace AsyncAcademy.Pages.Course_Pages
             if (currentUserID == null)
             {
                 return NotFound();
+            }
+
+            var Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
+
+            if (Account == null)
+            {
+                return NotFound(); // Account not found, do not set nav properties
+            }
+
+            if (Account.IsProfessor) 
+            {
+                NavBarLink = "InstructorIndex"; // Set NavBarLink directly
+                NavBarText = "Classes"; // Set NavBarText directly
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
+            }
+            else
+            {
+                NavBarLink = "StudentIndex"; // Set NavBarLink for non-professors
+                NavBarText = "Register"; // Set NavBarText for non-professors
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
 
             // Check if enrollment already exists

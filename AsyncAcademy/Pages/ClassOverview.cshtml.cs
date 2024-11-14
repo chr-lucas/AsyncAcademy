@@ -112,6 +112,8 @@ namespace AsyncAcademy.Pages
                 //WelcomeText = $"Welcome, {firstname} {lastname}";
                 NavBarLink = "Course Pages/StudentIndex"; // Set NavBarLink for non-professors
                 NavBarText = "Register"; // Set NavBarText for non-professors
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
 
             foreach (User stu in Students) // Not very efficient, could probably be optimized

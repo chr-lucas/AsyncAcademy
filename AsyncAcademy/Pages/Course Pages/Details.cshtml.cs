@@ -24,8 +24,15 @@ namespace AsyncAcademy.Pages.Course_Pages
 
         [ViewData]
         public string NavBarLink { get; set; } // Navigation link
+
         [ViewData]
         public string NavBarText { get; set; } // Navigation text
+
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -70,11 +77,15 @@ namespace AsyncAcademy.Pages.Course_Pages
             {
                 NavBarLink = "InstructorIndex"; // Set NavBarLink directly
                 NavBarText = "Classes"; // Set NavBarText directly
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
             }
             else
             {
                 NavBarLink = "StudentIndex"; // Set NavBarLink for non-professors
                 NavBarText = "Register"; // Set NavBarText for non-professors
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
         }
     }

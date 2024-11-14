@@ -23,14 +23,47 @@ namespace AsyncAcademy.Pages.Assignments
             _context = context;
         }
 
+        [ViewData]
+        public string NavBarLink { get; set; }
+
+        [ViewData]
+        public string NavBarText { get; set; }
+
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
         [BindProperty]
         public Assignment Assignment { get; set; } = default!;
+
+        public User? Account { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
+            }
+            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+            Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
+
+            //sets navbar
+            if (Account.IsProfessor)
+            {
+
+                NavBarLink = "Course Pages/InstructorIndex";
+                NavBarText = "Classes";
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
+            }
+            else
+            {
+                NavBarLink = "Course Pages/StudentIndex";
+                NavBarText = "Register";
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
 
             var assignment =  await _context.Assignment.FirstOrDefaultAsync(m => m.Id == id);

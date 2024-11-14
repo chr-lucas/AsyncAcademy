@@ -22,11 +22,41 @@ namespace AsyncAcademy.Pages.Course_Pages
         [BindProperty]
         public Course Course { get; set; } = default!;
 
+        [ViewData]
+        public string NavBarLink { get; set; } // Removed default initialization
+
+        [ViewData]
+        public string NavBarText { get; set; } // Removed default initialization
+
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
+            }
+
+            int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+            var Account = _context.Users.FirstOrDefault(a => a.Id == currentUserID);
+
+            if (Account.IsProfessor)
+            {
+                NavBarLink = "InstructorIndex"; // Set NavBarLink directly
+                NavBarText = "Classes"; // Set NavBarText directly
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
+            }
+            else
+            {
+                NavBarLink = "StudentIndex"; // Set NavBarLink for non-professors
+                NavBarText = "Register"; // Set NavBarText for non-professors
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
 
             var course = await _context.Course.FirstOrDefaultAsync(m => m.Id == id);

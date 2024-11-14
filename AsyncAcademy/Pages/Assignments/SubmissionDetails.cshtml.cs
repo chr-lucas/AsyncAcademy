@@ -17,7 +17,19 @@ namespace AsyncAcademy.Pages.Assignments
 
         [BindProperty]
         public Submission Submission { get; set; }
-      
+
+        [ViewData]
+        public string NavBarLink { get; set; }
+
+        [ViewData]
+        public string NavBarText { get; set; }
+
+        [ViewData]
+        public string NavBarAccountTabLink { get; set; } = "/Account";
+
+        [ViewData]
+        public string NavBarAccountText { get; set; } = "Account";
+
         public Assignment Assignment { get; set; }
         public User Student { get; set; }
         public string submissionFilePath;
@@ -25,6 +37,24 @@ namespace AsyncAcademy.Pages.Assignments
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
+            var Account = await _context.Users.FirstOrDefaultAsync(a => a.Id == currentUserID);
+
+
+            if (Account.IsProfessor)
+            {
+                NavBarLink = "Course Pages/InstructorIndex";
+                NavBarText = "Classes";
+                NavBarAccountTabLink = "";
+                NavBarAccountText = "";
+            }
+            else
+            {
+                NavBarLink = "Course Pages/StudentIndex";
+                NavBarText = "Register";
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
+            }
+
             Submission = await _context.Submissions.FirstOrDefaultAsync(a => (a.Id == id));
             
             if (Submission == null)

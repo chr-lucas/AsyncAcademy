@@ -65,6 +65,8 @@ namespace AsyncAcademy.Pages.Course_Pages
                 //WelcomeText = $"Welcome, {firstname} {lastname}";
                 NavBarLink = "Course Pages/StudentIndex"; // Set NavBarLink for non-professors
                 NavBarText = "Register"; // Set NavBarText for non-professors
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
 
             //Only shows course that the instructor teaches

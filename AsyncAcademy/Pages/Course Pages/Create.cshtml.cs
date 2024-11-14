@@ -126,6 +126,8 @@ namespace AsyncAcademy.Pages.Course_Pages
             {
                 NavBarLink = "StudentIndex"; // Set NavBarLink for non-professors
                 NavBarText = "Register"; // Set NavBarText for non-professors
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
             }
         }
     }

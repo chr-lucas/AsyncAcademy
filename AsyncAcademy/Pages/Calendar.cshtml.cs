@@ -69,6 +69,10 @@ namespace AsyncAcademy.Pages
             if (!Account.IsProfessor)
             {
                 GetStudentEvents(currentUserID);
+                NavBarLink = "Course Pages/StudentIndex"; // Set NavBarLink for non-professors
+                NavBarText = "Register"; // Set NavBarText for non-professors
+                NavBarAccountTabLink = "/Account";
+                NavBarAccountText = "Account";
 
             }
 

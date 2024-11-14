@@ -66,9 +66,8 @@ namespace AsyncAcademy.Pages
                 return NotFound();
             }
 
-            if (Account.IsProfessor == true)
+            if (Account.IsProfessor)
             {
-                accountType = "Professor";
                 NavBarLink = "Course Pages/InstructorIndex";
                 NavBarText = "Classes";
                 NavBarAccountTabLink = "";
@@ -76,6 +75,8 @@ namespace AsyncAcademy.Pages
             }
             else
             {
+                NavBarLink = "Course Pages/StudentIndex";
+                NavBarText = "Register";
                 NavBarAccountTabLink = "/Account";
                 NavBarAccountText = "Account";
             }
