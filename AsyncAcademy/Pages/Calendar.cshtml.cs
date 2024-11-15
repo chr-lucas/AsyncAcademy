@@ -185,6 +185,9 @@ namespace AsyncAcademy.Pages
                     }
                     EnrolledSections.Add(correspondingSection);
 
+                    // Reset upcoming assignments to ensure nothing is added twice
+                    UpcomingAssignments.Clear();
+
                     // Get all assignments for current course
                     // Add .Where(a => a.Due > DateTime.Now) to filter our past events
                     // Filter out events that already have a submission?
