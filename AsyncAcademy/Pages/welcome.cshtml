@@ -20,6 +20,10 @@
 <div class="row">
     <div class="col-md-8">
         
+        @foreach (var notification in Model.Notifications)
+        {
+            <h1>@notification.Content</h1>
+        }
 
         @for (int i = 0; i < Model.EnrolledCourses.Count; i++)
         {

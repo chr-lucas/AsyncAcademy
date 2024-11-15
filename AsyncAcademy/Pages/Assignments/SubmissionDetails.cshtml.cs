@@ -22,18 +22,21 @@ namespace AsyncAcademy.Pages.Assignments
         public User Student { get; set; }
         public string submissionFilePath;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public Notification notification = new Notification();
+
+        public async Task<IActionResult> OnGetAsync(int? id) // Check to see what this id corresponds to
         {
             int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
-            Submission = await _context.Submissions.FirstOrDefaultAsync(a => (a.Id == id));
+            Course course = await _context.Course.FirstOrDefaultAsync(a => (a.id == id));
+            Submission = await _context.Submissions.FirstOrDefaultAsync(a => (a.id == id));
             
             if (Submission == null)
             {
                 return NotFound();
             }
 
-            Student = await _context.Users.FirstOrDefaultAsync(u => (u.Id == Submission.UserId));
-            Assignment = await _context.Assignment.FirstOrDefaultAsync(a => a.Id == Submission.AssignmentId);
+            Student = _context.Users.FirstOrDefault(u => (u.Id == Submission.UserId));
+            Assignment = _context.Assignment.FirstOrDefault(a => a.Id == Submission.AssignmentId);
             submissionFilePath = "." + Submission.Content.ToString();
 
             return Page();
@@ -47,7 +50,11 @@ namespace AsyncAcademy.Pages.Assignments
             }
             try
             {
+                notification.UserId = Submission.UserId;
+                notification.AssignmentId = Submission.AssignmentId;
+                notification.Content = "Your instructor has updated a grade for " + Assignment.Title;
                 _context.Update(Submission);
+                _context.Notification.Add(notification);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException /* ex */)

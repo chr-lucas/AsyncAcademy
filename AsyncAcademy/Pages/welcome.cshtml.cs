@@ -27,6 +27,8 @@ namespace AsyncAcademy.Pages
         [BindProperty]
         public User? Account { get; set; }
 
+        public List<Notification> Notifications { get; set; } = new List<Notification>();
+
         [ViewData]
         public string WelcomeText { get; set; }
 
@@ -86,6 +88,11 @@ namespace AsyncAcademy.Pages
                     NavBarText = "Register";
                     NavBarAccountTabLink = "/Account";
                     NavBarAccountText = "Account";
+
+                    // Check for notifications
+                    Notifications = _context.Notification.Where(a => a.UserId == currentUserID).ToList();
+                    _context.Notification.RemoveRange(Notifications); // In the future, the notification should only be removed the if user clicks on it
+                    _context.SaveChanges();
                 }
             }
             else
