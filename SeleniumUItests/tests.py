@@ -6,6 +6,7 @@ import time
 import random
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 
 WEBSITE_URL = "https://asyncacademy20241104160444.azurewebsites.net/"
 driver = webdriver.Edge()
@@ -65,7 +66,7 @@ def testAccountCreation():
         driver.get(WEBSITE_URL)
         # Click sign up button
         explanation = "Failed to find or interact with an element"
-        sign_up_button = find_element(By.XPATH, "/html/body/div/main/div/form/p/a")
+        sign_up_button = find_element(By.CLASS_NAME, "sign-up-link")
         sign_up_button.click()
         username_field = find_element(By.XPATH, "/html/body/div/main/div/div/form/div[1]/input")
         first_name_field = find_element(By.XPATH, "/html/body/div/main/div/div/form/div[2]/input")
@@ -96,7 +97,7 @@ def testAccountCreation():
         driver.get(WEBSITE_URL)
         username_field = find_element(By.NAME, "Account.Username")
         password_field = find_element(By.NAME, "Account.Pass")
-        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        login_button = find_element(By.CLASS_NAME, "submit")
         username_field.send_keys(test_username)
         password_field.send_keys("Pass1234")
         login_button.click()
@@ -140,10 +141,10 @@ def testGraphVisibility():
          # Instructor
         explanation = "Failed to load website, are you connected to the internet? Is the website up? Did its URL change?"
         driver.get(WEBSITE_URL)
-        explanation = "Failed to log in as test student"
+        explanation = "Failed to log in as instructor user"
         username_field = find_element(By.NAME, "Account.Username") 
         password_field = find_element(By.NAME, "Account.Pass")
-        login_button = find_element(By.XPATH, "/html/body/div/main/div/form/div[3]/div/input")
+        login_button = find_element(By.CLASS_NAME, "submit")
         username_field.send_keys("instructortest")
         password_field.send_keys("Pass1234")
         login_button.click()
@@ -338,18 +339,48 @@ def testCourseRegistration():
             EC.element_to_be_clickable((By.XPATH, "/html/body/header/nav/div/div/ul/li[4]/a"))
         )  # Wait until the Register link is clickable
         register_link.click()
+        time.sleep(5)
 
 
 
-        # Enroll in a course
-        explanation = "Unable to find the Enroll button for course with ID 7"
-        enroll_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable(
-                (By.XPATH, "//table[@id='available-courses']/tbody/tr/td/form/button[@id='7']")
-            ))
-        enroll_button.click()
-        explanation = "Could not enroll in course with ID 7"
-        time.sleep(3)
+        # Find the available courses table first
+        explanation = "Unable to find the available courses table"
+        available_courses_table = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "available-courses"))
+        )
+        print("Available courses table found.")
+        
+        # Find all enroll buttons in the available courses table
+        explanation = "Unable to find any enroll buttons"
+        enroll_buttons = available_courses_table.find_elements(By.CSS_SELECTOR, "button.btn.btn-primary")
+        print(f"Number of enroll buttons found: {len(enroll_buttons)}")
+
+        # Click the first enroll button (or you can specify which one based on other criteria)
+        explanation = "No enroll buttons found in the available courses table"
+        if len(enroll_buttons) > 0:
+            WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-primary"))
+            )
+            driver.execute_script("arguments[0].scrollIntoView(true);", enroll_buttons[0])
+            time.sleep(1)  # Allow time for scrolling
+            enroll_buttons[0].click()
+            time.sleep(20);
+        else:
+            raise Exception("No enroll buttons found")
+
+
+        #driver.get("asyncacademy20241104160444.azurewebsites.net/Course%20Pages/StudentIndex")
+        enrolled_courses = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "table")))
+        
+        #Try to find enrolled course:
+        found = False;
+        rows = enrolled_courses.find_elements(By.CSS_SELECTOR, "tbody tr")
+        for row in rows:
+            course_name = row.find_element(By.XPATH, "./td[2]")
+            if "Alternative Equestrian Jazz Funk" in course_name:
+                time.sleep(5)
+                found = True
+                break
 
         return True, None, ""
     except Exception as e:
@@ -416,45 +447,61 @@ def testAssignmentCreation():
 
         # Step 3: Click "Create New" to access the assignment form
         explanation = "Failed to find or click the 'Create New' button."
+        assignments_link = find_element(By.LINK_TEXT, "Assignments")
+        assignments_link.click()
         create_new_button = find_element(By.LINK_TEXT, "Create New")
         create_new_button.click()
         time.sleep(5)
 
         # Step 4: Fill out the assignment form
         explanation = "Failed to find assignment form fields."
-        title_field = find_element(By.NAME, "Title")
-        description_field = find_element(By.NAME, "Description")
-        max_points_field = find_element(By.NAME, "MaxPoints")
-        due_date_field = find_element(By.NAME, "Due")  # Ensure this matches the name in the form
+        title_field = find_element(By.NAME, "Assignment.Title")
+        description_field = find_element(By.NAME, "Assignment.Description")
+        max_points_field = find_element(By.NAME, "Assignment.MaxPoints")
+        due_date_field = find_element(By.NAME, "Assignment.Due")  # Ensure this matches the name in the form
         
         title_field.send_keys("Sample Assignment Title")
         description_field.send_keys("This is a sample assignment description.")
         max_points_field.send_keys("100")
-        due_date_field.send_keys("2024-12-31")  # Use an appropriate date format as required
-        
+        due_date_field = find_element(By.NAME, "Assignment.Due")
+        due_date_field.clear()
+        due_date_field.send_keys("12/31/2024")  # Enter the date
+        due_date_field.send_keys(Keys.RIGHT)  # Move to the time field
+        due_date_field.send_keys("0200PM")  # Enter the time
+
         # Step 5: Submit the assignment
         explanation = "Failed to find or click the 'Create' button."
-        create_button = find_element(By.XPATH, "//button[text()='Create']")  # Locate the Create button
+        #create_button = find_element(By.XPATH, "//button[text()='Create']")  # Locate the Create button
+        create_button = find_element(By.CSS_SELECTOR, ".btn.btn-primary")
         create_button.click()
         time.sleep(5)
 
         # Step 6: Verify the assignment was created successfully
         explanation = "Failed to verify that the assignment was created successfully."
+        driver.get("https://asyncacademy20241104160444.azurewebsites.net/welcome")
+        cs3550_link = find_element(By.LINK_TEXT, "CS 3550")
+        cs3550_link.click()
+        time.sleep(5)
+        assignments_link = find_element(By.LINK_TEXT, "Assignments")
+        assignments_link.click()
         
-        # Check if the assignment appears in the table of assignments
-        assignments_table = find_element(By.TAG_NAME, "table")  # Find the assignments table
-        rows = assignments_table.find_elements(By.TAG_NAME, "tr")  # Get all rows in the table
-        
-        # Extract titles from the table and check for our new assignment
-        assignment_titles = []
-        for row in rows[1:]:  # Skip the header row
-            columns = row.find_elements(By.TAG_NAME, "td")
-            if columns:  # Ensure there are columns
-                title = columns[0].text  # The first column contains the title
-                assignment_titles.append(title)
+        # Wait for the table to be present
+        wait = WebDriverWait(driver, 10)
+        assignments_table = wait.until(
+            EC.presence_of_element_located((By.CLASS_NAME, "table"))
+        )
 
-        assert "Sample Assignment Title" in assignment_titles, "The new assignment was not found in the assignments list."
+        # Then try to find the assignment with more specific selectors
+        found = False
+        rows = assignments_table.find_elements(By.CSS_SELECTOR, "tbody tr")
+        for row in rows:
+            title_cell = row.find_element(By.CSS_SELECTOR, "td:first-child")
+            if "Sample Assignment Title" in title_cell.text:
+                time.sleep(5)
+                found = True
+                break
 
+        assert found, "The new assignment was not found in the assignments list."
         return True, None, ""
     except Exception as e:
         return False, e, explanation
