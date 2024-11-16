@@ -208,11 +208,17 @@ namespace AsyncAcademyTest
                 List<int> submissionIds = await SeedSubmissions(context, assignmentId, studentIds);
                 // Determine correct grade count based off data in database
                 int CorrectNumA = 0;
+                int CorrectNumAm = 0;
+                int CorrectNumBp = 0;
                 int CorrectNumB = 0;
+                int CorrectNumBm = 0;
+                int CorrectNumCp = 0;
                 int CorrectNumC = 0;
+                int CorrectNumCm = 0;
+                int CorrectNumDp = 0;
                 int CorrectNumD = 0;
-                int CorrectNumF = 0;
-                int CorrectNumUG = 0;
+                int CorrectNumDm = 0;
+                int CorrectNumE = 0;
                 foreach (int studentId in studentIds) 
                 {
                     int overallPoints = 0;
@@ -237,23 +243,35 @@ namespace AsyncAcademyTest
                     {
                         finalScore = ((float)overallPoints / (float)highestPossiblePoints) * 100;
                     }
-                    if (finalScore >= 90) { CorrectNumA++; }
-                    else if (finalScore >= 80) { CorrectNumB++; }
-                    else if (finalScore >= 70) { CorrectNumC++; }
-                    else if (finalScore >= 60) { CorrectNumD++; }
-                    else if (finalScore >= 0) { CorrectNumF++; }
-                    else if (finalScore < 0) { CorrectNumUG++; }
+                    if (finalScore >= 94) { CorrectNumA++; }
+                    else if (finalScore >= 90) { CorrectNumAm++; }
+                    else if (finalScore >= 87) { CorrectNumBp++; }
+                    else if (finalScore >= 84) { CorrectNumB++; }
+                    else if (finalScore >= 80) { CorrectNumBm++; }
+                    else if (finalScore >= 77) { CorrectNumCp++; }
+                    else if (finalScore >= 74) { CorrectNumC++; }
+                    else if (finalScore >= 70) { CorrectNumCm++; }
+                    else if (finalScore >= 67) { CorrectNumDp++; }
+                    else if (finalScore >= 64) { CorrectNumD++; }
+                    else if (finalScore >= 60) { CorrectNumDm++; }
+                    else if (finalScore < 60) { CorrectNumE++; }
                 }
                 // Get actual grades
                 ClassOverviewModel Model = CreateClassOverviewModel(context, courseId);
                 await Model.OnGetAsync(courseId);
                 // Compare
                 Assert.AreEqual(CorrectNumA, Model.numA);
+                Assert.AreEqual(CorrectNumAm, Model.numAm);
+                Assert.AreEqual(CorrectNumBp, Model.numBp);
                 Assert.AreEqual(CorrectNumB, Model.numB);
+                Assert.AreEqual(CorrectNumBm, Model.numBm);
+                Assert.AreEqual(CorrectNumCp, Model.numCp);
                 Assert.AreEqual(CorrectNumC, Model.numC);
+                Assert.AreEqual(CorrectNumCm, Model.numCm);
+                Assert.AreEqual(CorrectNumDp, Model.numDp);
                 Assert.AreEqual(CorrectNumD, Model.numD);
-                Assert.AreEqual(CorrectNumF, Model.numF);
-                Assert.AreEqual(CorrectNumUG, Model.numUG);
+                Assert.AreEqual(CorrectNumDm, Model.numDm);
+                Assert.AreEqual(CorrectNumE, Model.numE);
             }
         }
     }
