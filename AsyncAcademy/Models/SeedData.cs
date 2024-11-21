@@ -987,6 +987,54 @@ namespace AsyncAcademy.Models
                             Id = 30,
                             UserId = 28,
                             CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 31,
+                            UserId = 1,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 32,
+                            UserId = 1,
+                            CourseId = 2
+                        },
+                        new Enrollment
+                        {
+                            Id = 33,
+                            UserId = 1,
+                            CourseId = 3
+                        },
+                        new Enrollment
+                        {
+                            Id = 34,
+                            UserId = 1,
+                            CourseId = 4
+                        },
+                        new Enrollment
+                        {
+                            Id = 35,
+                            UserId = 29,
+                            CourseId = 5
+                        },
+                        new Enrollment
+                        {
+                            Id = 36,
+                            UserId = 29,
+                            CourseId = 6
+                        },
+                        new Enrollment
+                        {
+                            Id = 37,
+                            UserId = 30,
+                            CourseId = 7
+                        },
+                        new Enrollment
+                        {
+                            Id = 38,
+                            UserId = 30,
+                            CourseId = 8
                         });
                     // Temporarily override DB controlled primary key
                     context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Enrollments ON;");
