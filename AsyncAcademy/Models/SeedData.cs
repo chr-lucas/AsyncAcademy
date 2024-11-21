@@ -606,7 +606,7 @@ namespace AsyncAcademy.Models
                         EndTime = DateTime.Parse("9/1/2024 10:00:00 AM"),
                         Location = "WSU Ogden Campus",
                         StudentCapacity = 50,
-                        StudentsEnrolled = 0,
+                        StudentsEnrolled = 27,
                         MeetingTimeInfo = "Tuesday, Thursday",
                         StartDate = DateTime.Parse("9/1/2024 8:00:00 AM"),
                         EndDate = DateTime.Parse("12/15/2024 10:00:00 AM")
@@ -625,7 +625,7 @@ namespace AsyncAcademy.Models
                         EndTime = DateTime.Parse("9/1/2024 12:50:00 PM"),
                         Location = "WSU Ogden Campus",
                         StudentCapacity = 50,
-                        StudentsEnrolled = 0,
+                        StudentsEnrolled = 1,
                         MeetingTimeInfo = "Monday, Wednesday",
                         StartDate = DateTime.Parse("9/1/2024 11:30:00 AM"),
                         EndDate = DateTime.Parse("12/15/2024 12:50:00 PM")
@@ -644,7 +644,7 @@ namespace AsyncAcademy.Models
                         EndTime = DateTime.Parse("9/1/2024 11:30:00 AM"),
                         Location = "WSU Davis",
                         StudentCapacity = 50,
-                        StudentsEnrolled = 0,
+                        StudentsEnrolled = 1,
                         MeetingTimeInfo = "Monday, Wednesday, Friday",
                         StartDate = DateTime.Parse("9/1/2024 10:30:00 AM"),
                         EndDate = DateTime.Parse("12/15/2024 11:30:00 AM")
@@ -663,7 +663,7 @@ namespace AsyncAcademy.Models
                         EndTime = DateTime.Parse("9/1/2024 4:30:00 PM"),
                         Location = "Online",
                         StudentCapacity = 50,
-                        StudentsEnrolled = 0,
+                        StudentsEnrolled = 1,
                         MeetingTimeInfo = "Monday, Tuesday, Wednesday, Thursday, Friday",
                         StartDate = DateTime.Parse("9/1/2024 2:00:00 PM"),
                         EndDate = DateTime.Parse("12/15/2024 4:30:00 PM")
