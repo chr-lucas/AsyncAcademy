@@ -32,6 +32,10 @@ namespace AsyncAcademy.Models
 
                 // Create 1 test instructor (instructortest) and 1 test student (studenttest)
                 // Password for both is Pass1234
+                // User 1 is the Test Instructor (instructortest)
+                // User 2 is the Test Student (studenttest)
+                // Users 3 - 28 are generic students with pre-made data to populate course graphs
+                // Users 29, 30 are generic instructors with pre-made courses to populate the course catalog
                 using (var transaction = context.Database.BeginTransaction())
                 {
                     string pass = "Pass1234";
@@ -71,6 +75,510 @@ namespace AsyncAcademy.Models
                             Addr_State = null,
                             Addr_Zip = null,
                             Phone = null
+                        },
+                        new User
+                        {
+                            Id = 3,
+                            Username = "aalexson",
+                            FirstName = "Alex",
+                            LastName = "Alexson",
+                            Mail = "aalexson@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 4,
+                            Username = "bbattle",
+                            FirstName = "Brit",
+                            LastName = "Battle",
+                            Mail = "bbattle@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 5,
+                            Username = "cclark",
+                            FirstName = "Charlie",
+                            LastName = "Clark",
+                            Mail = "cclark@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 6,
+                            Username = "ddawes",
+                            FirstName = "Daisy",
+                            LastName = "Dawes",
+                            Mail = "ddawes@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 7,
+                            Username = "eericson",
+                            FirstName = "Emily",
+                            LastName = "Ericson",
+                            Mail = "eericson@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 8,
+                            Username = "ffont",
+                            FirstName = "Frank",
+                            LastName = "Font",
+                            Mail = "ffont@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 9,
+                            Username = "ggarvey",
+                            FirstName = "Grant",
+                            LastName = "Garvey",
+                            Mail = "ggarvey@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 10,
+                            Username = "hhall",
+                            FirstName = "Helena",
+                            LastName = "Hall",
+                            Mail = "hhall@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 11,
+                            Username = "iichiba",
+                            FirstName = "Ito",
+                            LastName = "Ichiba",
+                            Mail = "iichiba@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 12,
+                            Username = "jjones",
+                            FirstName = "Jamie",
+                            LastName = "Jones",
+                            Mail = "jjones@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 13,
+                            Username = "kkates",
+                            FirstName = "Karen",
+                            LastName = "Kates",
+                            Mail = "kkates@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 14,
+                            Username = "lloggins",
+                            FirstName = "Lucien",
+                            LastName = "Loggins",
+                            Mail = "lloggins@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 15,
+                            Username = "mmahoney",
+                            FirstName = "Maple",
+                            LastName = "Mahoney",
+                            Mail = "mmahoney@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 16,
+                            Username = "nnorth",
+                            FirstName = "Norma",
+                            LastName = "North",
+                            Mail = "nnorth@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 17,
+                            Username = "ooconnor",
+                            FirstName = "Ophelia",
+                            LastName = "O'Connor",
+                            Mail = "ooconnor@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 18,
+                            Username = "ppeters",
+                            FirstName = "Parker",
+                            LastName = "Peters",
+                            Mail = "ppeters@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 19,
+                            Username = "qqueen",
+                            FirstName = "Quinn",
+                            LastName = "Queen",
+                            Mail = "qqueen@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 20,
+                            Username = "rralston",
+                            FirstName = "Rachael",
+                            LastName = "Ralston",
+                            Mail = "rralston@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 21,
+                            Username = "ssmith",
+                            FirstName = "Samantha",
+                            LastName = "Smith",
+                            Mail = "ssmith@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 22,
+                            Username = "tthompson",
+                            FirstName = "Terry",
+                            LastName = "Thompson",
+                            Mail = "tthompson@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 23,
+                            Username = "uusman",
+                            FirstName = "Uzair",
+                            LastName = "Usman",
+                            Mail = "uusman@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 24,
+                            Username = "vvickers",
+                            FirstName = "Vernon",
+                            LastName = "Vickers",
+                            Mail = "vvickers@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 25,
+                            Username = "wwoods",
+                            FirstName = "Wilson",
+                            LastName = "Woods",
+                            Mail = "wwoods@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 26,
+                            Username = "xxander",
+                            FirstName = "Xavier",
+                            LastName = "Xander",
+                            Mail = "xxander@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 27,
+                            Username = "yyoung",
+                            FirstName = "Yancy",
+                            LastName = "Young",
+                            Mail = "yyoung@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 28,
+                            Username = "zzane",
+                            FirstName = "Zeza",
+                            LastName = "Zane",
+                            Mail = "zzane@test.com",
+                            Pass = passwordHasher.HashPassword(StudentAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("December 31, 2000"),
+                            IsProfessor = false,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 29,
+                            Username = "cacademia",
+                            FirstName = "Clive",
+                            LastName = "Academia",
+                            Mail = "instructorclive@test.com",
+                            Pass = passwordHasher.HashPassword(InstructorAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("January 1, 1980"),
+                            IsProfessor = true,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
+                        },
+                        new User
+                        {
+                            Id = 30,
+                            Username = "ateacher",
+                            FirstName = "Amanda",
+                            LastName = "Teacher",
+                            Mail = "instructoramanda@test.com",
+                            Pass = passwordHasher.HashPassword(InstructorAccount, pass),
+                            ConfirmPass = "Pass1234",
+                            Birthday = DateTime.Parse("January 1, 1980"),
+                            IsProfessor = true,
+                            ProfilePath = "/images/default_pfp.png",
+                            Addr_Street = null,
+                            Addr_City = null,
+                            Addr_State = null,
+                            Addr_Zip = null,
+                            Phone = null
                         });
                     // Temporarily override DB controlled primary key
                     context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Users ON;");
@@ -80,8 +588,8 @@ namespace AsyncAcademy.Models
                     transaction.Commit();
                 }
 
-                // Test instructor creates 4 test courses
-                // All 4 Course.Name attributes start with "TEST - " for filtering from live views
+                // Test instructor creates 4 test courses (Should add a fifth as part of the demo)
+                // Generic instructors create 2 courses each to fill out course catalog
                 using (var transaction = context.Database.BeginTransaction())
                 {
                     context.Course.AddRange(
@@ -90,7 +598,7 @@ namespace AsyncAcademy.Models
                         Id = 1,
                         CourseNumber = "3750",
                         Department = "CS",
-                        Name = "TEST - Software Engineering 2",
+                        Name = "Software Engineering 2",
                         Description = "Engineer Software like a pro",
                         CreditHours = 4,
                         InstructorId = 1,
@@ -109,7 +617,7 @@ namespace AsyncAcademy.Models
                         Id = 2,
                         CourseNumber = "3100",
                         Department = "CS",
-                        Name = "TEST - Operating Systems",
+                        Name = "Operating Systems",
                         Description = "Operate systems like a pro",
                         CreditHours = 4,
                         InstructorId = 1,
@@ -128,7 +636,7 @@ namespace AsyncAcademy.Models
                         Id = 3,
                         CourseNumber = "1010",
                         Department = "CS",
-                        Name = "TEST - Intro to Interact Entertainment",
+                        Name = "Intro to Interact Entertainment",
                         Description = "Develop games like a pro",
                         CreditHours = 3,
                         InstructorId = 1,
@@ -147,7 +655,7 @@ namespace AsyncAcademy.Models
                         Id = 4,
                         CourseNumber = "1030",
                         Department = "CS",
-                        Name = "TEST - Fundamentals of CS",
+                        Name = "Fundamentals of CS",
                         Description = "Understand basic concepts relating to computer science like a pro",
                         CreditHours = 3,
                         InstructorId = 1,
@@ -159,6 +667,78 @@ namespace AsyncAcademy.Models
                         MeetingTimeInfo = "Monday, Tuesday, Wednesday, Thursday, Friday",
                         StartDate = DateTime.Parse("9/1/2024 2:00:00 PM"),
                         EndDate = DateTime.Parse("12/15/2024 4:30:00 PM")
+                    },
+                    new Course
+                    {
+                        Id = 5,
+                        CourseNumber = "1060",
+                        Department = "MATH",
+                        Name = "Trigonometry",
+                        Description = "Foundations of trigonometry and related methods",
+                        CreditHours = 3,
+                        InstructorId = 29,
+                        StartTime = DateTime.Parse("9/1/2024 2:00:00 PM"),
+                        EndTime = DateTime.Parse("9/1/2024 4:30:00 PM"),
+                        Location = "Online",
+                        StudentCapacity = 50,
+                        StudentsEnrolled = 0,
+                        MeetingTimeInfo = "Tuesday, Thursday",
+                        StartDate = DateTime.Parse("9/1/2024 2:00:00 PM"),
+                        EndDate = DateTime.Parse("12/15/2024 4:30:00 PM")
+                    },
+                    new Course
+                    {
+                        Id = 6,
+                        CourseNumber = "1210",
+                        Department = "MATH",
+                        Name = "Calculus I",
+                        Description = "The foundations of calculus and related methods",
+                        CreditHours = 3,
+                        InstructorId = 29,
+                        StartTime = DateTime.Parse("9/1/2024 2:00:00 PM"),
+                        EndTime = DateTime.Parse("9/1/2024 4:30:00 PM"),
+                        Location = "Online",
+                        StudentCapacity = 50,
+                        StudentsEnrolled = 0,
+                        MeetingTimeInfo = "Monday, Tuesday, Wednesday, Thursday, Friday",
+                        StartDate = DateTime.Parse("9/1/2024 2:00:00 PM"),
+                        EndDate = DateTime.Parse("12/15/2024 4:30:00 PM")
+                    },
+                    new Course
+                    {
+                        Id = 7,
+                        CourseNumber = "1040",
+                        Department = "MUSC",
+                        Name = "Music of World Cultures",
+                        Description = "An introduction to the music of cultures around the world.",
+                        CreditHours = 3,
+                        InstructorId = 30,
+                        StartTime = DateTime.Parse("9/1/2024 1:00:00 PM"),
+                        EndTime = DateTime.Parse("9/1/2024 2:30:00 PM"),
+                        Location = "Online",
+                        StudentCapacity = 50,
+                        StudentsEnrolled = 0,
+                        MeetingTimeInfo = "Monday, Wednesday, Friday",
+                        StartDate = DateTime.Parse("9/1/2024 1:00:00 PM"),
+                        EndDate = DateTime.Parse("12/15/2024 2:30:00 PM")
+                    },
+                    new Course
+                    {
+                        Id = 8,
+                        CourseNumber = "1030",
+                        Department = "MUSC",
+                        Name = "Introduction to Jazz",
+                        Description = "A survey of jazz in America, including blues, ragtime, and traditional jazz.",
+                        CreditHours = 3,
+                        InstructorId = 30,
+                        StartTime = DateTime.Parse("9/1/2024 5:00:00 PM"),
+                        EndTime = DateTime.Parse("9/1/2024 6:30:00 PM"),
+                        Location = "Online",
+                        StudentCapacity = 50,
+                        StudentsEnrolled = 0,
+                        MeetingTimeInfo = "Monday, Tuesday, Wednesday, Thursday, Friday",
+                        StartDate = DateTime.Parse("9/1/2024 5:00:00 PM"),
+                        EndDate = DateTime.Parse("12/15/2024 6:30:00 PM")
                     });
                     // Temporarily override DB controlled primary key
                     context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Course ON;");
@@ -223,7 +803,8 @@ namespace AsyncAcademy.Models
                 }
 
 
-                // Test student account enrolls in all 4 test courses
+                // Test student account enrolls in all 4 test courses from the Test Instructor
+                // Generic Student accounts all enroll in CourseID 1 (Software Eng II)
                 using (var transaction = context.Database.BeginTransaction())
                 {
                     context.Enrollments.AddRange(
@@ -250,6 +831,162 @@ namespace AsyncAcademy.Models
                             Id = 4,
                             UserId = 2,
                             CourseId = 4
+                        },
+                        new Enrollment
+                        {
+                            Id = 5,
+                            UserId = 3,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 6,
+                            UserId = 4,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 7,
+                            UserId = 5,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 8,
+                            UserId = 6,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 9,
+                            UserId = 7,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 10,
+                            UserId = 8,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 11,
+                            UserId = 9,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 12,
+                            UserId = 10,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 13,
+                            UserId = 11,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 14,
+                            UserId = 12,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 15,
+                            UserId = 13,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 16,
+                            UserId = 14,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 17,
+                            UserId = 15,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 18,
+                            UserId = 16,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 19,
+                            UserId = 17,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 20,
+                            UserId = 18,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 21,
+                            UserId = 19,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 22,
+                            UserId = 20,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 23,
+                            UserId = 21,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 24,
+                            UserId = 22,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 25,
+                            UserId = 23,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 26,
+                            UserId = 24,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 27,
+                            UserId = 25,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 28,
+                            UserId = 26,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 29,
+                            UserId = 27,
+                            CourseId = 1
+                        },
+                        new Enrollment
+                        {
+                            Id = 30,
+                            UserId = 28,
+                            CourseId = 1
                         });
                     // Temporarily override DB controlled primary key
                     context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Enrollments ON;");
@@ -359,82 +1096,236 @@ namespace AsyncAcademy.Models
                         new Submission
                         {
                             Id = 1,
-                            Content = "Some Text",
-                            AssignmentId = 77,
-                            UserId = 20,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 3,
                             Timestamp = DateTime.Now,
                             PointsGraded = 94
                         },
                         new Submission
                         {
                             Id = 2,
-                            Content = "Some Text",
-                            AssignmentId = 77,
-                            UserId = 21,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 4,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 92
+                        },
+                        new Submission
+                        {
+                            Id = 3,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 5,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 93
+                        },
+                        new Submission
+                        {
+                            Id = 4,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 6,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 94
+                        },
+                        new Submission
+                        {
+                            Id = 5,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 7,
                             Timestamp = DateTime.Now,
                             PointsGraded = 90
                         },
                         new Submission
                         {
-                            Id = 3,
-                            Content = "Some Text",
-                            AssignmentId = 77,
-                            UserId = 22,
-                            Timestamp = DateTime.Now,
-                            PointsGraded = 83
-                        },
-                        new Submission
-                        {
-                            Id = 4,
-                            Content = "Some Text",
-                            AssignmentId = 77,
-                            UserId = 23,
-                            Timestamp = DateTime.Now,
-                            PointsGraded = 72
-                        },
-                        new Submission
-                        {
-                            Id = 5,
-                            Content = "Some Text",
-                            AssignmentId = 77,
-                            UserId = 24,
-                            Timestamp = DateTime.Now,
-                            PointsGraded = 61
-                        },
-                        new Submission
-                        {
                             Id = 6,
-                            Content = "Some Text",
-                            AssignmentId = 77,
-                            UserId = 25,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 8,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 87
+                        },
+                        new Submission
+                        {
+                            Id = 7,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 9,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 88
+                        },
+                        new Submission
+                        {
+                            Id = 8,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 10,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 85
+                        },
+                        new Submission
+                        {
+                            Id = 9,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 11,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 94
+                        },
+                        new Submission
+                        {
+                            Id = 10,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 12,
                             Timestamp = DateTime.Now,
                             PointsGraded = 99
                         },
                         new Submission
                         {
-                            Id = 7,
-                            Content = "Some Text",
-                            AssignmentId = 77,
+                            Id = 11,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 13,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 98
+                        },
+                        new Submission
+                        {
+                            Id = 12,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 14,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 71
+                        },
+                        new Submission
+                        {
+                            Id = 13,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 15,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 75
+                        },
+                        new Submission
+                        {
+                            Id = 14,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 16,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 94
+                        },
+                        new Submission
+                        {
+                            Id = 15,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 17,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 96
+                        },
+                        new Submission
+                        {
+                            Id = 16,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 18,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 91
+                        },
+                        new Submission
+                        {
+                            Id = 17,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 19,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 92
+                        },
+                        new Submission
+                        {
+                            Id = 18,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 20,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 94
+                        },
+                        new Submission
+                        {
+                            Id = 19,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 21,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 94
+                        },
+                        new Submission
+                        {
+                            Id = 20,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 22,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 85
+                        },
+                        new Submission
+                        {
+                            Id = 21,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 23,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 86
+                        },
+                        new Submission
+                        {
+                            Id = 22,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 24,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 31
+                        },
+                        new Submission
+                        {
+                            Id = 23,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
+                            UserId = 25,
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 94
+                        },
+                        new Submission
+                        {
+                            Id = 24,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
                             UserId = 26,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 0
+                            PointsGraded = 91
                         },
                         new Submission
                         {
-                            Id = 8,
-                            Content = "Some Text",
-                            AssignmentId = 77,
+                            Id = 25,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
                             UserId = 27,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 30
+                            PointsGraded = 88
                         },
                         new Submission
                         {
-                            Id = 9,
-                            Content = "Some Text",
-                            AssignmentId = 77,
+                            Id = 26,
+                            Content = "Hi there!",
+                            AssignmentId = 1,
                             UserId = 28,
-                            Timestamp = DateTime.Now
+                            Timestamp = DateTime.Now,
+                            PointsGraded = 87
                         });
                     // Temporarily override DB controlled primary key
                     context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT dbo.Submissions ON;");
@@ -443,6 +1334,89 @@ namespace AsyncAcademy.Models
                     //
                     transaction.Commit();
                 }
+
+                        // Old Submission generation code
+                        // Unsure if it is still needed
+                        //new Submission
+                        //{
+                        //    Id = 1,
+                        //    Content = "Some Text",
+                        //    AssignmentId = 77,
+                        //    UserId = 20,
+                        //    Timestamp = DateTime.Now,
+                        //    PointsGraded = 94
+                        //},
+                        //new Submission
+                        //{
+                        //    Id = 2,
+                        //    Content = "Some Text",
+                        //    AssignmentId = 77,
+                        //    UserId = 21,
+                        //    Timestamp = DateTime.Now,
+                        //    PointsGraded = 90
+                        //},
+                        //new Submission
+                        //{
+                        //    Id = 3,
+                        //    Content = "Some Text",
+                        //    AssignmentId = 77,
+                        //    UserId = 22,
+                        //    Timestamp = DateTime.Now,
+                        //    PointsGraded = 83
+                        //},
+                        //new Submission
+                        //{
+                        //    Id = 4,
+                        //    Content = "Some Text",
+                        //    AssignmentId = 77,
+                        //    UserId = 23,
+                        //    Timestamp = DateTime.Now,
+                        //    PointsGraded = 72
+                        //},
+                        //new Submission
+                        //{
+                        //    Id = 5,
+                        //    Content = "Some Text",
+                        //    AssignmentId = 77,
+                        //    UserId = 24,
+                        //    Timestamp = DateTime.Now,
+                        //    PointsGraded = 61
+                        //},
+                        //new Submission
+                        //{
+                        //    Id = 6,
+                        //    Content = "Some Text",
+                        //    AssignmentId = 77,
+                        //    UserId = 25,
+                        //    Timestamp = DateTime.Now,
+                        //    PointsGraded = 99
+                        //},
+                        //new Submission
+                        //{
+                        //    Id = 7,
+                        //    Content = "Some Text",
+                        //    AssignmentId = 77,
+                        //    UserId = 26,
+                        //    Timestamp = DateTime.Now,
+                        //    PointsGraded = 0
+                        //},
+                        //new Submission
+                        //{
+                        //    Id = 8,
+                        //    Content = "Some Text",
+                        //    AssignmentId = 77,
+                        //    UserId = 27,
+                        //    Timestamp = DateTime.Now,
+                        //    PointsGraded = 30
+                        //},
+                        //new Submission
+                        //{
+                        //    Id = 9,
+                        //    Content = "Some Text",
+                        //    AssignmentId = 77,
+                        //    UserId = 28,
+                        //    Timestamp = DateTime.Now
+                        //});
 
                 context.SaveChanges(); // Save all transactions to DB.
             }
