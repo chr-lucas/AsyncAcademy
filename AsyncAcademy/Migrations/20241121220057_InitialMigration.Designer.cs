@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncAcademy.Migrations
 {
     [DbContext(typeof(AsyncAcademyContext))]
-    [Migration("20241121215514_InitialMigration")]
+    [Migration("20241121220057_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
