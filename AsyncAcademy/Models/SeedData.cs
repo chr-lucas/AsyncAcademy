@@ -1148,7 +1148,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 3,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 94,
+                            PointsGraded = 19,
                             IsNew = false
                         },
                         new Submission
@@ -1158,7 +1158,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 4,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 92,
+                            PointsGraded = 19,
                             IsNew = false
                         },
                         new Submission
@@ -1168,7 +1168,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 5,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 93,
+                            PointsGraded = 19,
                             IsNew = false
                         },
                         new Submission
@@ -1178,7 +1178,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 6,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 94,
+                            PointsGraded = 19,
                             IsNew = false
                         },
                         new Submission
@@ -1188,7 +1188,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 7,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 90,
+                            PointsGraded = 19,
                             IsNew = false
                         },
                         new Submission
@@ -1198,7 +1198,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 8,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 87,
+                            PointsGraded = 17,
                             IsNew = false
                         },
                         new Submission
@@ -1208,7 +1208,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 9,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 88,
+                            PointsGraded = 15,
                             IsNew = false
                         },
                         new Submission
@@ -1218,7 +1218,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 10,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 85,
+                            PointsGraded = 18,
                             IsNew = false
                         },
                         new Submission
@@ -1228,7 +1228,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 11,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 94,
+                            PointsGraded = 20,
                             IsNew = false
                         },
                         new Submission
@@ -1238,7 +1238,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 12,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 99,
+                            PointsGraded = 20,
                             IsNew = false
                         },
                         new Submission
@@ -1248,7 +1248,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 13,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 98,
+                            PointsGraded = 17,
                             IsNew = false
                         },
                         new Submission
@@ -1258,7 +1258,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 14,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 71,
+                            PointsGraded = 11,
                             IsNew = false
                         },
                         new Submission
@@ -1268,7 +1268,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 15,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 75,
+                            PointsGraded = 14,
                             IsNew = false
                         },
                         new Submission
@@ -1278,7 +1278,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 16,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 94,
+                            PointsGraded = 19,
                             IsNew = false
                         },
                         new Submission
@@ -1288,7 +1288,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 17,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 96,
+                            PointsGraded = 19,
                             IsNew = false
                         },
                         new Submission
@@ -1298,7 +1298,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 18,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 91,
+                            PointsGraded = 18,
                             IsNew = false
                         },
                         new Submission
@@ -1308,7 +1308,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 19,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 92,
+                            PointsGraded = 18,
                             IsNew = false
                         },
                         new Submission
@@ -1318,7 +1318,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 20,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 94,
+                            PointsGraded = 18,
                             IsNew = false
                         },
                         new Submission
@@ -1328,7 +1328,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 21,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 94,
+                            PointsGraded = 18,
                             IsNew = false
                         },
                         new Submission
@@ -1338,7 +1338,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 22,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 85,
+                            PointsGraded = 16,
                             IsNew = false
                         },
                         new Submission
@@ -1348,7 +1348,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 23,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 86,
+                            PointsGraded = 17,
                             IsNew = false
                         },
                         new Submission
@@ -1358,7 +1358,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 24,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 31,
+                            PointsGraded = 6,
                             IsNew = false
                         },
                         new Submission
@@ -1368,7 +1368,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 25,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 94,
+                            PointsGraded = 19,
                             IsNew = false
                         },
                         new Submission
@@ -1378,7 +1378,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 26,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 91,
+                            PointsGraded = 18,
                             IsNew = false
                         },
                         new Submission
@@ -1388,7 +1388,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 27,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 88,
+                            PointsGraded = 17,
                             IsNew = false
                         },
                         new Submission
@@ -1398,7 +1398,7 @@ namespace AsyncAcademy.Models
                             AssignmentId = 1,
                             UserId = 28,
                             Timestamp = DateTime.Now,
-                            PointsGraded = 87,
+                            PointsGraded = 17,
                             IsNew = false
                         });
                     // Temporarily override DB controlled primary key
