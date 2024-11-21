@@ -160,6 +160,7 @@ namespace AsyncAcademy.Pages.Assignments
             Submission.AssignmentId = id;
             Submission.UserId = (int)currentUserID;
             Submission.Timestamp = DateTime.Now;
+            Submission.IsNew = false;
 
             //save file to wwwroot/Submissions
             if (FileSubmission != null)

@@ -108,7 +108,8 @@ namespace AsyncAcademy.Migrations
                     AssignmentId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     PointsGraded = table.Column<int>(type: "int", nullable: true),
-                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsNew = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {

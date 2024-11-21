@@ -17,7 +17,7 @@ namespace AsyncAcademy.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -54,7 +54,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Assignment", (string)null);
+                    b.ToTable("Assignment");
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Course", b =>
@@ -121,7 +121,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Course", (string)null);
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Department", b =>
@@ -144,7 +144,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Department", (string)null);
+                    b.ToTable("Department");
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Enrollment", b =>
@@ -163,7 +163,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Enrollments", (string)null);
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Payment", b =>
@@ -186,7 +186,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Payments", (string)null);
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Submission", b =>
@@ -204,6 +204,9 @@ namespace AsyncAcademy.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool?>("IsNew")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("PointsGraded")
                         .HasColumnType("int");
 
@@ -215,7 +218,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Submissions", (string)null);
+                    b.ToTable("Submissions");
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.User", b =>
@@ -282,7 +285,7 @@ namespace AsyncAcademy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

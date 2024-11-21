@@ -26,6 +26,11 @@ namespace AsyncAcademy.Models
         [DataType(DataType.DateTime)]
         public DateTime Timestamp { get; set; }
 
+        // Bit for informing notifications at homepage
+        // Set to TRUE when a submission is graded
+        // Set to FALSE when shown in the notification bar
+        public bool? IsNew { get; set; } = false;
+
         // Add more properties as needed, e.g., UserId, SubmissionDate, etc.
     }
 }

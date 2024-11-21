@@ -137,6 +137,7 @@ namespace AsyncAcademy.Pages.Assignments
                 Submission.UserId = (int)HttpContext.Session.GetInt32("CurrentUserId");
             }
             Submission.Timestamp = DateTime.Now;
+            Submission.IsNew = false;
             //
             _context.Submissions.Add(Submission);
             await _context.SaveChangesAsync();

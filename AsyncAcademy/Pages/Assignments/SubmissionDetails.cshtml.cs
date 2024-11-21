@@ -77,6 +77,7 @@ namespace AsyncAcademy.Pages.Assignments
             }
             try
             {
+                Submission.IsNew = true; // Flag submission for notification
                 _context.Update(Submission);
                 await _context.SaveChangesAsync();
             }

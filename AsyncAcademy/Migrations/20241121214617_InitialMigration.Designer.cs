@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncAcademy.Migrations
 {
     [DbContext(typeof(AsyncAcademyContext))]
-    [Migration("20241005231226_AddStudentPaymentTable")]
-    partial class AddStudentPaymentTable
+    [Migration("20241121214617_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -169,32 +169,27 @@ namespace AsyncAcademy.Migrations
                     b.ToTable("Enrollments");
                 });
 
-            modelBuilder.Entity("AsyncAcademy.Models.StudentPayment", b =>
+            modelBuilder.Entity("AsyncAcademy.Models.Payment", b =>
                 {
-                    b.Property<int>("StudentPaymentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentPaymentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("LastUpdated")
+                    b.Property<decimal>("AmountPaid")
+                        .HasPrecision(14, 2)
+                        .HasColumnType("decimal(14,2)");
+
+                    b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Outstanding")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalOwed")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalPaid")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("StudentPaymentId");
+                    b.HasKey("Id");
 
-                    b.ToTable("StydentPayment");
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("AsyncAcademy.Models.Submission", b =>
@@ -211,6 +206,12 @@ namespace AsyncAcademy.Migrations
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsNew")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("PointsGraded")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
