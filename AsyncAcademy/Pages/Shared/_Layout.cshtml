@@ -1,6 +1,9 @@
 @using Microsoft.AspNetCore.Http
+@using AsyncAcademy.Utils
 @inject IHttpContextAccessor HttpContextAccessor
 @{
+    var bellStyle = ViewData["BellIcon"] as string;
+    var bellCount = ViewData["BellNum"] as string;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -55,15 +58,30 @@
                         -->
                     </ul>
                     <div class="ml-auto d-flex align-items-center">
-                        <!-- Dark Mode Toggle Button -->
-                        <!--
-                        <button id="theme-toggle" class="btn btn-secondary me-2">
-                            <i class="fas fa-moon"></i>
-                        </button>-->
-                        <!-- Bell Icon -->
-                        <a class="nav-link text-dark" href="#" title="Notifications" class="notification-icon">
-                            <i class="fas fa-bell"></i>
+                        <a data-target="#notoModel" data-toggle="modal" class="nav-link text-dark" href="#notoModel" title="Notifications">
+                            <i class="@bellStyle"></i>&nbsp @bellCount
                         </a>
+                        <p class="badge">@bellCount</p>
+                    </div>
+                    <div id="notoModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" style="text-align-last: center">Notifications</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <ul>
+                                        <li>One</li>
+                                        <li>Two</li>
+                                        <li>Three</li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -114,6 +114,22 @@ namespace AsyncAcademy.Pages
                 NavBarText = "Register"; // Set NavBarText for non-professors
                 NavBarAccountTabLink = "/Account";
                 NavBarAccountText = "Account";
+                var notifications = await _context.Submissions
+                    .Where(e => e.UserId == currentUserID)
+                    .Where(n => n.IsNew == true)
+                    .ToListAsync();
+
+                if (notifications.Count > 0)
+                {
+                    ViewData["BellIcon"] = "fa-solid fa-bell";
+                    ViewData["BellNum"] = notifications.Count.ToString();
+                }
+                else
+                {
+                    ViewData["BellIcon"] = "fa-regular fa-bell";
+                    ViewData["BellNum"] = String.Empty;
+                }
+
             }
 
             foreach (User stu in Students) // Not very efficient, could probably be optimized

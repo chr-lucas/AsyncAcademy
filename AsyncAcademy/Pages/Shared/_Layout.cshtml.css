@@ -11,6 +11,11 @@ a {
   color: #0077cc;
 }
 
+p.badge {
+    font-size: 18px;
+    color: black;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;

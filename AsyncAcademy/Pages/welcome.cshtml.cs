@@ -60,6 +60,22 @@ namespace AsyncAcademy.Pages
                 return NotFound();
             }
 
+            var notifications = await _context.Submissions
+                .Where(e => e.UserId == currentUserID)
+                .Where(n => n.IsNew == true)
+                .ToListAsync();
+
+            if (notifications.Count > 0)
+            {
+                ViewData["BellIcon"] = "fa-solid fa-bell";
+                ViewData["BellNum"] = notifications.Count.ToString();
+            }
+            else
+            {
+                ViewData["BellIcon"] = "fa-regular fa-bell";
+                ViewData["BellNum"] = String.Empty;
+            }
+
             // Check if user data is already in session
             if (HttpContext.Session.TryGetValue("UserAccount", out var accountData) &&
                 HttpContext.Session.TryGetValue("EnrolledCourses", out var coursesData) &&

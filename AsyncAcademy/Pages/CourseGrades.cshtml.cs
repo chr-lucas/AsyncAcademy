@@ -66,6 +66,22 @@ namespace AsyncAcademy.Pages
                 NavBarText = "Register";
                 NavBarAccountTabLink = "/Account";
                 NavBarAccountText = "Account";
+                var notifications = await _context.Submissions
+                    .Where(e => e.UserId == currentUserID)
+                    .Where(n => n.IsNew == true)
+                    .ToListAsync();
+
+                if (notifications.Count > 0)
+                {
+                    ViewData["BellIcon"] = "fa-solid fa-bell";
+                    ViewData["BellNum"] = notifications.Count.ToString();
+                }
+                else
+                {
+                    ViewData["BellIcon"] = "fa-regular fa-bell";
+                    ViewData["BellNum"] = String.Empty;
+                }
+
             }
 
             Submissions = _context.Submissions.Where(a => a.UserId == currentUserID).ToList();

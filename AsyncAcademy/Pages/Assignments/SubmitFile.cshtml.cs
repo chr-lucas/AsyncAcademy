@@ -51,7 +51,7 @@ namespace AsyncAcademy.Pages.Assignments
 
 
 
-        public void OnGet(int id)
+        public async void OnGetAsync(int id)
         {
             // Assign user
             int? currentUserID = HttpContext.Session.GetInt32("CurrentUserId");
@@ -82,6 +82,22 @@ namespace AsyncAcademy.Pages.Assignments
                 NavBarText = "Register";
                 NavBarAccountTabLink = "/Account";
                 NavBarAccountText = "Account";
+                var notifications = await _context.Submissions
+                    .Where(e => e.UserId == currentUserID)
+                    .Where(n => n.IsNew == true)
+                    .ToListAsync();
+
+                if (notifications.Count > 0)
+                {
+                    ViewData["BellIcon"] = "fa-solid fa-bell";
+                    ViewData["BellNum"] = notifications.Count.ToString();
+                }
+                else
+                {
+                    ViewData["BellIcon"] = "fa-regular fa-bell";
+                    ViewData["BellNum"] = String.Empty;
+                }
+
             }
 
             Assignment = _context.Assignment.FirstOrDefault(a => a.Id == id);
