@@ -116,7 +116,7 @@ namespace AsyncAcademy.Pages.Assignments
 
                 if (notifications.Count > 0)
                 {
-                    noto notoController = new noto();
+                    Noto notoController = new Noto();
                     notoController.SetViewData(ViewData, notifications.Count);
                     foreach (Submission notification in notifications)
                     {

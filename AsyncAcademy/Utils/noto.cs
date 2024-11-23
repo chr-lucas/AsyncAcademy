@@ -6,9 +6,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace AsyncAcademy.Utils
 {
-    public class noto
+    public class Noto
     {
-        public noto() {}
+        public Noto() {}
 
 
         public void SetViewData(ViewDataDictionary viewData, int notoCount)
@@ -33,7 +33,9 @@ namespace AsyncAcademy.Utils
             string courseNum = course.CourseNumber;
             var score = notification.PointsGraded;
             var max = assignment.MaxPoints;
-            List<object> result = [courseNum, assignmentName, score, max];
+            string subID = notification.Id.ToString();
+            string subType = assignment.Type;
+            List<object> result = [courseNum, assignmentName, score, max, subID, subType];
             
             return result;
         }
