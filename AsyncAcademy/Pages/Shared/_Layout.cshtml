@@ -61,7 +61,7 @@
                     </ul>
 
                     <!-- Trigger/Open The Modal -->
-                    <div class="ml-auto d-flex align-items-center">
+                    <div id="notoIcon" class="ml-auto d-flex align-items-center">
                         <i id="notoBtn" class="@bellStyle"></i>&nbsp @bellCount
                     </div>
                     <div id="notoModal" class="modal">
@@ -76,10 +76,18 @@
                             {
                                 @foreach (List<object> noto in @Model.notos)
                                 {
-                                    <div class="noto-item">
-                                        <p>@noto[0] - @noto[1]</p>
-                                        <p>Updated Grade: @noto[2]/@noto[3]</p>
-                                    </div>
+                                    @if (noto[5].ToString() == "File Submission")
+                                    {
+                                        <div class="noto-item">
+                                            <a asp-page="/Assignments/SubmitFile" asp-route-id="@noto[4]" class="btn btn-success">@noto[0] - @noto[1] | @noto[2]/@noto[3]</a>
+                                        </div>
+                                    }
+                                    @if (noto[5].ToString() == "textentry" || noto[5].ToString() == "Text Entry" || noto[5].ToString() == "URL")
+                                    {
+                                        <div class="noto-item">
+                                            <a asp-page="/Assignments/Submit" asp-route-id="@noto[4]" class="btn btn-success">@noto[0] - @noto[1] | @noto[2]/@noto[3]</a>
+                                        </div>
+                                    }
                                 }
                             }
                         </div>
