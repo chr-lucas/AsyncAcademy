@@ -103,8 +103,6 @@ body.dark table td {
 }
 
 
-
-
 a:hover {
     color: #BB86FC;
 }
@@ -124,3 +122,54 @@ a:hover {
 a.nav-link:hover {
     color: black !important; /* Apply hover effect to .nav-link */
 }
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    margin-right: 1%;
+    margin-top: 1%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0);
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fff;
+    margin-top: 1%;
+    margin-right: 1%;
+    margin-left: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+}
+
+.modal-header {
+    color: black;
+    font-size: larger;
+    text-align: center;
+}
+
+.modal-body {
+
+}
+
+/* The Close Button */
+.close {
+    display: inline;
+    color: #aaa;
+    float: right;
+    margin-left: 95%;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
