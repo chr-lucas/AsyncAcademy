@@ -1,5 +1,6 @@
 using AsyncAcademy.Data;
 using AsyncAcademy.Models;
+using AsyncAcademy.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,9 @@ namespace AsyncAcademy.Pages
 
         [ViewData]
         public string NavBarAccountText { get; set; } = "Account";
+
+        [ViewData]
+        public List<object> notos { get; set; }
 
         public List<Submission> Submissions = new List<Submission>();
         public List<Assignment> CorrespondingAssignments = new List<Assignment>();
@@ -66,20 +70,22 @@ namespace AsyncAcademy.Pages
                 NavBarText = "Register";
                 NavBarAccountTabLink = "/Account";
                 NavBarAccountText = "Account";
-                var notifications = await _context.Submissions
+
+                notos = new List<object>();
+                List<Submission> notifications = await _context.Submissions
                     .Where(e => e.UserId == currentUserID)
                     .Where(n => n.IsNew == true)
                     .ToListAsync();
 
                 if (notifications.Count > 0)
                 {
-                    ViewData["BellIcon"] = "fa-solid fa-bell";
-                    ViewData["BellNum"] = notifications.Count.ToString();
-                }
-                else
-                {
-                    ViewData["BellIcon"] = "fa-regular fa-bell";
-                    ViewData["BellNum"] = String.Empty;
+                    noto notoController = new noto();
+                    notoController.SetViewData(ViewData, notifications.Count);
+                    foreach (Submission notification in notifications)
+                    {
+                        List<object> result = notoController.NotoData(_context, notification);
+                        notos.Add(result);
+                    }
                 }
 
             }
