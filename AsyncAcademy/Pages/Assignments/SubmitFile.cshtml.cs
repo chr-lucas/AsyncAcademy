@@ -93,10 +93,11 @@ namespace AsyncAcademy.Pages.Assignments
                     .Where(n => n.IsNew == true)
                     .ToListAsync();
 
+                Noto notoController = new Noto();
+                notoController.SetViewData(ViewData, notifications.Count);
+
                 if (notifications.Count > 0)
                 {
-                    Noto notoController = new Noto();
-                    notoController.SetViewData(ViewData, notifications.Count);
                     foreach (Submission notification in notifications)
                     {
                         List<object> result = notoController.NotoData(_context, notification);
@@ -113,9 +114,29 @@ namespace AsyncAcademy.Pages.Assignments
                 NotFound();
             }
 
+            Submission userSub = await _context.Submissions.Where(a => a.UserId == currentUserID).Where(s => s.AssignmentId == Assignment.Id).FirstAsync();
+            if (userSub != null)
+            {
+                if (userSub.IsNew == true)
+                {
+                    userSub.IsNew = false;
+                    _context.Submissions.Update(userSub);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
             //gathers any previous submissions for the user
             previousSubmissions = [];
             var submittedAssignments = _context.Submissions.Where(a => a.UserId == currentUserID);
+
+            foreach (var s in submittedAssignments)
+            {
+                if (s.AssignmentId == Assignment.Id && s.IsNew == true)
+                {
+                    s.IsNew = false;
+                    _context.SaveChanges();
+                }
+            }
             
             //Gather grade
             GetUserGrade(submittedAssignments);

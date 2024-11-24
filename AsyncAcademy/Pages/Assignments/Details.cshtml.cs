@@ -114,10 +114,11 @@ namespace AsyncAcademy.Pages.Assignments
                     .Where(n => n.IsNew == true)
                     .ToListAsync();
 
+                Noto notoController = new Noto();
+                notoController.SetViewData(ViewData, notifications.Count);
+
                 if (notifications.Count > 0)
                 {
-                    Noto notoController = new Noto();
-                    notoController.SetViewData(ViewData, notifications.Count);
                     foreach (Submission notification in notifications)
                     {
                         List<object> result = notoController.NotoData(_context, notification);

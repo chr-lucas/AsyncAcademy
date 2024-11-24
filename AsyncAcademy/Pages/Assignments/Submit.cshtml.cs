@@ -69,6 +69,17 @@ namespace AsyncAcademy.Pages.Assignments
                 return NotFound();
             }
 
+            Submission userSub = await _context.Submissions.Where(a => a.UserId == currentUserID).Where(s => s.AssignmentId == Assignment.Id).FirstAsync();
+            if (userSub != null)
+            {
+                if (userSub.IsNew == true)
+                {
+                    userSub.IsNew = false;
+                    _context.Submissions.Update(userSub);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
             //gathers any previous submissions for the user - Hanna w
             previousSubmissions = [];
             var submittedAssignments = _context.Submissions.Where(a => a.UserId == currentUserID);
@@ -129,17 +140,17 @@ namespace AsyncAcademy.Pages.Assignments
                     .Where(n => n.IsNew == true)
                     .ToListAsync();
 
+                Noto notoController = new Noto();
+                notoController.SetViewData(ViewData, notifications.Count);
+
                 if (notifications.Count > 0)
                 {
-                    Noto notoController = new Noto();
-                    notoController.SetViewData(ViewData, notifications.Count);
                     foreach (Submission notification in notifications)
                     {
                         List<object> result = notoController.NotoData(_context, notification);
                         notos.Add(result);
                     }
                 }
-
             }
 
             return Page();
