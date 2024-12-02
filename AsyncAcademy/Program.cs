@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AsyncAcademyContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE-CONNECTION-STRING") ?? throw new InvalidOperationException("Connection string 'AZURE-CONNECTION-STRING' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TITAN-CONNECTION-STRING") ?? throw new InvalidOperationException("Connection string 'TITAN-CONNECTION-STRING' not found.")));
 
 // From Bash
 builder.Services.AddSession(options =>
