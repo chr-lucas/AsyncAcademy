@@ -59,8 +59,8 @@ namespace AsyncAcademy.Controllers
                 },
             },
                 Mode = "payment",
-                SuccessUrl = asyncDomain + "/PaymentSuccess?session_id={CHECKOUT_SESSION_ID}",  // Add session ID to the success URL 
-                CancelUrl = asyncDomain + "/PaymentCanceled",
+                SuccessUrl = testDomain + "/PaymentSuccess?session_id={CHECKOUT_SESSION_ID}",  // Add session ID to the success URL 
+                CancelUrl = testDomain + "/PaymentCanceled",
                 ClientReferenceId = currentUserID.ToString()
             };
 
