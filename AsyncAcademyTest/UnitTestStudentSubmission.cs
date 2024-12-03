@@ -104,15 +104,15 @@ namespace AsyncAcademyTest
             };
         }
 
-        private void MockSessionValues(int userId, int assignmentId)
+        private void MockSessionValues(int userId)
         {
             byte[] userIdBytes = BitConverter.GetBytes(userId);
             if (BitConverter.IsLittleEndian) Array.Reverse(userIdBytes);
             _mockSession.Setup(s => s.TryGetValue("CurrentUserId", out userIdBytes)).Returns(true);
 
-            byte[] assignmentIdBytes = BitConverter.GetBytes(assignmentId);
-            if (BitConverter.IsLittleEndian) Array.Reverse(assignmentIdBytes);
-            _mockSession.Setup(s => s.TryGetValue("CourseId", out assignmentIdBytes)).Returns(true);
+            //byte[] assignmentIdBytes = BitConverter.GetBytes(assignmentId);
+            //if (BitConverter.IsLittleEndian) Array.Reverse(assignmentIdBytes);
+            //_mockSession.Setup(s => s.TryGetValue("CourseId", out assignmentIdBytes)).Returns(true);
         }
 
         private async Task VerifySubmissionCreation(AsyncAcademyContext context, int assignmentId)
@@ -135,7 +135,7 @@ namespace AsyncAcademyTest
             using (var context = new AsyncAcademyContext(_dbContextOptions))
             {
                 int assignmentId = await SeedAssignment(context);
-                MockSessionValues(1, assignmentId);
+                MockSessionValues(1);
                 await VerifySubmissionCreation(context, assignmentId);
             }
         }

@@ -158,7 +158,7 @@ namespace AsyncAcademy.Pages.Assignments
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) // <----- Never gets beyond this check
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
@@ -171,7 +171,6 @@ namespace AsyncAcademy.Pages.Assignments
             }
             Submission.Timestamp = DateTime.Now;
             Submission.IsNew = false;
-            //
             _context.Submissions.Add(Submission);
             await _context.SaveChangesAsync();
 
