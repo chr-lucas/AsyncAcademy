@@ -13,6 +13,10 @@ namespace AsyncAcademy.Utils
 
         public void SetViewData(ViewDataDictionary viewData, int notoCount)
         {
+            if(viewData == null)
+            {
+                return;
+            }
             if (notoCount > 0)
             {
                 viewData["BellIcon"] = "fa-solid fa-bell";
