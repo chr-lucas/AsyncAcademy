@@ -125,15 +125,15 @@ def testGraphVisibility():
         login_button.click()
         time.sleep(5)
         assert driver.current_url == TEST_WELCOME_URL
-        explanation = "Unable to locate CS 3550 link"
-        cs3550_link = find_element(By.LINK_TEXT, "CS 3550")
-        explanation = "Unable to interact with CS 3550 link"
+        explanation = "Unable to locate CS 3750 link"
+        cs3750_link = find_element(By.LINK_TEXT, "CS 3750")
+        explanation = "Unable to interact with CS 3750 link"
         time.sleep(3)
-        driver.execute_script("arguments[0].scrollIntoView();", cs3550_link) # scroll element into view
+        driver.execute_script("arguments[0].scrollIntoView();", cs3750_link) # scroll element into view
         time.sleep(3)
-        cs3550_link.click()
+        cs3750_link.click()
         time.sleep(5)
-        explanation = "Failed to enter CS 3550 class card, got unexpected URL"
+        explanation = "Failed to enter CS 3750 class card, got unexpected URL"
         assert "https://localhost:7082/ClassOverview?" in driver.current_url
         try:
             find_element(By.XPATH, "/html/body/div/main/div[2]", 1)
@@ -152,13 +152,13 @@ def testGraphVisibility():
         login_button.click()
         time.sleep(5)
         assert driver.current_url == TEST_WELCOME_URL
-        explanation = "Unable to locate CS 3550 link"
-        cs3550_link = find_element(By.LINK_TEXT, "CS 3550")
-        explanation = "Unable to interact with CS 3550 link"
+        explanation = "Unable to locate CS 3750 link"
+        cs3750_link = find_element(By.LINK_TEXT, "CS 3750")
+        explanation = "Unable to interact with CS 3750 link"
         time.sleep(3)
-        driver.execute_script("arguments[0].scrollIntoView();", cs3550_link) # scroll element into view
+        driver.execute_script("arguments[0].scrollIntoView();", cs3750_link) # scroll element into view
         time.sleep(3)
-        cs3550_link.click()
+        cs3750_link.click()
         time.sleep(5)
         explanation = "Got unexpected URL"
         #assert "https://localhost:7082/ClassOverview?" in driver.current_url
@@ -460,10 +460,10 @@ def testAssignmentCreation():
         login_button.click()
         time.sleep(5)
         
-        # Step 2: Navigate to CS 3550 class
-        explanation = "Failed to navigate to the CS 3550 class."
-        cs3550_link = find_element(By.LINK_TEXT, "CS 3550")
-        cs3550_link.click()
+        # Step 2: Navigate to CS 3750 class
+        explanation = "Failed to navigate to the CS 3750 class."
+        cs3750_link = find_element(By.LINK_TEXT, "CS 3750")
+        cs3750_link.click()
         time.sleep(5)
 
         # Step 3: Click "Create New" to access the assignment form
@@ -500,8 +500,8 @@ def testAssignmentCreation():
         # Step 6: Verify the assignment was created successfully
         explanation = "Failed to verify that the assignment was created successfully."
         driver.get("https://localhost:7082/welcome")
-        cs3550_link = find_element(By.LINK_TEXT, "CS 3550")
-        cs3550_link.click()
+        cs3750_link = find_element(By.LINK_TEXT, "CS 3750")
+        cs3750_link.click()
         time.sleep(5)
         assignments_link = find_element(By.LINK_TEXT, "Assignments")
         assignments_link.click()
