@@ -69,7 +69,7 @@ namespace AsyncAcademy.Pages.Assignments
                 return NotFound();
             }
 
-            Submission userSub = await _context.Submissions.Where(a => a.UserId == currentUserID).Where(s => s.AssignmentId == Assignment.Id).FirstAsync();
+            Submission userSub = await _context.Submissions.Where(a => a.UserId == currentUserID).Where(s => s.AssignmentId == Assignment.Id).FirstOrDefaultAsync();
             if (userSub != null)
             {
                 if (userSub.IsNew == true)

@@ -114,7 +114,7 @@ namespace AsyncAcademy.Pages.Assignments
                 NotFound();
             }
 
-            Submission userSub = await _context.Submissions.Where(a => a.UserId == currentUserID).Where(s => s.AssignmentId == Assignment.Id).FirstAsync();
+            Submission userSub = await _context.Submissions.Where(a => a.UserId == currentUserID).Where(s => s.AssignmentId == Assignment.Id).FirstOrDefaultAsync();
             if (userSub != null)
             {
                 if (userSub.IsNew == true)
@@ -129,6 +129,20 @@ namespace AsyncAcademy.Pages.Assignments
             previousSubmissions = [];
             var submittedAssignments = _context.Submissions.Where(a => a.UserId == currentUserID);
 
+            //Gather grade
+
+            GetUserGrade(submittedAssignments);
+
+            //gather chart data
+            var allSubmissions = _context.Submissions.Where(a => a.AssignmentId == id);
+            int subCount = allSubmissions.Count();
+            if (subCount > 0)
+            {
+                minGrade = allSubmissions.Min(a => a.PointsGraded);
+                maxGrade = allSubmissions.Max(a => a.PointsGraded);
+                averageGrade = (int?)allSubmissions.Average(a => a.PointsGraded);
+            }
+
             foreach (var s in submittedAssignments)
             {
                 if (s.AssignmentId == Assignment.Id && s.IsNew == true)
@@ -138,14 +152,7 @@ namespace AsyncAcademy.Pages.Assignments
                 }
             }
             
-            //Gather grade
-            GetUserGrade(submittedAssignments);
-
-            //gather chart data
-            var allSubmissions = _context.Submissions.Where(a => a.AssignmentId == id);
-            minGrade = allSubmissions.Min(a => a.PointsGraded);
-            maxGrade = allSubmissions.Max(a => a.PointsGraded);
-            averageGrade = (int?)allSubmissions.Average(a => a.PointsGraded);
+            
 
         }
 
