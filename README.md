@@ -9,25 +9,25 @@ Overview
 This repository contains a .NET 8 Razor Pages application named AsyncAcademy plus a unit‑test project. The solution file references both the main web app and the test project
 . The web project is defined by AsyncAcademy.csproj which includes dependencies for ASP.NET Core, Entity Framework Core, Identity, and Stripe payment integration. Unit tests live in AsyncAcademyTest with MSTest, Moq, and EF Core InMemory packages
 
-.
+
 
 Application Setup
 
 Startup configuration is handled in Program.cs. It registers Razor Pages, controllers, EF Core with a SQL Server connection string, session state, and the Stripe API key, then runs seeding logic before starting the HTTP pipeline
 
-. The AsyncAcademyContext in Data/ exposes EF Core DbSets for entities such as User, Course, Enrollment, Assignment, Submission, and Payment.
+The AsyncAcademyContext in Data/ exposes EF Core DbSets for entities such as User, Course, Enrollment, Assignment, Submission, and Payment.
 
 Core Features
 
 Razor Pages – User interfaces are in Pages/. For example, the login page uses a layout in Shared/LoginLayout and collects credentials for Account.Username and Account.Pass
 
-. Code-behind PageModels (e.g., LoginModel and SignupModel) handle form submissions, EF interactions, and session management.
+Code-behind PageModels (e.g., LoginModel and SignupModel) handle form submissions, EF interactions, and session management.
 
 Controllers – API-style endpoints exist in Controllers/, such as CourseController for enrolling and dropping courses and CheckOutController for Stripe payment sessions.
 
 Models and Seed Data – Entity classes define database tables. SeedData.cs populates users, courses, departments, enrollments, assignments, and submissions when the database is empty. It hashes default passwords via PasswordHasher<User> before inserting sample instructors and students
 
-    .
+
 
 Utilities – Utils/ contains helper classes like a custom ValidiateBirthdayAttribute for validating birthdays and a Noto helper for assembling notification data.
 
