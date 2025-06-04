@@ -80,7 +80,8 @@ public class User
 
     [DataType(DataType.PhoneNumber)]
     [Display(Name = "Phone")]
-    [RegularExpression(@"^(0)(/d{9})$", ErrorMessage = "Phone Number must be 10 Digits Long.")]
+    // Phone number should be exactly 10 digits
+    [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone Number must be 10 digits long.")]
     public required string? Phone { get; set; }
 
 
