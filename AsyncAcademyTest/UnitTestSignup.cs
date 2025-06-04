@@ -107,6 +107,15 @@ namespace AsyncAcademyTest
 
                 // Verify that the user was added to the database
                 await VerifyUserInDb(_context, false); // false = student
+
+                // Look up the created user so we can verify the Payment record
+                var newUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == "Test");
+                Assert.IsNotNull(newUser, "User should exist after signup");
+
+                // Ensure a corresponding Payment entry was created for the new student
+                var paymentRecord = await _context.Payments.FirstOrDefaultAsync(p => p.UserId == newUser.Id);
+                Assert.IsNotNull(paymentRecord, "Payment record should be created for new student");
+                Assert.AreEqual(0m, paymentRecord.AmountPaid, "Initial payment amount should be zero");
             }
         }
 
