@@ -209,7 +209,7 @@ namespace AsyncAcademyTest
 
                 // Enroll the student in a course (for calculating tuition)
                 var pageModel = CreateTestEnrollment(context, courseId, studentId);
-                var result = await pageModel.OnPostAsync(courseId);//Here's where the actuall enrollment happens
+                var result = await pageModel.OnPostAsync(courseId);//Here's where the actual enrollment happens
 
 
 
@@ -224,8 +224,8 @@ namespace AsyncAcademyTest
                 await accountModel.OnGetAsync();  // Assuming this triggers the balance calculation
 
 
-                /*------------For debbuging purposes only: ------------------*/
-                //Verify that the rnollment was successful:
+                /*------------For debugging purposes only: ------------------*/
+                //Verify that the enrollment was successful:
                 //Assert.IsInstanceOfType(result, typeof(RedirectToPageResult), "Enrollment should redirect on success");
                 //await VerifyEnrollment(context, studentId, courseId);
                 /*-----------------------------------------*/

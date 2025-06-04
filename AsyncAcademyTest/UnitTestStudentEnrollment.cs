@@ -174,9 +174,9 @@ namespace AsyncAcademyTest
 
                 //We create the enrollment model and simulate the enrollment process:
                 var pageModel = CreateTestEnrollment(context, courseId, studentId);
-                var result = await pageModel.OnPostAsync(courseId);//Here's where the actuall enrollment happens
+                var result = await pageModel.OnPostAsync(courseId);//Here's where the actual enrollment happens
 
-                //Verify that the rnollment was successful:
+                //Verify that the enrollment was successful:
                 Assert.IsInstanceOfType(result, typeof(RedirectToPageResult), "Enrollment should redirect on success");
                 await VerifyEnrollment(context, studentId, courseId);
             }
