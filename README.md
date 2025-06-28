@@ -31,7 +31,7 @@ Models and Seed Data – Entity classes define database tables. SeedData.cs popu
 
 
 
-Utilities – Utils/ contains helper classes like a custom ValidiateBirthdayAttribute for validating birthdays and a Noto helper for assembling notification data.
+Utilities – Utils/ contains helper classes like a custom ValidateBirthdayAttribute for validating birthdays and a Noto helper for assembling notification data.
 
 Static Assets – wwwroot/ hosts images, JavaScript, and uploaded submissions.
 
