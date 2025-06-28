@@ -44,7 +44,7 @@ namespace AsyncAcademy.Pages
                 return Page();
             }
 
-            if (!Account.IsProfessor)  // Only for students -> We will create an entry in StudenyPayment table
+            if (!Account.IsProfessor)  // Only for students -> We will create an entry in StudentPayment table
             {
                 var newStudentPayment = new Payment
                 {
