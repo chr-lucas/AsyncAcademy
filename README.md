@@ -63,4 +63,4 @@ Extending Functionality – Add new pages or controllers following the patterns 
 
 The repository provides a basic but functional student/instructor management system with seeding scripts, session-based login, and a suite of unit tests to guide further development.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">back to top</a></p>
